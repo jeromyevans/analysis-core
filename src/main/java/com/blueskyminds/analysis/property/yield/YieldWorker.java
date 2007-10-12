@@ -3,7 +3,7 @@ package com.blueskyminds.analysis.property.yield;
 import com.blueskyminds.analysis.engine.*;
 import com.blueskyminds.analysis.series.*;
 import com.blueskyminds.analysis.statistics.Statistics;
-import com.blueskyminds.analysis.statistics.BigDecimalAdapter;
+import com.blueskyminds.analysis.basic.statistics.BigDecimalAdapter;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

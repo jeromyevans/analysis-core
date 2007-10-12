@@ -17,6 +17,7 @@
     <orderEntry type="module" module-name="framework-persistence" />
     <orderEntry type="module" module-name="enterprise" />
     <orderEntry type="module" module-name="landmine-core-api" />
+    <orderEntry type="module" module-name="analysis-basic" />
     <orderEntry type="module" module-name="landmine-core" />
     <orderEntry type="library" name="commons-lang-2.3" level="project" />
     <orderEntry type="library" name="commons-logging-1.0.4" level="project" />
