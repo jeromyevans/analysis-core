@@ -1,0 +1,23 @@
+<!-- defines the classes that are mapped as hibernate entities -->
+<entities>
+    <mapping className="com.blueskyminds.analysis.sets.AggregateSet"/>
+    <mapping className="com.blueskyminds.analysis.sets.UnionSet"/>
+    <mapping className="com.blueskyminds.analysis.sets.IntersectionSet"/>
+    <mapping className="com.blueskyminds.analysis.sets.SimpleAggregateSet"/>
+    <mapping className="com.blueskyminds.analysis.sets.AnalysisSets"/>
+
+    <mapping className="com.blueskyminds.analysis.engine.ComputedResult"/>
+    <mapping className="com.blueskyminds.analysis.statistics.Statistics"/>
+    <mapping className="com.blueskyminds.analysis.property.BaseDescriptor"/>
+
+    <mapping className="com.blueskyminds.landmine.core.property.PremiseRegionMap"/>
+    <mapping className="com.blueskyminds.analysis.property.PremiseAggregateSetMap"/>
+
+    <mapping className="com.blueskyminds.analysis.persistent.DataSource"/>
+
+    <mapping className="com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis"/>
+    <mapping className="com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisDescriptor"/>
+
+    <mapping className="com.blueskyminds.analysis.property.yield.YieldAnalysis"/>
+    <mapping className="com.blueskyminds.analysis.property.yield.YieldAnalysisDescriptor"/>
+</entities>

@@ -1,0 +1,6 @@
+<!-- Configuration file for the ReferenceDataGenerator -->
+<referencedata templatePath="src/main/resources/templates" targetSourcePath="d:/projects/blueskyminds/projects/src/analysis/src/main/java">
+
+    <!--<definition file="d:/projects/blueskyminds/projects/src/analysis/src/main/resources/referenceData/DataSourceTypes.xml"/>-->
+
+</referencedata>
