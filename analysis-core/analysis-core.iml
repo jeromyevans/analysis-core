@@ -25,6 +25,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="framework" />
+    <orderEntry type="module" module-name="analysis-basic" />
     <orderEntry type="library" name="commons-lang-2.3" level="project" />
     <orderEntry type="library" name="commons-logging-1.0.4" level="project" />
     <orderEntry type="library" name="ejb3-persistence" level="project" />

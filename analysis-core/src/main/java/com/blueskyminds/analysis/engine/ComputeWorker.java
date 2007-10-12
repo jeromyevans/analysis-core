@@ -1,7 +1,7 @@
 package com.blueskyminds.analysis.engine;
 
 import com.blueskyminds.analysis.series.Series;
-import com.blueskyminds.analysis.statistics.ComputeAdapter;
+import com.blueskyminds.analysis.basic.statistics.ComputeAdapter;
 
 import java.util.concurrent.*;
 import java.util.Collection;

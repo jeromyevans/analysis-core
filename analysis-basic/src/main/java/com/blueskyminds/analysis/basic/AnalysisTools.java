@@ -1,15 +1,12 @@
-package com.blueskyminds.analysis;
+package com.blueskyminds.analysis.basic;
 
-import com.blueskyminds.analysis.statistics.BasicStats;
-import com.blueskyminds.analysis.statistics.ComputeAdapter;
+import com.blueskyminds.analysis.basic.statistics.BasicStats;
+import com.blueskyminds.analysis.basic.statistics.ComputeAdapter;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.math.BigInteger;
 import java.util.Collection;
-import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Provides basic analysis/statistics  methods
@@ -40,7 +37,7 @@ public class AnalysisTools {
      *
      * @param adapter   - used to extract a BigDecimal value from each object
      * */
-    public static BasicStats compute(Object[] values, ComputeAdapter adapter) {
+    public static BasicStats computeStats(Object[] values, ComputeAdapter adapter) {
         BigDecimal sum = ZERO;
         BigDecimal sumOfSquares = ZERO;
         BigDecimal minValue = new BigDecimal(Double.MAX_VALUE, mc);
@@ -89,10 +86,10 @@ public class AnalysisTools {
      *
      * @param adapter   - used to extract a long value from each object
      * */
-    public static BasicStats compute(Collection values, ComputeAdapter adapter) {
+    public static BasicStats computeStats(Collection values, ComputeAdapter adapter) {
         Object[] objects =  new Object[values.size()];
         values.toArray(objects);
-        return compute(objects, adapter);
+        return computeStats(objects, adapter);
     }
 
     // ------------------------------------------------------------------------------------------------------

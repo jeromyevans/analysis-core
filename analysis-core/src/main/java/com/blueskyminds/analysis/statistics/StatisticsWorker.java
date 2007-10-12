@@ -5,11 +5,11 @@ import com.blueskyminds.analysis.engine.ComputeWorker;
 import com.blueskyminds.analysis.engine.PartialResult;
 import com.blueskyminds.analysis.engine.ComputationTask;
 import com.blueskyminds.analysis.engine.ComputedResult;
-import com.blueskyminds.analysis.AnalysisTools;
+import com.blueskyminds.analysis.basic.AnalysisTools;
+import com.blueskyminds.analysis.basic.statistics.ComputeAdapter;
+import com.blueskyminds.analysis.basic.statistics.BigDecimalAdapter;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
 import java.util.*;
 
 /**

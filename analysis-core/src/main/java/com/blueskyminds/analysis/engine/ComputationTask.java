@@ -1,11 +1,9 @@
 package com.blueskyminds.analysis.engine;
 
-import com.blueskyminds.analysis.series.UnivariateSeries;
 import com.blueskyminds.analysis.series.Series;
-import com.blueskyminds.analysis.statistics.ComputeAdapter;
+import com.blueskyminds.analysis.basic.statistics.ComputeAdapter;
 
 import java.util.concurrent.Callable;
-import java.math.BigDecimal;
 
 /**
  * A ComputationTask performs a computation task on a series of data and a result of type T (extending ComputedResult)

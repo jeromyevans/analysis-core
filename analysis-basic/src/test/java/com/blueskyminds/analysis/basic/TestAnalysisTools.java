@@ -1,25 +1,29 @@
-package com.blueskyminds.analysis;
+package com.blueskyminds.analysis.basic;
 
-import com.blueskyminds.framework.test.BaseTestCase;
-import com.blueskyminds.analysis.statistics.LongAdapter;
-import com.blueskyminds.analysis.statistics.BasicStats;
-import com.blueskyminds.analysis.statistics.ComputeAdapter;
+import com.blueskyminds.analysis.basic.statistics.LongAdapter;
+import com.blueskyminds.analysis.basic.statistics.BasicStats;
+import com.blueskyminds.analysis.basic.statistics.ComputeAdapter;
+import com.blueskyminds.analysis.basic.AnalysisTools;
 
 import java.math.BigDecimal;
 
+import junit.framework.TestCase;
+
 /**
+ * Unit tests for the AnalysisTools class
+ *
  * Date Started: 17/06/2007
  * <p/>
  * History:
  * <p/>
  * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
-public class TestAnalysisTools extends BaseTestCase {
+public class TestAnalysisTools extends TestCase {
 
     public void testAnalysis() {
         Long[] values = {10L, 20L, 30L, 40L, 50L};
 
-        BasicStats result = AnalysisTools.compute(values, new LongAdapter());
+        BasicStats result = AnalysisTools.computeStats(values, new LongAdapter());
 
         assertNotNull(result);
         assertEquals(new BigDecimal(30), result.getMean());
@@ -53,7 +57,7 @@ public class TestAnalysisTools extends BaseTestCase {
                 new TestNode(40L, "D"),
                 new TestNode(50L, "E")};
 
-        BasicStats result = AnalysisTools.compute(values, new ComputeAdapter() {
+        BasicStats result = AnalysisTools.computeStats(values, new ComputeAdapter() {
 
             public BigDecimal valueOf(Object object) {
                 return new BigDecimal(((TestNode) object).getValue());

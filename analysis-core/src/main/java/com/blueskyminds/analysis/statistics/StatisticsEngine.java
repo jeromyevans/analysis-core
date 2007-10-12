@@ -2,8 +2,8 @@ package com.blueskyminds.analysis.statistics;
 
 import com.blueskyminds.analysis.engine.ComputeEngine;
 import com.blueskyminds.analysis.engine.ComputeWorker;
-import com.blueskyminds.analysis.series.UnivariateSeries;
 import com.blueskyminds.analysis.series.Series;
+import com.blueskyminds.analysis.basic.statistics.BigDecimalAdapter;
 
 /**
  *

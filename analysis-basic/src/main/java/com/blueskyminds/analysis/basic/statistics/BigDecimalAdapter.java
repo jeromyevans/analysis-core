@@ -1,4 +1,4 @@
-package com.blueskyminds.analysis.statistics;
+package com.blueskyminds.analysis.basic.statistics;
 
 import java.math.BigDecimal;
 
