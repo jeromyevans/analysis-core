@@ -73,6 +73,8 @@ public class AnalysisTools {
         {
             // unbiased stddev = sqrt(n*sum(x^2) - (sum(x))^2 / (n(n-1)))
             stddev = sqrt(((n.multiply(sumOfSquares)).subtract(sum.multiply(sum))).divide(n.multiply(n.subtract(BigDecimal.ONE)), AnalysisTools.mc));
+        } else {
+            stddev = ZERO;
         }
 
         return new BasicStats(noOfValues, sum, sumOfSquares, minValue, maxValue, mean, stddev);
