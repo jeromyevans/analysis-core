@@ -1,0 +1,18 @@
+<project name="analysis">
+
+  <target name="clean">
+    <ant dir="analysis-basic" target="clean"/>
+    <ant dir="analysis-core" target="clean"/>
+  </target>
+
+  <target name="init">
+    <ant dir="analysis-basic" target="init"/>
+    <ant dir="analysis-core" target="init"/>
+  </target>
+
+  <target name="jar">
+    <ant dir="analysis-basic" target="jar"/>
+    <ant dir="analysis-core" target="jar"/>    
+  </target>
+
+</project>

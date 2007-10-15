@@ -20,8 +20,8 @@
   </build>
 
   <scm>
-    <connection>scm:svn:https://axe/svn/framework/HEAD/framework-guice</connection>
-    <developerConnection>scm:svn:https://axe/svn/framework/HEAD/framework-guice</developerConnection>
+    <connection>scm:svn:https://axe/svn/analysis/HEAD/analysis-basic</connection>
+    <developerConnection>scm:svn:https://axe/svn/analysis/HEAD/analysis-basic</developerConnection>
   </scm>
 
   <dependencies>    

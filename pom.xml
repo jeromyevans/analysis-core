@@ -9,6 +9,11 @@
   <name>Analysis Parent Module</name>
   <url>http://www.blueskyminds.com.au</url>
 
+  <modules>
+    <module>analysis-basic</module>
+    <module>analysis-core</module>
+  </modules>
+  
   <build>
     <pluginManagement>
       <plugins>
