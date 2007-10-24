@@ -7,7 +7,6 @@ import com.blueskyminds.enterprise.address.*;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;
 import com.blueskyminds.framework.persistence.*;
 import com.blueskyminds.framework.persistence.query.PersistenceQuery;
-import com.blueskyminds.framework.persistence.hibernate.query.HibernateCriteriaImpl;
 import com.blueskyminds.framework.measurement.Area;
 import com.blueskyminds.framework.measurement.UnitsOfArea;
 import com.blueskyminds.framework.datetime.PeriodTypes;
@@ -358,22 +357,27 @@ public class AnalysisTestTools {
     }
 
     /** Creates a QueryBuilder that searches for a ... */
+    @Deprecated
     public PersistenceQuery searchPropertiesInRegion(RegionOLD region) {
         DetachedCriteria criteria = DetachedCriteria.forClass(PremiseRegionMap.class);
         criteria.add(Expression.eq("region", region));
-        return new HibernateCriteriaImpl(criteria);
+      //  return new HibernateCriteriaImpl(criteria);
+        return null;
     }
-
+    @Deprecated
     public PersistenceQuery searchRegionByName(String name) {
         DetachedCriteria criteria = DetachedCriteria.forClass(RegionOLD.class);
         criteria.add(Expression.eq("name", name));
-        return new HibernateCriteriaImpl(criteria);
+        //return new HibernateCriteriaImpl(criteria);
+        return null;
     }
 
+    @Deprecated
     public PersistenceQuery searchPropertiesInAggegateSet(AggregateSet aggregateSet) {
         DetachedCriteria criteria = DetachedCriteria.forClass(PremiseAggregateSetMap.class);
         criteria.add(Expression.eq("aggregateSet", aggregateSet));
-        return new HibernateCriteriaImpl(criteria);
+        //return new HibernateCriteriaImpl(criteria);
+        return null;
     }
 
     public List<Premise> findPropertiesInRegion(RegionOLD region) {

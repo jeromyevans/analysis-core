@@ -1,7 +1,7 @@
 package com.blueskyminds.framework.analysis;
 
 import com.blueskyminds.framework.test.DbTestCase;
-import com.blueskyminds.framework.persistence.hibernate.query.HibernateCriteriaImpl;
+//import com.blueskyminds.framework.persistence.hibernate.query.HibernateCriteriaImpl;
 import com.blueskyminds.framework.persistence.PersistenceService;
 import com.blueskyminds.framework.persistence.PersistenceServiceException;
 import com.blueskyminds.landmine.core.property.Premise;
@@ -24,6 +24,7 @@ import java.util.Collection;
  *
  * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
  */
+@Deprecated
 public class TestDomainSets extends DbTestCase {
 
     private static final Log LOG = LogFactory.getLog(TestDomainSets.class);
@@ -56,15 +57,15 @@ public class TestDomainSets extends DbTestCase {
         //subquery.add(Subqueries.propertyin()subquery);
         Collection<PremiseRegionMap> regions;
 
-        try {
-            PersistenceService gateway = getPersistenceService();
-
-            regions = gateway.find(PremiseRegionMap.class, new HibernateCriteriaImpl(subquery));
-
-            DebugTools.printCollection(regions);
-        } catch(PersistenceServiceException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            PersistenceService gateway = getPersistenceService();
+//
+//            regions = gateway.find(PremiseRegionMap.class, new HibernateCriteriaImpl(subquery));
+//
+//            DebugTools.printCollection(regions);
+//        } catch(PersistenceServiceException e) {
+//            e.printStackTrace();
+//        }
         return null;
     }
 

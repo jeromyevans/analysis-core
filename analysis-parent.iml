@@ -14,12 +14,17 @@
       <sourceFolder url="file://$MODULE_DIR$/analysis-core/src/main/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/analysis-core/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/analysis-core/src/test/resources" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/analysis-property/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/analysis-property/src/main/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/analysis-property/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/analysis-property/src/test/resources" isTestSource="true" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="framework-parent" />
     <orderEntry type="module" module-name="analysis-basic" />
-    <orderEntry type="module-library">
+    <orderEntry type="module" module-name="analysis-core" />
+    <orderEntry type="module" module-name="framework-parent" />
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: commons-lang:commons-lang:jar:2.3:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3.jar!/" />
@@ -28,7 +33,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: javax.transaction:jta:jar:1.0.1B:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar!/" />
@@ -37,7 +42,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: junit:junit:jar:3.8.1:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/junit/junit/3.8.1/junit-3.8.1.jar!/" />
@@ -46,7 +51,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: com.thoughtworks.xstream:xstream:jar:1.2.2:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/com/thoughtworks/xstream/xstream/1.2.2/xstream-1.2.2.jar!/" />
@@ -55,7 +60,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: commons-logging:commons-logging:jar:1.0.4:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar!/" />
@@ -64,7 +69,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: dom4j:dom4j:jar:1.6.1:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar!/" />
@@ -73,7 +78,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: commons-discovery:commons-discovery:jar:0.2:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/commons-discovery/commons-discovery/0.2/commons-discovery-0.2.jar!/" />
@@ -82,7 +87,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: cglib:cglib:jar:2.1_3:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/cglib/cglib/2.1_3/cglib-2.1_3.jar!/" />
@@ -91,7 +96,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: asm:asm-attrs:jar:1.5.3:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/asm/asm-attrs/1.5.3/asm-attrs-1.5.3.jar!/" />
@@ -100,7 +105,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: antlr:antlr:jar:2.7.6:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/antlr/antlr/2.7.6/antlr-2.7.6.jar!/" />
@@ -109,7 +114,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: commons-beanutils:commons-beanutils:jar:1.7.0:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar!/" />
@@ -118,7 +123,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: commons-collections:commons-collections:jar:2.1.1:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1.jar!/" />
@@ -127,7 +132,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: asm:asm:jar:1.5.3:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/asm/asm/1.5.3/asm-1.5.3.jar!/" />
@@ -136,7 +141,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: org.hibernate:hibernate:jar:3.2.4.sp1:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/org/hibernate/hibernate/3.2.4.sp1/hibernate-3.2.4.sp1.jar!/" />
@@ -145,7 +150,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: javax.persistence:persistence-api:jar:1.0:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar!/" />
@@ -154,7 +159,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: commons-math:commons-math:jar:1.1:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/commons-math/commons-math/1.1/commons-math-1.1.jar!/" />
@@ -163,7 +168,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: xpp3:xpp3_min:jar:1.1.3.4.O:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/xpp3/xpp3_min/1.1.3.4.O/xpp3_min-1.1.3.4.O.jar!/" />
@@ -172,7 +177,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: hsqldb:hsqldb:jar:1.8.0.7:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar!/" />
@@ -181,7 +186,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: log4j:log4j:jar:1.2.14:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/log4j/log4j/1.2.14/log4j-1.2.14.jar!/" />
@@ -190,7 +195,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: freemarker:freemarker:jar:2.3.8:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/freemarker/freemarker/2.3.8/freemarker-2.3.8.jar!/" />
@@ -199,7 +204,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="M2 Dep: net.sf.ehcache:ehcache:jar:1.2.3:compile">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../m2/repository/net/sf/ehcache/ehcache/1.2.3/ehcache-1.2.3.jar!/" />

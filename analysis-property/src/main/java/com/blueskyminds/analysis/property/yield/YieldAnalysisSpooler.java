@@ -11,7 +11,7 @@ import com.blueskyminds.analysis.engine.ComputedResult;
 import com.blueskyminds.analysis.engine.AggregateResult;
 import com.blueskyminds.analysis.AnalysisService;
 import com.blueskyminds.framework.datetime.Timespan;
-import com.blueskyminds.framework.persistence.hibernate.query.HibernateNamedQueryImpl;
+//import com.blueskyminds.framework.persistence.hibernate.query.HibernateNamedQueryImpl;
 import com.blueskyminds.framework.persistence.PersistenceServiceException;
 import com.blueskyminds.framework.persistence.PersistenceService;
 import com.blueskyminds.framework.persistence.paging.Pager;
@@ -88,7 +88,7 @@ public class YieldAnalysisSpooler extends DomainObjectSpooler {
     protected void onStart() {
         aggregateSeries = new AggregateSeries(null);
 
-        HibernateNamedQueryImpl searchCriteria = (HibernateNamedQueryImpl) getQuery();
+  //      HibernateNamedQueryImpl searchCriteria = (HibernateNamedQueryImpl) getQuery();
 
         // todo: check this migration
         getQuery().setParameter("ts_periods", timespan.getPeriods()).
