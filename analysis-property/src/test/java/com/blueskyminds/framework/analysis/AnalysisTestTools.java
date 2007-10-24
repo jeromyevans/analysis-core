@@ -23,6 +23,7 @@ import com.blueskyminds.enterprise.regionx.country.CountryHandle;
 import com.blueskyminds.enterprise.regionx.suburb.SuburbHandle;
 
 import java.util.*;
+import java.io.IOException;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Expression;
@@ -205,17 +206,22 @@ public class AnalysisTestTools {
 
         CsvOptions csvOptions = new CsvOptions();
         csvOptions.setQuoteOutput(false);
-        CsvTextReader csvReader = new CsvTextReader(ResourceLocator.locateResource("streetNames.csv"), csvOptions);
+        CsvTextReader csvReader = null;
+        try {
+            csvReader = new CsvTextReader(ResourceLocator.openStream("streetNames.csv"), csvOptions);
 
-        while (csvReader.read()) {
-            if (csvReader.isNonBlank()) {
-                String[] values = csvReader.getAsStrings();
-                String streetName = values[0];
-                String streetTypeName = values[1];
-                StreetType streetType = StreetType.valueOf(streetTypeName);
+            while (csvReader.read()) {
+                if (csvReader.isNonBlank()) {
+                    String[] values = csvReader.getAsStrings();
+                    String streetName = values[0];
+                    String streetTypeName = values[1];
+                    StreetType streetType = StreetType.valueOf(streetTypeName);
 
-                sampleStreets.add(new Street(streetName, streetType, StreetSection.NA));
+                    sampleStreets.add(new Street(streetName, streetType, StreetSection.NA));
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 
     }
