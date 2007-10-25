@@ -21,9 +21,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="analysis-basic" />
-    <orderEntry type="module" module-name="analysis-core" />
-    <orderEntry type="module" module-name="framework-parent" />
+    <orderEntry type="module" module-name="framework-core" exported="" />
     <orderEntry type="module-library" exported="">
       <library name="M2 Dep: commons-lang:commons-lang:jar:2.3:compile">
         <CLASSES>
