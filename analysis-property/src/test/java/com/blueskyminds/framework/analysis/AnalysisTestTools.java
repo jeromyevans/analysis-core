@@ -559,7 +559,7 @@ public class AnalysisTestTools {
 
     public void mapPropertiesToRegions() {
         CountryHandle australia = null;
-        australia = new AddressDAO(getPersistenceService()).getCountry("AUS");
+        australia = new AddressDAO(getPersistenceService()).findCountry("AUS");
 // todo: enable
         //PropertyToRegionSpooler propertyToRegionSpooler = new PropertyToRegionSpooler(persistenceService, australia);
         //propertyToRegionSpooler.start();
@@ -568,7 +568,7 @@ public class AnalysisTestTools {
     public void mapPropertiesToAggregateSets() {
         AnalysisSets analysisSets = initialiseAnalysisSets();
         CountryHandle australia = null;
-        australia = new AddressDAO(getPersistenceService()).getCountry("AUS");
+        australia = new AddressDAO(getPersistenceService()).findCountry("AUS");
         // todo: enable
         //PropertyToAggregateSetSpooler propertyToAggregateSetSpooler = new PropertyToAggregateSetSpooler(persistenceService, analysisSets);
         //propertyToAggregateSetSpooler.start();

@@ -373,7 +373,7 @@ public class TestAnalysis extends DbTestCase {
     /** Test the algorithm that maps a property to one or more regions */
     public void testMapPropertyToRegion() throws Exception {
         Premise property = new AnalysisTestTools(getPersistenceService()).generateRandomProperty(null);
-        CountryHandle australia = new AddressDAO(getPersistenceService()).getCountry("AUS");
+        CountryHandle australia = new AddressDAO(getPersistenceService()).findCountry("AUS");
 // todo: enable
 //        PropertyToRegionSpooler propertyToRegionSpooler = new PropertyToRegionSpooler(getPersistenceService(), australia);
 //        Set<Region> regions = propertyToRegionSpooler.mapPropertyToRegions(property);
