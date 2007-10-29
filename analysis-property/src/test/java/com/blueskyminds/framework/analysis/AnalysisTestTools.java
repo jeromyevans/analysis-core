@@ -173,7 +173,7 @@ public class AnalysisTestTools {
                 break;
         }
 
-        AttributeSet attributeSet = new AttributeSet(RandomTools.randomDate(1900, 2005));
+        PremiseAttributeSet attributeSet = new PremiseAttributeSet(RandomTools.randomDate(1900, 2005));
         attributeSet.setBedrooms(RandomTools.randomInt(0, 5));
         attributeSet.setBathrooms(RandomTools.randomInt(1, 3));
         attributeSet.setPropertyType(RandomTools.randomEnum(PropertyTypes.class));
@@ -295,7 +295,7 @@ public class AnalysisTestTools {
             property = new Premise();
             Date dateApplied = RandomTools.randomDate(1990, 2005);
             property.associateAddress(address, dateApplied);
-            AttributeSet attributes = new AttributeSet(dateApplied);
+            PremiseAttributeSet attributes = new PremiseAttributeSet(dateApplied);
             attributes.setPropertyType(type);
             attributes.setBedrooms(RandomTools.randomInt(1,5));
             attributes.setBathrooms(RandomTools.randomInt(1,2));
@@ -336,7 +336,7 @@ public class AnalysisTestTools {
                 break;
         }
 
-        AttributeSet attributeSet = new AttributeSet(dateListed);
+        PremiseAttributeSet attributeSet = new PremiseAttributeSet(dateListed);
         attributeSet.setBedrooms(premise.getBedrooms());
         attributeSet.setBathrooms(premise.getBathrooms());
         attributeSet.setPropertyType(premise.getType());
