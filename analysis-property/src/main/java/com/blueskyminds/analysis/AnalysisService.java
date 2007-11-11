@@ -1,7 +1,7 @@
 package com.blueskyminds.analysis;
 
 import com.blueskyminds.framework.ServiceLocator;
-import com.blueskyminds.analysis.statistics.StatisticsEngine;
+import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
 import com.blueskyminds.analysis.property.yield.YieldEngine;
 
 /**

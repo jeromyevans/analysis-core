@@ -2,10 +2,10 @@ package com.blueskyminds.analysis.property.yield;
 
 import com.blueskyminds.framework.persistence.spooler.DomainObjectSpooler;
 import com.blueskyminds.framework.persistence.spooler.SpoolerException;
-import com.blueskyminds.analysis.persistent.DataSource;
+import com.blueskyminds.analysis.core.datasource.DataSource;
 import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis;
 import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisDescriptor;
-import com.blueskyminds.analysis.statistics.Statistics;
+import com.blueskyminds.analysis.core.statistics.Statistics;
 import com.blueskyminds.analysis.engine.ComputedResult;
 import com.blueskyminds.analysis.engine.AggregateResult;
 import com.blueskyminds.analysis.AnalysisService;

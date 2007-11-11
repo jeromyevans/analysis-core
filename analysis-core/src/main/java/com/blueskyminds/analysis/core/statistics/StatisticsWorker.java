@@ -1,4 +1,4 @@
-package com.blueskyminds.analysis.statistics;
+package com.blueskyminds.analysis.core.statistics;
 
 import com.blueskyminds.analysis.core.series.Series;
 import com.blueskyminds.analysis.engine.ComputeWorker;

@@ -2,8 +2,8 @@ package com.blueskyminds.analysis;
 
 import com.blueskyminds.framework.test.BaseTestCase;
 import com.blueskyminds.analysis.core.series.UnivariateSeries;
-import com.blueskyminds.analysis.statistics.StatisticsWorker;
-import com.blueskyminds.analysis.statistics.Statistics;
+import com.blueskyminds.analysis.core.statistics.StatisticsWorker;
+import com.blueskyminds.analysis.core.statistics.Statistics;
 
 import java.math.MathContext;
 import java.math.RoundingMode;

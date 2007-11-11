@@ -1,4 +1,4 @@
-package com.blueskyminds.analysis.persistent;
+package com.blueskyminds.analysis.core.datasource;
 
 import com.blueskyminds.framework.memento.CaretakerDomainObject;
 import com.blueskyminds.framework.memento.MementoOriginator;
@@ -20,7 +20,7 @@ import javax.persistence.*;
  *
  * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
  */
-@Entity
+@Entity(name = "DataSource")
 public class DataSource extends CaretakerDomainObject implements MementoOriginator {
 
     private String description;

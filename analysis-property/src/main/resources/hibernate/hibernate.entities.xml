@@ -7,13 +7,13 @@
     <mapping className="com.blueskyminds.analysis.core.sets.AggregateSetGroup"/>
 
     <mapping className="com.blueskyminds.analysis.engine.ComputedResult"/>
-    <mapping className="com.blueskyminds.analysis.statistics.Statistics"/>
+    <mapping className="com.blueskyminds.analysis.core.statistics.Statistics"/>
     <mapping className="com.blueskyminds.analysis.property.BaseDescriptor"/>
 
     <mapping className="com.blueskyminds.landmine.core.property.PremiseRegionMap"/>
     <mapping className="com.blueskyminds.analysis.property.PremiseAggregateSetMap"/>
 
-    <mapping className="com.blueskyminds.analysis.persistent.DataSource"/>
+    <mapping className="com.blueskyminds.analysis.core.datasource.DataSource"/>
 
     <mapping className="com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis"/>
     <mapping className="com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisDescriptor"/>

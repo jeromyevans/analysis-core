@@ -5,8 +5,7 @@ import com.blueskyminds.framework.datetime.Timespan;
 import com.blueskyminds.framework.persistence.PersistenceService;
 import com.blueskyminds.framework.persistence.PersistenceSession;
 import com.blueskyminds.framework.persistence.PersistenceServiceException;
-import com.blueskyminds.analysis.persistent.DataSource;
-import com.blueskyminds.analysis.property.yield.YieldAnalysisSpooler;
+import com.blueskyminds.analysis.core.datasource.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

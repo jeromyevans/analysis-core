@@ -4,7 +4,7 @@ import com.blueskyminds.framework.IdentityRef;
 import com.blueskyminds.framework.memento.XMLMemento;
 import com.blueskyminds.framework.datetime.TimePeriod;
 import com.blueskyminds.framework.datetime.Timespan;
-import com.blueskyminds.analysis.persistent.DataSource;
+import com.blueskyminds.analysis.core.datasource.DataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.enterprise.region.RegionOLD;
 

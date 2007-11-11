@@ -3,7 +3,7 @@ package com.blueskyminds.framework.analysis;
 import com.blueskyminds.framework.test.BaseTestCase;
 import com.blueskyminds.framework.persistence.PersistenceService;
 import com.blueskyminds.analysis.AnalysisService;
-import com.blueskyminds.analysis.statistics.StatisticsEngine;
+import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
 
 /**
  * Tests the ServiceLocator of the Analysis Module

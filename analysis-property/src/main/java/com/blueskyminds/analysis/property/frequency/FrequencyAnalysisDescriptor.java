@@ -1,7 +1,7 @@
 package com.blueskyminds.analysis.property.frequency;
 
 import com.blueskyminds.analysis.property.BaseDescriptor;
-import com.blueskyminds.analysis.persistent.DataSource;
+import com.blueskyminds.analysis.core.datasource.DataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.framework.datetime.Timespan;

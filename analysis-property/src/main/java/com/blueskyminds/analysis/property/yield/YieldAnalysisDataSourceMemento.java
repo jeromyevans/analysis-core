@@ -4,7 +4,7 @@ import com.blueskyminds.framework.memento.XMLMemento;
 import com.blueskyminds.framework.IdentityRef;
 import com.blueskyminds.framework.DomainObject;
 import com.blueskyminds.framework.datetime.Timespan;
-import com.blueskyminds.analysis.persistent.DataSource;
+import com.blueskyminds.analysis.core.datasource.DataSource;
 
 /**
  * A memento describing a Yield datasource - the memento identifies the sales datasource, rentals datasource

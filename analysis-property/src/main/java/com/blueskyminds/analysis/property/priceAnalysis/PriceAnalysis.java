@@ -1,7 +1,7 @@
 package com.blueskyminds.analysis.property.priceAnalysis;
 
 import com.blueskyminds.framework.AbstractDomainObject;
-import com.blueskyminds.analysis.statistics.Statistics;
+import com.blueskyminds.analysis.core.statistics.Statistics;
 
 import javax.persistence.Entity;
 import javax.persistence.Embedded;

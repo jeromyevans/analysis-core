@@ -6,7 +6,7 @@ import com.blueskyminds.framework.datetime.TimePeriod;
 import com.blueskyminds.framework.datetime.Timespan;
 import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
-import com.blueskyminds.analysis.persistent.DataSource;
+import com.blueskyminds.analysis.core.datasource.DataSource;
 
 /**
  * Contains the memento for the analysis task.

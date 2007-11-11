@@ -5,7 +5,7 @@ import com.blueskyminds.framework.persistence.PersistenceServiceException;
 import com.blueskyminds.framework.datetime.TimePeriod;
 import com.blueskyminds.framework.datetime.Timespan;
 import com.blueskyminds.analysis.property.priceAnalysis.BaseAnalysisMemento;
-import com.blueskyminds.analysis.persistent.DataSource;
+import com.blueskyminds.analysis.core.datasource.DataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.enterprise.region.RegionOLD;
 
