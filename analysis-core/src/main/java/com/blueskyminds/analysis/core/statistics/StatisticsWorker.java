@@ -1,10 +1,10 @@
 package com.blueskyminds.analysis.core.statistics;
 
 import com.blueskyminds.analysis.core.series.Series;
-import com.blueskyminds.analysis.engine.ComputeWorker;
-import com.blueskyminds.analysis.engine.PartialResult;
-import com.blueskyminds.analysis.engine.ComputationTask;
-import com.blueskyminds.analysis.engine.ComputedResult;
+import com.blueskyminds.analysis.core.engine.ComputeWorker;
+import com.blueskyminds.analysis.core.engine.PartialResult;
+import com.blueskyminds.analysis.core.engine.ComputationTask;
+import com.blueskyminds.analysis.core.engine.ComputedResult;
 import com.blueskyminds.analysis.basic.AnalysisTools;
 import com.blueskyminds.analysis.basic.statistics.ComputeAdapter;
 import com.blueskyminds.analysis.basic.statistics.BigDecimalAdapter;

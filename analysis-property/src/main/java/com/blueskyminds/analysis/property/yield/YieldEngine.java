@@ -1,7 +1,7 @@
 package com.blueskyminds.analysis.property.yield;
 
-import com.blueskyminds.analysis.engine.ComputeWorker;
-import com.blueskyminds.analysis.engine.ComputeEngine;
+import com.blueskyminds.analysis.core.engine.ComputeWorker;
+import com.blueskyminds.analysis.core.engine.ComputeEngine;
 import com.blueskyminds.analysis.core.series.Series;
 
 /**

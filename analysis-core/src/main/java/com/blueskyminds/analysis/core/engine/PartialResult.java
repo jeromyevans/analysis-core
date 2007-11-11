@@ -1,4 +1,4 @@
-package com.blueskyminds.analysis.engine;
+package com.blueskyminds.analysis.core.engine;
 
 /**
  * Contains partial results from a compute-engine calculation.

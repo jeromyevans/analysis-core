@@ -6,7 +6,7 @@
     <mapping className="com.blueskyminds.analysis.core.sets.SimpleAggregateSet"/>
     <mapping className="com.blueskyminds.analysis.core.sets.AggregateSetGroup"/>
 
-    <mapping className="com.blueskyminds.analysis.engine.ComputedResult"/>
+    <mapping className="com.blueskyminds.analysis.core.engine.ComputedResult"/>
     <mapping className="com.blueskyminds.analysis.core.statistics.Statistics"/>
     <mapping className="com.blueskyminds.analysis.property.BaseDescriptor"/>
 

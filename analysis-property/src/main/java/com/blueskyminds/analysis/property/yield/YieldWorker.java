@@ -1,10 +1,13 @@
 package com.blueskyminds.analysis.property.yield;
 
-import com.blueskyminds.analysis.engine.*;
 import com.blueskyminds.analysis.basic.statistics.BigDecimalAdapter;
 import com.blueskyminds.analysis.core.series.Pair;
 import com.blueskyminds.analysis.core.series.BivariateSeries;
 import com.blueskyminds.analysis.core.series.Series;
+import com.blueskyminds.analysis.core.engine.AggregateResult;
+import com.blueskyminds.analysis.core.engine.ComputationTask;
+import com.blueskyminds.analysis.core.engine.ComputedResult;
+import com.blueskyminds.analysis.core.engine.ComputeWorker;
 
 import java.math.BigDecimal;
 import java.util.Iterator;

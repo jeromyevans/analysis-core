@@ -12,7 +12,7 @@ import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis;
 import com.blueskyminds.analysis.property.advertised.AdvertisedDataSourceMemento;
 import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
 import com.blueskyminds.analysis.core.statistics.Statistics;
-import com.blueskyminds.analysis.engine.ComputedResult;
+import com.blueskyminds.analysis.core.engine.ComputedResult;
 import com.blueskyminds.framework.persistence.spooler.DomainObjectSpooler;
 import com.blueskyminds.framework.persistence.spooler.SpoolerException;
 

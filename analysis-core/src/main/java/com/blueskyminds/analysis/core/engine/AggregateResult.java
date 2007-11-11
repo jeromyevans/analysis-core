@@ -1,4 +1,4 @@
-package com.blueskyminds.analysis.engine;
+package com.blueskyminds.analysis.core.engine;
 
 import java.util.LinkedList;
 import java.util.List;
