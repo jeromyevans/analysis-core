@@ -2,6 +2,7 @@ package com.blueskyminds.analysis.core.statistics;
 
 import junit.framework.TestCase;
 import com.blueskyminds.analysis.core.series.UnivariateSeries;
+import com.blueskyminds.analysis.core.series.AggregateSeries;
 import com.blueskyminds.analysis.core.engine.ComputedResult;
 import com.blueskyminds.analysis.core.engine.ComputeEngine;
 import com.blueskyminds.framework.tools.DebugTools;
@@ -122,4 +123,49 @@ public class StatisticsEngineTest extends TestCase {
             }
         }
     }
+
+    /**
+     * Generates some AggregateSeries and feeds them to the statistics engine
+     */
+    public void testAggregateSeries() {
+       int count = 5;
+       StatisticsEngine engine = new StatisticsEngine();
+
+       AggregateSeries aggregateSeries = new AggregateSeries(null);
+
+       for (int i = 0; i < count; i++) {
+           if (!almostOutOfHeap()) {
+               aggregateSeries.add(generateRandomSeries(SIZE));
+           }
+       }
+
+       List<Future<ComputedResult>> futureResults = engine.computeAll(aggregateSeries);
+
+       int submitted = futureResults.size();
+
+       LOG.info("Waiting for "+submitted+" results...");
+
+       int completed;
+       boolean waiting = true;
+       while (waiting) {
+           completed = 0;
+           for (Future<ComputedResult> future : futureResults) {
+               if (future.isDone()) {
+                   completed++;
+               }
+           }
+           LOG.info(completed +" completed");
+           if (completed == submitted) {
+               waiting = false;
+           } else {
+               // sleep a bit
+               try {
+                   Thread.sleep(200);
+                   DebugTools.printAvailableHeap();
+               } catch (InterruptedException e) {
+                   //
+               }
+           }
+       }
+   }
 }
