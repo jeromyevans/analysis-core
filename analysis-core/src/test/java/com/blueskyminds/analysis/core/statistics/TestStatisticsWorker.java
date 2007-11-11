@@ -1,4 +1,4 @@
-package com.blueskyminds.analysis;
+package com.blueskyminds.analysis.core.statistics;
 
 import com.blueskyminds.framework.test.BaseTestCase;
 import com.blueskyminds.analysis.core.series.UnivariateSeries;
@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 
 import org.apache.commons.math.random.RandomData;
 import org.apache.commons.math.random.RandomDataImpl;
+import junit.framework.TestCase;
 
 /**
  * Tests the analysis enginer
@@ -21,13 +22,7 @@ import org.apache.commons.math.random.RandomDataImpl;
  * <p/>
  * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
-public class TestStatisticsWorker extends BaseTestCase {
-
-//    private static final String TEST_ENTERPRISE_PERSISTENCE_UNIT = "TestAnalysisPersistenceUnit";
-//
-//    public TestStatisticsWorker() {
-//        super(TEST_ENTERPRISE_PERSISTENCE_UNIT);
-//    }
+public class TestStatisticsWorker extends TestCase {
 
     private UnivariateSeries generateRandomSeries(int size) {
         UnivariateSeries series = new UnivariateSeries(null);
@@ -41,17 +36,14 @@ public class TestStatisticsWorker extends BaseTestCase {
         return series;
     }
 
-
     private UnivariateSeries generateTestSeries() {
-
         BigDecimal[] values = { new BigDecimal(7), new BigDecimal(9), new BigDecimal(-2), new BigDecimal(-9), new BigDecimal(2)};
         UnivariateSeries series = new UnivariateSeries(null, values);
 
         return series;
     }
 
-        // ------------------------------------------------------------------------------------------------------
-
+    /** Asserts that the statistics worker performs correct calculations */
     public void testStatisticsWorkerExact() {
         StatisticsWorker statisticsWorker = new StatisticsWorker();
         UnivariateSeries s = generateTestSeries();
@@ -67,9 +59,8 @@ public class TestStatisticsWorker extends BaseTestCase {
         assertEquals(new BigDecimal("2"), result.getMedian());
     }
 
-    // ------------------------------------------------------------------------------------------------------
-
-    public void testStatisticsWorker2() {
+    /** Asserts that the statistics worker runs with a large series */
+    public void testLargeSeries() {
         StatisticsWorker statisticsWorker = new StatisticsWorker();
         UnivariateSeries s = generateRandomSeries(100000);
         Statistics result = (Statistics) statisticsWorker.compute(s);
@@ -77,6 +68,9 @@ public class TestStatisticsWorker extends BaseTestCase {
         assertNotNull(result);
     }
 
+    /**
+     * Tests that the same worker instance can be reused for many series
+     */
     public void testStatisticsWorkerReuse() {
         StatisticsWorker statisticsWorker = new StatisticsWorker();
 
