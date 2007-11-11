@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * Date Started: 11/11/2007
  * <p/>
- * History:
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 public class StatisticsEngineTest extends TestCase {
 

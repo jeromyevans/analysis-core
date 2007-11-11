@@ -13,7 +13,7 @@ import com.blueskyminds.analysis.basic.statistics.BigDecimalAdapter;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 public class StatisticsEngine extends ComputeEngine {
 

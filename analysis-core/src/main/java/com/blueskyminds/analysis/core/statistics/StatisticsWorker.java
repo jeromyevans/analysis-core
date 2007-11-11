@@ -20,7 +20,7 @@ import java.util.*;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 public class StatisticsWorker extends ComputeWorker {
 
