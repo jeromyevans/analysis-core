@@ -74,7 +74,7 @@ public class StatisticsWorker extends ComputeWorker {
     // ------------------------------------------------------------------------------------------------------
 
     /** Stores the partial result from the median and mode calculation */
-    private class MedianModeResult extends PartialResult<Statistics> {
+    private class MedianModeResult implements PartialResult<Statistics> {
 
         private BigDecimal median;
         private BigDecimal mode;
@@ -87,6 +87,10 @@ public class StatisticsWorker extends ComputeWorker {
         public void merge(Statistics statistics) {
             statistics.setMedian(median);
             statistics.setMode(mode);
+        }
+
+        public boolean isPartial() {
+            return true;
         }
     }
 
@@ -185,7 +189,7 @@ public class StatisticsWorker extends ComputeWorker {
     // ------------------------------------------------------------------------------------------------------
 
     /** Stores the partial results from the basic stats calculation */
-    private class BasicStatsResult extends PartialResult<Statistics> {
+    private class BasicStatsResult implements PartialResult<Statistics> {
         private Integer size;
         private BigDecimal sum;
         private BigDecimal sumOfSquares;
@@ -213,6 +217,10 @@ public class StatisticsWorker extends ComputeWorker {
             statistics.setMax(max);
             statistics.setMean(mean);
             statistics.setStdDev(stdDev);
+        }
+
+        public boolean isPartial() {
+            return true;
         }
     }
 

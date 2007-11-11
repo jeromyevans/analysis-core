@@ -9,8 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * An abstract implementation of a compute engine
- * A compute engine performs a computational task on a Series and returns a Computed PartialResult
+ * An abstract implementation of a compute worker
+ *
+ * A compute worker performs a computational task on a Series and returns a ComputedResult
  * The worker:
  *    performs one or more computation tasks on an input Series
  *    generates a ComputedResult
@@ -22,7 +23,7 @@ import java.util.List;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 public abstract class ComputeWorker implements Callable<ComputedResult> {
 

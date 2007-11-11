@@ -20,7 +20,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 public abstract class ComputeEngine {
 

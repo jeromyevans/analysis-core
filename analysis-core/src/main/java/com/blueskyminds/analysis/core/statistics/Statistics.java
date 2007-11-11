@@ -5,6 +5,7 @@ import com.blueskyminds.analysis.core.engine.ComputedResult;
 import javax.persistence.Embeddable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 /**
@@ -20,7 +21,7 @@ import java.math.BigDecimal;
  * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
  */
 @Embeddable
-public class Statistics extends ComputedResult {
+public class Statistics implements ComputedResult {
 
     private Integer size;
     private BigDecimal sum;
@@ -35,13 +36,7 @@ public class Statistics extends ComputedResult {
     // ------------------------------------------------------------------------------------------------------
 
     public Statistics() {
-        super();
     }
-
-    /** Default constructor for ORM */
-//    protected Statistics() {
-//        super(null);
-//    }
 
     // ------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------
@@ -135,12 +130,15 @@ public class Statistics extends ComputedResult {
     public void setMode(BigDecimal mode) {
         this.mode = mode;
     }
-
+  
     /**
-     * Initialise the Statistics with default attributes
+     * Always false
+     *
+     * @return false
+     * @see com.blueskyminds.analysis.core.engine.PartialResult
      */
-    private void init() {
+    @Transient
+    public boolean isPartial() {
+        return false;
     }
-
-    // ------------------------------------------------------------------------------------------------------
 }

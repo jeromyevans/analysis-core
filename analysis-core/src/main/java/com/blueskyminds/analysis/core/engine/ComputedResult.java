@@ -12,25 +12,17 @@ import java.io.Serializable;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
-public abstract class ComputedResult implements Serializable {
+public interface ComputedResult extends Serializable {        
 
-    // ------------------------------------------------------------------------------------------------------
-
-    protected ComputedResult() {
-    }
-
-    /** This flag indicates whether this result is part of a ComputedResult and needs to be merged
+    /**
+     * This flag indicates whether this result is part of a ComputedResult and needs to be merged
      *  with other parts.
+     *
      * @return false
      * @see PartialResult
      */
-    public boolean isPartial() {
-        return false;
-    }
+    boolean isPartial();
 
-    // ------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------------
 }

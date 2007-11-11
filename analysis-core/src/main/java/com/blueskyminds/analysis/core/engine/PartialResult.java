@@ -8,22 +8,14 @@ package com.blueskyminds.analysis.core.engine;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/> 
  */
 
-// ------------------------------------------------------------------------------------------------------
+public interface PartialResult<T extends ComputedResult> extends ComputedResult {
 
-public abstract class PartialResult<T extends ComputedResult> extends ComputedResult {
+    /**
+     * Merge these results into the given ComputedResult
+     **/
+    void merge(T computedResult);
 
-    /** Merge these results into the given ComputedResult */
-    public abstract void merge(T computedResult);
-
-    /** This flag indicates that this result is only part of a ComputedResult and needs to be merged
-     *  with other parts.
-     * @return true
-     * @see PartialResult
-     */
-    public boolean isPartial() {
-        return true;
-    }
 }
