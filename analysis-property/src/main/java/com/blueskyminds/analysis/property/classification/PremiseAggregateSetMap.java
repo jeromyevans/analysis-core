@@ -1,13 +1,12 @@
-package com.blueskyminds.analysis.property;
+package com.blueskyminds.analysis.property.classification;
 
-import com.blueskyminds.landmine.core.property.Premise;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
-import com.blueskyminds.framework.AbstractDomainObject;
 import com.blueskyminds.framework.AbstractEntity;
+import com.blueskyminds.landmine.core.property.Premise;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**

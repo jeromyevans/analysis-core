@@ -229,6 +229,9 @@ To do: many of these properties need to be able to be changed -->
 
         <class>com.blueskyminds.analysis.core.datasource.DataSource</class>
 
+        <!-- Property analysis -->
+        <class>com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap</class>
+
 
          <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>

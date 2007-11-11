@@ -11,7 +11,7 @@
     <mapping className="com.blueskyminds.analysis.property.BaseDescriptor"/>
 
     <mapping className="com.blueskyminds.landmine.core.property.PremiseRegionMap"/>
-    <mapping className="com.blueskyminds.analysis.property.PremiseAggregateSetMap"/>
+    <mapping className="com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap"/>
 
     <mapping className="com.blueskyminds.analysis.core.datasource.DataSource"/>
 

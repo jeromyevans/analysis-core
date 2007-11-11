@@ -2,10 +2,11 @@ package com.blueskyminds.analysis.property.classification;
 
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.core.sets.AggregateSetGroup;
-import com.blueskyminds.analysis.property.PremiseAggregateSetMap;
 import com.blueskyminds.framework.persistence.spooler.SpoolerException;
 import com.blueskyminds.framework.persistence.spooler.SpoolerTask;
 import com.blueskyminds.landmine.core.property.Premise;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.persistence.EntityManager;
 import java.util.HashSet;
@@ -22,6 +23,8 @@ import java.util.Set;
  * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 public class PremiseAggregateSetSpoolerTask implements SpoolerTask<Premise> {
+
+    private static final Log LOG = LogFactory.getLog(PremiseAggregateSetSpoolerTask.class);
 
     private AggregateSetGroup analysisSets;
     private EntityManager em;
@@ -53,6 +56,7 @@ public class PremiseAggregateSetSpoolerTask implements SpoolerTask<Premise> {
                     }
                 }
             }
+            LOG.info(queryResults.size());
             em.flush();
         }
     }

@@ -1,7 +1,7 @@
 package com.blueskyminds.framework.analysis;
 
 import com.blueskyminds.analysis.core.sets.*;
-import com.blueskyminds.analysis.property.PremiseAggregateSetMap;
+import com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap;
 import com.blueskyminds.enterprise.address.PlainTextAddress;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;
 import com.blueskyminds.enterprise.pricing.Money;

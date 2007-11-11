@@ -1,12 +1,14 @@
 package com.blueskyminds.analysis.core.sets;
 
-import javax.persistence.*;
-import java.util.List;
-import java.util.LinkedList;
-import java.lang.reflect.InvocationTargetException;
-
-import org.apache.commons.lang.StringUtils;
+import com.blueskyminds.framework.tools.filters.Filter;
+import com.blueskyminds.framework.tools.filters.FilterTools;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
+
+import javax.persistence.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Simple implementation of an AggregrateSet that matches on whether the named property of the
@@ -117,14 +119,18 @@ public class SimpleAggregateSet extends AggregateSet {
     // ------------------------------------------------------------------------------------------------------
 
     /**
-     *  Evaluate whether the domain object belongs in this Set.
-     * Evaluation is by string value
+     * Evaluate whether the object belongs in this Set.
+     * Evaluation is by string value equality
      **/
     @Transient
     public boolean isInSet(Object object) {
-        return (filterValues.contains(lookupPropertyValue(object, propertyName)));
+        final String value = lookupPropertyValue(object, propertyName);
+        return FilterTools.matchesAny(filterValues, new Filter<SimpleAggregateSetValue>(){
+            public boolean accept(SimpleAggregateSetValue filterValue) {
+                return filterValue.getValue().equals(value);
+            }
+        });
     }
-
 
     // ------------------------------------------------------------------------------------------------------
     /**

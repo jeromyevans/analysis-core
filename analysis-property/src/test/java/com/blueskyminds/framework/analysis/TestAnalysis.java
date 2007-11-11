@@ -1,7 +1,7 @@
 package com.blueskyminds.framework.analysis;
 
 import com.blueskyminds.analysis.core.sets.AggregateSet;
-import com.blueskyminds.analysis.property.PremiseAggregateSetMap;
+import com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;
 import com.blueskyminds.enterprise.regionx.country.CountryHandle;
 import com.blueskyminds.framework.persistence.paging.Page;
