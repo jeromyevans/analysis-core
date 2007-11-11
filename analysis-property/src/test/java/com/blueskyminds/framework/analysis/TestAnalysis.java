@@ -1,52 +1,58 @@
 package com.blueskyminds.framework.analysis;
 
-import com.blueskyminds.framework.test.TestTools;
-import com.blueskyminds.framework.test.OutOfContainerTestCase;
-import com.blueskyminds.framework.persistence.PersistenceService;
-import com.blueskyminds.framework.persistence.PersistenceServiceException;
-import com.blueskyminds.framework.persistence.PersistenceSession;
-import com.blueskyminds.framework.persistence.paging.Page;
-import com.blueskyminds.framework.tasks.TaskPlan;
-import com.blueskyminds.framework.tasks.TaskGroup;
-import com.blueskyminds.framework.tasks.ExecutorProvider;
-import com.blueskyminds.framework.tasks.SimpleExecutorProvider;
-import com.blueskyminds.framework.datetime.*;
-import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
-import com.blueskyminds.analysis.core.engine.ComputedResult;
-import com.blueskyminds.analysis.property.*;
-import com.blueskyminds.analysis.property.yield.YieldEngine;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisSpooler;
-import com.blueskyminds.analysis.property.advertised.AdvertisedDataSourceMemento;
 import com.blueskyminds.analysis.core.datasource.DataSource;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisTask;
-import com.blueskyminds.analysis.core.sets.AggregateSet;
+import com.blueskyminds.analysis.core.engine.ComputedResult;
 import com.blueskyminds.analysis.core.series.AggregateSeries;
-import com.blueskyminds.analysis.core.series.Pair;
 import com.blueskyminds.analysis.core.series.BivariateSeries;
-import com.blueskyminds.landmine.core.property.*;
-import com.blueskyminds.landmine.core.property.advertisement.dao.AdvertisementDAO;
+import com.blueskyminds.analysis.core.series.Pair;
+import com.blueskyminds.analysis.core.sets.AggregateSet;
+import com.blueskyminds.analysis.core.sets.dao.AggregateSetDAO;
+import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
+import com.blueskyminds.analysis.property.PremiseAggregateSetMap;
+import com.blueskyminds.analysis.property.advertised.AdvertisedDataSourceMemento;
+import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis;
+import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisSpooler;
+import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisTask;
+import com.blueskyminds.analysis.property.yield.YieldEngine;
 import com.blueskyminds.enterprise.address.Suburb;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;
 import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.enterprise.regionx.country.CountryHandle;
+import com.blueskyminds.framework.datetime.PeriodTypes;
+import com.blueskyminds.framework.datetime.TimePeriod;
+import com.blueskyminds.framework.datetime.Timespan;
+import com.blueskyminds.framework.persistence.PersistenceService;
+import com.blueskyminds.framework.persistence.PersistenceServiceException;
+import com.blueskyminds.framework.persistence.PersistenceSession;
+import com.blueskyminds.framework.persistence.paging.Page;
+import com.blueskyminds.framework.tasks.ExecutorProvider;
+import com.blueskyminds.framework.tasks.SimpleExecutorProvider;
+import com.blueskyminds.framework.tasks.TaskGroup;
+import com.blueskyminds.framework.tasks.TaskPlan;
+import com.blueskyminds.framework.test.OutOfContainerTestCase;
+import com.blueskyminds.framework.test.TestTools;
 import com.blueskyminds.framework.tools.DebugTools;
-import org.apache.commons.math.random.RandomData;
-import org.apache.commons.math.random.RandomDataImpl;
+import com.blueskyminds.landmine.core.property.Premise;
+import com.blueskyminds.landmine.core.property.PremiseRegionMap;
+import com.blueskyminds.landmine.core.property.PropertyAdvertisement;
+import com.blueskyminds.landmine.core.property.PropertyAdvertisementTypes;
+import com.blueskyminds.landmine.core.property.advertisement.dao.AdvertisementDAO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Session;
+import org.apache.commons.math.random.RandomData;
+import org.apache.commons.math.random.RandomDataImpl;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 
-import java.util.*;
-import java.util.concurrent.Future;
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+import java.lang.management.MemoryUsage;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
-import java.lang.management.MemoryMXBean;
-import java.lang.management.ManagementFactory;
-import java.lang.management.MemoryUsage;
+import java.util.*;
+import java.util.concurrent.Future;
 
 /**
  *
@@ -190,7 +196,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         TestTools.printAll(PremiseAggregateSetMap.class, em);
     }
 
-    private void doQuery(String query) {
+  /*  private void doQuery(String query) {
         PersistenceService gateway = em;
         try {
             PersistenceSession ps = gateway.openSession();
@@ -214,10 +220,10 @@ public class TestAnalysis extends OutOfContainerTestCase {
         }
     }
 
-    /**
+    *//**
      * @param queryStr
      * @param params needs to be of the form: name, value, name, value, name, value
-     */
+     *//*
     private void doQuery(String queryStr, Object... params) {
         PersistenceService gateway = em;
         int index;
@@ -250,10 +256,10 @@ public class TestAnalysis extends OutOfContainerTestCase {
         }
     }
 
-    /**
+    *//**
      * @param queryStr
      * @param params needs to be of the form: name, value, name, value, name, value
-     */
+     *//*
     private List<Object> doGenericQuery(String queryStr, Object... params) {
         PersistenceService gateway = em;
         int index;
@@ -358,13 +364,13 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
 
         // get all properties with advertisements in the region and aggregate set using an inner join (generates 400 results)
-        /*String query8 = "select propertyAdvertisement.premise from PropertyAdvertisement as propertyAdvertisement, PropertyRegionMap as propertyRegionMap, PropertyAggregateSetMap as propertyAggregateSetMap " +
+        *//*String query8 = "select propertyAdvertisement.premise from PropertyAdvertisement as propertyAdvertisement, PropertyRegionMap as propertyRegionMap, PropertyAggregateSetMap as propertyAggregateSetMap " +
                         "inner join propertyAdvertisement.premise " +
                         "inner join propertyRegionMap.premise " +
                         "inner join propertyAggregateSetMap.premise " +
                         "where propertyRegionMap.region = :region "+
                         "and propertyAggregateSetMap.aggregateSet = :aggregateSet";
-        doQuery(query8, "region", nsw, "aggregateSet", aggregateSet);*/
+        doQuery(query8, "region", nsw, "aggregateSet", aggregateSet);*//*
 
         Timespan timespan = new Timespan(4, PeriodTypes.Year);
         TimePeriod timePeriod = new TimePeriod(Calendar.DECEMBER, 2005);
@@ -401,7 +407,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         // can't use max like this in a having clause
         //String query10 = "select advertisement.id from PropertyAdvertisement as advertisement group by advertisement.id having max(advertisement.dateListed)";
 
-    }
+    }*/
 
     /**
      * Lookup properties with an advertisement during the timespan for a specific region and aggregateSet
@@ -535,12 +541,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         new AnalysisTestTools(em).mapPropertiesToRegions();
         new AnalysisTestTools(em).mapPropertiesToAggregateSets();
 
-        AggregateSet aggregateSet = null;
-        try {
-            aggregateSet = em.findById(AggregateSet.class, 2L); // houses
-        } catch(PersistenceServiceException e) {
-            fail();
-        }
+        AggregateSet houses = new AggregateSetDAO(em).findById(2L); // houses
 
         RegionOLD nsw = null;
         try {
@@ -550,7 +551,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         }
 
         // lookup all advertisements for properties in the region and aggregate set for the timeperiod and timespan
-        List<PropertyAdvertisement> advertisements = lookupAdvertisments(nsw, aggregateSet, new Timespan(4, PeriodTypes.Year), new TimePeriod(Calendar.DECEMBER, 2005));
+        List<PropertyAdvertisement> advertisements = lookupAdvertisments(nsw, houses, new Timespan(4, PeriodTypes.Year), new TimePeriod(Calendar.DECEMBER, 2005));
         if (advertisements != null) {
             LOG.info("Found "+advertisements.size()+" advertisements");
 
@@ -672,19 +673,11 @@ public class TestAnalysis extends OutOfContainerTestCase {
     public void testDataSourcePersistence() {
         DataSource dataSource = new DataSource("Advertisements: Private Treaty", PriceAnalysisSpooler.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
 
-        PersistenceService gateway = em;
-        try {
-            gateway.save(dataSource);
+        em.persist(dataSource);
 
-            DataSource result = gateway.findById(DataSource.class, dataSource.getId());
+        DataSource result = gateway.findById(DataSource.class, dataSource.getId());
 
-            result.print(System.out);
-        } catch(PersistenceServiceException e) {
-            e.printStackTrace();
-            fail();
-        }
-
-
+        result.print(System.out);
     }
 
     // ------------------------------------------------------------------------------------------------------
@@ -720,15 +713,10 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
         DebugTools.printAvailableHeap();
 
-        PersistenceService gateway = em;
         DataSource dataSource = null;
-        try {
-            dataSource = new DataSource("Advertisements: Private Treaty", PriceAnalysisSpooler.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
-            gateway.save(dataSource);
-        } catch (PersistenceServiceException e) {
-            e.printStackTrace();
-            fail();
-        }
+
+        dataSource = new DataSource("Advertisements: Private Treaty", PriceAnalysisSpooler.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
+        em.persist(dataSource);
 
         TestTools.printAll(DataSource.class, em);
 
@@ -747,16 +735,11 @@ public class TestAnalysis extends OutOfContainerTestCase {
         Set<RegionOLD> regions = null;
         List<AggregateSet> aggregateSets = null;
         // add some analysis tasks
-        try {
-            PersistenceSession session = gateway.openSession();
-            australia = new AnalysisTestTools(em).findRegionByName("Western Australia");
-            regions = australia.getChildRegions();
-            aggregateSets = new AnalysisTestTools(em).findAllAggregateSets();
-            session.close();
-        } catch (PersistenceServiceException e) {
-            e.printStackTrace();
-            fail();
-        }
+
+        australia = new AnalysisTestTools(em).findRegionByName("Western Australia");
+        regions = australia.getChildRegions();
+        aggregateSets = new AnalysisTestTools(em).findAllAggregateSets();
+
 
         int limit = 200;
         int count = 0;

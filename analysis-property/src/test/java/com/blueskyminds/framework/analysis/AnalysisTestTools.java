@@ -1,38 +1,31 @@
 package com.blueskyminds.framework.analysis;
 
-import com.blueskyminds.landmine.core.property.*;
-import com.blueskyminds.landmine.core.property.attribute.PropertyType;
-import com.blueskyminds.analysis.property.PremiseAggregateSetMap;
 import com.blueskyminds.analysis.core.sets.*;
-import com.blueskyminds.enterprise.address.*;
+import com.blueskyminds.analysis.property.PremiseAggregateSetMap;
+import com.blueskyminds.enterprise.address.PlainTextAddress;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;
-import com.blueskyminds.enterprise.address.dao.SuburbDAO;
-import com.blueskyminds.framework.persistence.*;
-import com.blueskyminds.framework.persistence.query.PersistenceQuery;
-import com.blueskyminds.framework.measurement.Area;
-import com.blueskyminds.framework.measurement.UnitsOfArea;
-import com.blueskyminds.framework.datetime.PeriodTypes;
-import com.blueskyminds.framework.datetime.DateTools;
-import com.blueskyminds.framework.datetime.Timespan;
 import com.blueskyminds.enterprise.pricing.Money;
-import com.blueskyminds.framework.tools.csv.CsvOptions;
-import com.blueskyminds.framework.tools.csv.CsvTextReader;
-import com.blueskyminds.framework.tools.ResourceLocator;
-import com.blueskyminds.framework.tools.RandomTools;
 import com.blueskyminds.enterprise.region.RegionOLD;
-import com.blueskyminds.enterprise.AddressTestTools;
 import com.blueskyminds.enterprise.regionx.country.CountryHandle;
 import com.blueskyminds.enterprise.regionx.suburb.SuburbHandle;
-
-import java.util.*;
-import java.io.IOException;
-
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Expression;
+import com.blueskyminds.framework.datetime.DateTools;
+import com.blueskyminds.framework.datetime.PeriodTypes;
+import com.blueskyminds.framework.datetime.Timespan;
+import com.blueskyminds.framework.measurement.Area;
+import com.blueskyminds.framework.measurement.UnitsOfArea;
+import com.blueskyminds.framework.persistence.PersistenceService;
+import com.blueskyminds.framework.persistence.PersistenceServiceException;
+import com.blueskyminds.framework.persistence.PersistenceSession;
+import com.blueskyminds.framework.persistence.query.PersistenceQuery;
+import com.blueskyminds.framework.tools.RandomTools;
+import com.blueskyminds.landmine.core.property.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Expression;
 
 import javax.persistence.EntityManager;
+import java.util.*;
 
 /**
  * Methods helpful for testing the property analyis module
@@ -187,154 +180,10 @@ public class AnalysisTestTools {
         em.flush();
     }
 
-
-    private static List<Street> sampleStreets;
-
-    /** Loads a CSV file of street names into a static variable for use in the randomStreet method */
-    private static void loadSampleStreets() {
-        sampleStreets = new LinkedList<Street>();
-
-        CsvOptions csvOptions = new CsvOptions();
-        csvOptions.setQuoteOutput(false);
-        CsvTextReader csvReader = null;
-        try {
-            csvReader = new CsvTextReader(ResourceLocator.openStream("streetNames.csv"), csvOptions);
-
-            while (csvReader.read()) {
-                if (csvReader.isNonBlank()) {
-                    String[] values = csvReader.getAsStrings();
-                    String streetName = values[0];
-                    String streetTypeName = values[1];
-                    StreetType streetType = StreetType.valueOf(streetTypeName);
-
-                    sampleStreets.add(new Street(streetName, streetType, StreetSection.NA));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-    }
-
-    // ------------------------------------------------------------------------------------------------------
-
-    /** Loads a CSV file of of sample street names, caches it, and then returns one of the streets in the sample */
-    public Street randomStreet() {
-        Street street;
-        if (sampleStreets == null) {
-            loadSampleStreets();
-        }
-        return sampleStreets.get(RandomTools.randomInt(0, sampleStreets.size()-1));
-    }
-
-    private static boolean suburbsLoaded;
-
-    /**
-     * Load sample data for testing
-     */
-    public void loadSampleSuburbs() {
-        AddressTestTools.initialiseCountryList();
-        //AddressTestTools.initialiseAustralianStates();
-        //AddressTestTools.initialiseAustralianSuburbs();
-        suburbsLoaded = true;
-    }
-
-    public SuburbHandle randomSuburb() {
-        if (!suburbsLoaded) {
-            loadSampleSuburbs();
-        }
-        return new SuburbDAO(em).findRandom();
-    }
-
-    // ------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------------
-
-    /**
-     * Creates a property for a random address.
-     * The only attributes of the property are that it has a type, and a certain number of bedrooms and bathrooms
-     * The property has not been persisted.
-     *
-     * Set Suburb to null to use a random suburb
-     *  */
-    public Premise createRandomProperty(SuburbHandle suburb) {
-
-        Premise property ;
-        Address address = null;
-
-        // First, choose a type (exclude block of units and unknown types)
-        PropertyTypes type = RandomTools.randomEnum(PropertyTypes.class, PropertyTypes.BlockOfUnits, PropertyTypes.Unknown);
-
-        // create a random address
-        Street street = randomStreet();
-        String streetNumber = Integer.toString(RandomTools.randomInt(1, 300));
-        if (suburb == null) {
-            suburb = randomSuburb();
-        }
-
-        if (PropertyType.isTypeOfUnit(type)) {
-            String unitNumber = Integer.toString(RandomTools.randomInt(1, 20));
-            address = new UnitAddress(unitNumber, streetNumber, street, suburb, suburb.getPostCode());
-        } else {
-            address = new StreetAddress(streetNumber, street, suburb, suburb.getPostCode());
-        }
-
-        property = new Premise();
-        Date dateApplied = RandomTools.randomDate(1990, 2006);
-        property.associateAddress(address, dateApplied);
-        PremiseAttributeSet attributes = new PremiseAttributeSet(dateApplied);
-        attributes.setPropertyType(type);
-        attributes.setBedrooms(RandomTools.randomInt(1,5));
-        attributes.setBathrooms(RandomTools.randomInt(1,2));
-        property.associateFeatures(attributes);
-
-        return property;
-    }
-
-    // ------------------------------------------------------------------------------------------------------
-
-    /** Generate a random advertisement for the specified property
-     * @param type - type of advertisement, or null for random */
-    public PropertyAdvertisement createRandomPropertyAdvertisement(Premise premise, PropertyAdvertisementTypes type, int firstYear, int lastYear) {
-        if (type == null) {
-            type = RandomTools.randomEnum(PropertyAdvertisementTypes.class);
-        }
-        PropertyAdvertisement advertisement = new PropertyAdvertisement(type);
-
-        Date dateListed = RandomTools.randomDate(firstYear, lastYear);
-        advertisement.setAddress(premise.getAddress());
-        advertisement.setDateListed(dateListed);
-        advertisement.setDescription("Sample description");
-
-        switch (type) {
-            case Auction:
-                break;
-            case Lease:
-                advertisement.setPrice(new AskingPrice(new Money(RandomTools.randomDouble(60, 1000), Currency.getInstance("AUD")), PeriodTypes.Week));
-                break;
-            case PrivateTreaty:
-                advertisement.setPrice(new AskingPrice(new Money(RandomTools.randomDouble(50000, 1000000), Currency.getInstance("AUD")), PeriodTypes.OnceOff));
-                break;
-            case Unknown:
-                break;
-        }
-
-        PremiseAttributeSet attributeSet = new PremiseAttributeSet(dateListed);
-        attributeSet.setBedrooms(premise.getBedrooms());
-        attributeSet.setBathrooms(premise.getBathrooms());
-        attributeSet.setPropertyType(premise.getType());
-        attributeSet.setBuildingArea(new Area(RandomTools.randomDouble(75, 250), UnitsOfArea.SquareMetre));
-        advertisement.setAttributes(attributeSet);
-
-        return advertisement;
-    }
-
-    // ------------------------------------------------------------------------------------------------------        
-    // ------------------------------------------------------------------------------------------------------
-
     /** Presist a random bunch of properties */
     public void initialiseRandomProperties(int count) {
         for (int i = 0; i < count; i++) {
-            em.persist(createRandomProperty(null));
+            em.persist(PremiseTestTools.createRandomPremise(null, em));
         }
         em.flush();
     }
@@ -484,13 +333,13 @@ public class AnalysisTestTools {
         while (properties < count) {
            // PersistenceTransaction transaction = ps.currentTransaction();
 
-            premise = createRandomProperty(region);
+            premise = PremiseTestTools.createRandomPremise(region, em);
 
             //gateway.save(premise);
             if (RandomTools.randomInt(0, 9) == 0) {
                 // one in ten properties don't get an advertisement
             } else {
-                advertisement = createRandomPropertyAdvertisement(premise, type, firstYear, lastYear);
+                advertisement = PremiseTestTools.createRandomPropertyAdvertisement(premise, type, firstYear, lastYear);
                 premise.associateFeatures(advertisement.getAttributes());
                 advertisement.associateWithPremise(premise);
                 em.persist(advertisement);
@@ -572,73 +421,6 @@ public class AnalysisTestTools {
         }
         return aggregateSets;
     }
-
-    /** Create advertisements of the specified type for all properties */
-    public void generateRandomAdsForProperties(PropertyAdvertisementTypes type, int firstYear, int lastYear) {
-
-        PropertyAdvertisement advertisement;
-        PropertyAdvertisement secondAdvertisement;
-        AskingPrice price;
-        int properties = 0;
-        int withAds = 0;
-        int withTwoAds = 0;
-        PersistenceSession ps = null;
-        try {
-            PersistenceService gateway = getPersistenceService();
-            ps = gateway.openSession();
-
-            List<Premise> propertyList = gateway.findAll(Premise.class);
-            properties = 0;
-            for (Premise premise : propertyList) {
-
-                if (RandomTools.randomInt(0, 9) == 0) {
-                    // one in ten properties don't get an advertisement
-                } else {
-                    advertisement = createRandomPropertyAdvertisement(premise, type, firstYear, lastYear);
-                    premise.associateFeatures(advertisement.getAttributes());
-                    advertisement.associateWithPremise(premise);
-                    gateway.save(advertisement);
-                    withAds++;
-                    if (RandomTools.randomInt(0, 4) == 0) {
-                        // one in five have a second advertisement
-
-                        // create another advertisement for this property at a lower price and slightly in the future
-                        secondAdvertisement = advertisement.duplicate();
-                        // override values
-                        secondAdvertisement.setDateListed(DateTools.addTimespan(advertisement.getDateListed(), new Timespan(1, PeriodTypes.Fortnight)));
-                        price = advertisement.getPrice();
-                        if (price != null) {
-                            secondAdvertisement.setPrice(price.adjustedPrice(1.1));
-                        } else {
-                            secondAdvertisement.setPrice(null);
-                        }
-
-                        premise.associateFeatures(secondAdvertisement.getAttributes());
-                        secondAdvertisement.associateWithPremise(premise);
-                        gateway.save(secondAdvertisement);
-                        //gateway.save(premise);
-                        withTwoAds++;
-                    }
-                }
-                gateway.save(premise);
-                properties++;
-              //  transaction.commit();
-            }
-
-            LOG.info("Updated "+properties+" properties, "+withAds+" with ads, "+withTwoAds+" with two ads");
-        } catch (PersistenceServiceException e) {
-            e.printStackTrace();
-        } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch(PersistenceServiceException e) {
-                    //
-                }
-            }
-        }
-    }
-
 
     @Deprecated
     private PersistenceService getPersistenceService() {
