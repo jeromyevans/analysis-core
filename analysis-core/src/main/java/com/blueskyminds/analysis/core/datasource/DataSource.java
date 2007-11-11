@@ -8,6 +8,7 @@ import com.blueskyminds.framework.tools.ReflectionTools;
 import com.blueskyminds.framework.tools.ReflectionException;
 
 import javax.persistence.*;
+import java.io.PrintStream;
 
 /**
  * Identifies a source of data for analysis
@@ -18,9 +19,10 @@ import javax.persistence.*;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
-@Entity(name = "DataSource")
+@Entity
+@Table(name="analysis_DataSource")
 public class DataSource extends CaretakerDomainObject implements MementoOriginator {
 
     private String description;
@@ -90,7 +92,7 @@ public class DataSource extends CaretakerDomainObject implements MementoOriginat
 
     // ------------------------------------------------------------------------------------------------------
 
-    public void print() {
-        System.out.println(getIdentityName()+" ("+description+", spooler="+getSpoolerClassName()+", momento="+getMemento()+")");
+    public void print(PrintStream out) {
+        out.println(getIdentityName()+" ("+description+", spooler="+getSpoolerClassName()+", momento="+getMemento()+")");
     }
 }

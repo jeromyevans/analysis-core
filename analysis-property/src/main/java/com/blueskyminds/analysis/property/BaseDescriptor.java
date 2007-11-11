@@ -9,13 +9,13 @@ import com.blueskyminds.framework.datetime.TimePeriod;
 import javax.persistence.*;
 
 /**
- * A common-superclass for descriptors used by the analysis results
+ * A common-superclass for SeriesDescriptor's used by the property analysis results
  *
  * Date Started: 25/09/2006
  * <p/>
  * History:
  * <p/>
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 @MappedSuperclass
 public abstract class BaseDescriptor implements SeriesDescriptor {

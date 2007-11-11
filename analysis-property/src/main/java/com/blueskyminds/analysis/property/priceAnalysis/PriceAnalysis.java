@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Embedded;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import java.io.PrintStream;
 
 /**
  * Persists the results of statistical price analysis for an AnalysisSet
@@ -84,7 +85,7 @@ public class PriceAnalysis extends AbstractDomainObject {
         this.statistics = statistics;
     }
 
-    public void print() {
-        System.out.println(getIdentityName()+ " descriptor: "+descriptor+" size="+statistics.getSize()+" min="+statistics.getMin()+" max="+statistics.getMax()+" median="+statistics.getMedian());
+    public void print(PrintStream out) {
+        out.println(getIdentityName()+ " descriptor: "+descriptor+" size="+statistics.getSize()+" min="+statistics.getMin()+" max="+statistics.getMax()+" median="+statistics.getMedian());
     }
 }

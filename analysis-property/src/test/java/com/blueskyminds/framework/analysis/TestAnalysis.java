@@ -1,7 +1,7 @@
 package com.blueskyminds.framework.analysis;
 
 import com.blueskyminds.framework.test.TestTools;
-import com.blueskyminds.framework.test.DbTestCase;
+import com.blueskyminds.framework.test.OutOfContainerTestCase;
 import com.blueskyminds.framework.persistence.PersistenceService;
 import com.blueskyminds.framework.persistence.PersistenceServiceException;
 import com.blueskyminds.framework.persistence.PersistenceSession;
@@ -11,11 +11,8 @@ import com.blueskyminds.framework.tasks.TaskGroup;
 import com.blueskyminds.framework.tasks.ExecutorProvider;
 import com.blueskyminds.framework.tasks.SimpleExecutorProvider;
 import com.blueskyminds.framework.datetime.*;
-import com.blueskyminds.analysis.core.statistics.StatisticsWorker;
-import com.blueskyminds.analysis.core.statistics.Statistics;
 import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
 import com.blueskyminds.analysis.core.engine.ComputedResult;
-import com.blueskyminds.analysis.core.engine.ComputeEngine;
 import com.blueskyminds.analysis.property.*;
 import com.blueskyminds.analysis.property.yield.YieldEngine;
 import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisSpooler;
@@ -24,17 +21,16 @@ import com.blueskyminds.analysis.core.datasource.DataSource;
 import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis;
 import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisTask;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
-import com.blueskyminds.analysis.core.series.UnivariateSeries;
 import com.blueskyminds.analysis.core.series.AggregateSeries;
 import com.blueskyminds.analysis.core.series.Pair;
 import com.blueskyminds.analysis.core.series.BivariateSeries;
 import com.blueskyminds.landmine.core.property.*;
+import com.blueskyminds.landmine.core.property.advertisement.dao.AdvertisementDAO;
 import com.blueskyminds.enterprise.address.Suburb;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;
 import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.enterprise.regionx.country.CountryHandle;
 import com.blueskyminds.framework.tools.DebugTools;
-import org.apache.commons.math.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math.random.RandomData;
 import org.apache.commons.math.random.RandomDataImpl;
 import org.apache.commons.logging.Log;
@@ -62,7 +58,7 @@ import java.lang.management.MemoryUsage;
  *
  * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
  */
-public class TestAnalysis extends DbTestCase {
+public class TestAnalysis extends OutOfContainerTestCase {
 
     private static final Log LOG = LogFactory.getLog(TestAnalysis.class);
 
@@ -71,57 +67,47 @@ public class TestAnalysis extends DbTestCase {
     }
 
     public void testAggregateSets() {
-        new AnalysisTestTools(getPersistenceService()).initialiseAnalysisSets();
+        new AnalysisTestTools(em).initialiseAnalysisGroups();
 
-        TestTools.printAll(AggregateSet.class, getPersistenceService());
+        TestTools.printAll(em, AggregateSet.class);
     }
 
-    public void testStatsLibrary() {
-        DescriptiveStatistics stats1 = DescriptiveStatistics.newInstance();
-        stats1.addValue(10);
-        stats1.addValue(20);
-        stats1.addValue(30);
-        stats1.addValue(40);
-        stats1.addValue(50);
-
-        double mean = stats1.getMean();
-
-    }
-
-    // ------------------------------------------------------------------------------------------------------
-
-    private void analyseData(RegionOLD region, AggregateSet aggregateSet) {
-
-    }
-
-    public void testPagination() {
+    /**
+     * Simple test to check that advertisements can be paged
+     */
+    public void testAdvertisementPagination() {
         int pageNo = 0;
         Page page;
         boolean lastPage = false;
-        new AnalysisTestTools(getPersistenceService()).generateRandomAdvertisements(1000);
-        try {
-            PersistenceService gateway = getPersistenceService();
-            PersistenceSession ps = gateway.openSession();
+        new AnalysisTestTools(em).initialiseRandomAdvertisements(1000);
+        AdvertisementDAO advertisementDAO = new AdvertisementDAO(em);
 
-            while (!lastPage) {
-                page = gateway.findPage(PropertyAdvertisement.class, pageNo, 20);
-                System.out.println(pageNo);
-                lastPage = !page.hasNextPage();
-                pageNo++;
-            }
-
-            /*Session session = (Session) ps.getSessionImpl();
-            while (!lastPage) {
-                page = new HibernatePageImpl(session.createQuery("from PropertyAdvertisement"), pageNo, 20);
-                System.out.println(pageNo);
-                lastPage = !page.hasNextPage();
-                pageNo++;
-            }*/
-            ps.close();
-        } catch (PersistenceServiceException e) {
-            e.printStackTrace();
-            fail();
+        while (!lastPage) {
+            page = advertisementDAO.findPage(pageNo, 20);
+            System.out.println(pageNo);
+            lastPage = !page.hasNextPage();
+            pageNo++;
         }
+    }
+
+    /** Test the tool that generates a random property - ensure they can be persisted */
+    public void testCreateRandomProperty() {
+        int count = 20;
+        List<Premise> properties = new LinkedList<Premise>();
+        for (int i = 0; i < count; i++) {
+            properties.add(new AnalysisTestTools(em).createRandomProperty(null));
+        }
+
+        for (Premise property : properties) {
+            em.persist(property);
+            property.print(System.out);
+        }
+    }
+
+    /** Test the tool that generates a random property and adds an advertisement for each one*/
+    public void testCreateRandomPropertyAdvertisement() {
+        new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(20, 1990, 2005);
+        TestTools.printAll(em, PropertyAdvertisement.class);
     }
 
     // ------------------------------------------------------------------------------------------------------
@@ -159,28 +145,6 @@ public class TestAnalysis extends DbTestCase {
     }
 
     // ------------------------------------------------------------------------------------------------------
-
-    private UnivariateSeries generateRandomSeries(int size) {
-        UnivariateSeries series = new UnivariateSeries(null);
-        MathContext mc = new MathContext(18, RoundingMode.HALF_UP);
-        int d;
-        RandomData r = new RandomDataImpl();
-        for (int i = 0; i < size; i++) {
-            d = ((Double) r.nextGaussian(1000.0, 50.0)).intValue();
-            series.add(new BigDecimal(d, mc));
-        }
-        return series;
-    }
-
-
-    private UnivariateSeries generateTestSeries() {
-
-        BigDecimal[] values = { new BigDecimal(7), new BigDecimal(9), new BigDecimal(-2), new BigDecimal(-9), new BigDecimal(2)};
-        UnivariateSeries series = new UnivariateSeries(null, values);
-
-        return series;
-    }
-
     // ------------------------------------------------------------------------------------------------------
 
     /** Returns true if there's not much heap left */
@@ -195,47 +159,14 @@ public class TestAnalysis extends DbTestCase {
         return (percent > 80.0);
     }
 
-    private static final int SIZE = 100000;
 
-
-    /** Test the tool that generates a random property */
-    public void testRandomProperty() {
-        int count = 20;
-        List<Premise> properties = new LinkedList<Premise>();
-        for (int i = 0; i < count; i++) {
-            properties.add(new AnalysisTestTools(getPersistenceService()).generateRandomProperty(null));
-        }
-
-        try {
-            PersistenceService gateway = getPersistenceService();
-            PersistenceSession ps = gateway.openSession();
-
-            for (Premise property : properties) {
-                gateway.save(property);
-                property.print();
-            }
-
-            ps.close();
-        } catch (PersistenceServiceException e) {
-            e.printStackTrace();
-            fail();
-        }
-    }
-
-
-
-    /** Test the tool that generates a random property and adds an advertisement for each one*/
-    public void testRandomPropertyAdvertisement() {
-        new AnalysisTestTools(getPersistenceService()).generateRandomPropertiesWithAds(20, 1990, 2005);
-        TestTools.printAll(PropertyAdvertisement.class, getPersistenceService());
-    }
 
     /** Test the algorithm that maps a property to one or more regions */
     public void testMapPropertyToRegion() throws Exception {
-        Premise property = new AnalysisTestTools(getPersistenceService()).generateRandomProperty(null);
-        CountryHandle australia = new AddressDAO(getPersistenceService()).findCountry("AUS");
+        Premise property = new AnalysisTestTools(em).createRandomProperty(null);
+        CountryHandle australia = new AddressDAO(em).findCountry("AUS");
 // todo: enable
-//        PropertyToRegionSpooler propertyToRegionSpooler = new PropertyToRegionSpooler(getPersistenceService(), australia);
+//        PropertyToRegionSpooler propertyToRegionSpooler = new PropertyToRegionSpooler(em, australia);
 //        Set<Region> regions = propertyToRegionSpooler.mapPropertyToRegions(property);
 
 //        assertNotNull(regions);
@@ -244,23 +175,23 @@ public class TestAnalysis extends DbTestCase {
     }
 
     public void testRegionComputer() {
-        new AnalysisTestTools(getPersistenceService()).generateRandomProperties(20);
+        new AnalysisTestTools(em).initialiseRandomProperties(20);
 
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
+        new AnalysisTestTools(em).mapPropertiesToRegions();
 
-        TestTools.printAll(PremiseRegionMap.class, getPersistenceService());
+        TestTools.printAll(PremiseRegionMap.class, em);
     }
 
     public void testAggregateSetComputer() {
 
-        new AnalysisTestTools(getPersistenceService()).generateRandomProperties(20);
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToAggregateSets();
+        new AnalysisTestTools(em).initialiseRandomProperties(20);
+        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
 
-        TestTools.printAll(PremiseAggregateSetMap.class, getPersistenceService());
+        TestTools.printAll(PremiseAggregateSetMap.class, em);
     }
 
     private void doQuery(String query) {
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
         try {
             PersistenceSession ps = gateway.openSession();
             Session session = (Session) ps.getSessionImpl();
@@ -271,7 +202,7 @@ public class TestAnalysis extends DbTestCase {
                 LOG.info("Found "+properties.size()+" properties");
 
                 for (Premise property : properties) {
-                    property.print();
+                    property.print(System.out);
                 }
             } else {
                 LOG.info("Found "+properties.size()+" properties");
@@ -288,7 +219,7 @@ public class TestAnalysis extends DbTestCase {
      * @param params needs to be of the form: name, value, name, value, name, value
      */
     private void doQuery(String queryStr, Object... params) {
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
         int index;
         try {
             PersistenceSession ps = gateway.openSession();
@@ -307,7 +238,7 @@ public class TestAnalysis extends DbTestCase {
                 LOG.info("Found "+properties.size()+" properties");
 
                 for (Premise property : properties) {
-                    property.print();
+                    property.print(System.out);
                 }
             } else {
                 LOG.info("Found 0 properties");
@@ -324,7 +255,7 @@ public class TestAnalysis extends DbTestCase {
      * @param params needs to be of the form: name, value, name, value, name, value
      */
     private List<Object> doGenericQuery(String queryStr, Object... params) {
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
         int index;
         List<Object> results = null;
 
@@ -355,9 +286,9 @@ public class TestAnalysis extends DbTestCase {
     }
 
     public void testQueries() {
-        new AnalysisTestTools(getPersistenceService()).generateRandomPropertiesWithAds(20, 1990, 2005);
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToAggregateSets();
+        new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(20, 1990, 2005);
+        new AnalysisTestTools(em).mapPropertiesToRegions();
+        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         // all properties with advertisements (BROKEN)
         //String query1 = "from RealProperty as realProperty left join PropertyAdvertisement as propertyAdvertisement where propertyAdvertisement.premise = realProperty";
@@ -383,7 +314,7 @@ public class TestAnalysis extends DbTestCase {
 
         RegionOLD nsw = null;
         try {
-            nsw = getPersistenceService().findById(RegionOLD.class, 99L);
+            nsw = em.findById(RegionOLD.class, 99L);
         } catch(PersistenceServiceException e) {
             fail();
         }
@@ -410,7 +341,7 @@ public class TestAnalysis extends DbTestCase {
 
         AggregateSet aggregateSet = null;
         try {
-            aggregateSet = getPersistenceService().findById(AggregateSet.class, 1L);
+            aggregateSet = em.findById(AggregateSet.class, 1L);
         } catch(PersistenceServiceException e) {
             fail();
         }
@@ -494,7 +425,7 @@ public class TestAnalysis extends DbTestCase {
                 "and propertyAdvertisement.dateListed between :startDate and :endDate";
 
         List<Premise> properties = null;
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
 
         Date endDate = timePeriod.lastSecond();
         Date startDate = timespan.firstSecond(endDate);
@@ -520,22 +451,22 @@ public class TestAnalysis extends DbTestCase {
 
     // see note above - it's better to lookup the advertisements, not the properties
     public void testLookupProperties() {
-        new AnalysisTestTools(getPersistenceService()).generateRandomPropertiesWithAds(50, 2004, 2005);
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToAggregateSets();
+        new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
+        new AnalysisTestTools(em).mapPropertiesToRegions();
+        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
 
-        TestTools.printAll(AggregateSet.class, getPersistenceService());
+        TestTools.printAll(AggregateSet.class, em);
 
         AggregateSet aggregateSet = null;
         try {
-            aggregateSet = getPersistenceService().findById(AggregateSet.class, 2L); // houses
+            aggregateSet = em.findById(AggregateSet.class, 2L); // houses
         } catch(PersistenceServiceException e) {
             fail();
         }
 
         RegionOLD nsw = null;
         try {
-            nsw = getPersistenceService().findById(RegionOLD.class, 99L);
+            nsw = em.findById(RegionOLD.class, 99L);
         } catch(PersistenceServiceException e) {
             fail();
         }
@@ -546,7 +477,7 @@ public class TestAnalysis extends DbTestCase {
             LOG.info("Found "+properties.size()+" properties");
 
             for (Premise property : properties) {
-                property.print();
+                property.print(System.out);
             }
         } else {
             LOG.info("Found 0 properties");
@@ -575,7 +506,7 @@ public class TestAnalysis extends DbTestCase {
                 "and propertyAdvertisement.id in (select distinct advertisement.id from PropertyAdvertisement as advertisement where advertisement.dateListed between :startDate and :endDate order by advertisement.dateListed desc)";
 
         List<PropertyAdvertisement> advertisements = null;
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
 
         Date endDate = timePeriod.lastSecond();
         Date startDate = timespan.firstSecond(endDate);
@@ -600,20 +531,20 @@ public class TestAnalysis extends DbTestCase {
     }
 
     public void testLookupAdvertisements() {
-        new AnalysisTestTools(getPersistenceService()).generateRandomPropertiesWithAds(50, 2004, 2005);
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToAggregateSets();
+        new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
+        new AnalysisTestTools(em).mapPropertiesToRegions();
+        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         AggregateSet aggregateSet = null;
         try {
-            aggregateSet = getPersistenceService().findById(AggregateSet.class, 2L); // houses
+            aggregateSet = em.findById(AggregateSet.class, 2L); // houses
         } catch(PersistenceServiceException e) {
             fail();
         }
 
         RegionOLD nsw = null;
         try {
-            nsw = getPersistenceService().findById(RegionOLD.class, 99L);
+            nsw = em.findById(RegionOLD.class, 99L);
         } catch(PersistenceServiceException e) {
             fail();
         }
@@ -624,7 +555,7 @@ public class TestAnalysis extends DbTestCase {
             LOG.info("Found "+advertisements.size()+" advertisements");
 
             for (PropertyAdvertisement advertisement : advertisements) {
-                advertisement.print();
+                advertisement.print(System.out);
             }
         } else {
             LOG.info("Found 0 advertisements");
@@ -634,15 +565,15 @@ public class TestAnalysis extends DbTestCase {
     }
 
     public Session openSession() throws PersistenceServiceException {
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
         PersistenceSession ps = gateway.openSession();
         return (Session) ps.getSessionImpl();
     }
 
     public void testNativeSql() {
-        new AnalysisTestTools(getPersistenceService()).generateRandomPropertiesWithAds(50, 2004, 2005);
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToAggregateSets();
+        new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
+        new AnalysisTestTools(em).mapPropertiesToRegions();
+        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         try {
             Timespan timespan = new Timespan(4, PeriodTypes.Year);
@@ -656,14 +587,14 @@ public class TestAnalysis extends DbTestCase {
 
             AggregateSet aggregateSet = null;
             try {
-                aggregateSet = getPersistenceService().findById(AggregateSet.class, 2L); // houses
+                aggregateSet = em.findById(AggregateSet.class, 2L); // houses
             } catch(PersistenceServiceException e) {
                 fail();
             }
 
             RegionOLD region = null;
             try {
-                region = getPersistenceService().findById(RegionOLD.class, 99L);     // nsw
+                region = em.findById(RegionOLD.class, 99L);     // nsw
             } catch(PersistenceServiceException e) {
                 fail();
             }
@@ -700,7 +631,7 @@ public class TestAnalysis extends DbTestCase {
 
             DebugTools.printCollection(results2);
             for (Object advertisement : results2) {
-                ((PropertyAdvertisement) advertisement).print();
+                ((PropertyAdvertisement) advertisement).print(System.out);
             }
 
             session.getTransaction().commit();
@@ -711,18 +642,18 @@ public class TestAnalysis extends DbTestCase {
     }
 
     public void testAdvertisementSpooler() {
-        new AnalysisTestTools(getPersistenceService()).loadSampleSuburbs();
-        Suburb region = (Suburb) new AnalysisTestTools(getPersistenceService()).findRegionByName("Neutral Bay");
+        new AnalysisTestTools(em).loadSampleSuburbs();
+        Suburb region = (Suburb) new AnalysisTestTools(em).findRegionByName("Neutral Bay");
         // todo: broken - repair for new region implementation
-        //new AnalysisTestTools(getPersistenceService()).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToAggregateSets();
+        //new AnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
+        new AnalysisTestTools(em).mapPropertiesToRegions();
+        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         Timespan timespan = new Timespan(4, PeriodTypes.Year);
         TimePeriod timePeriod = new TimePeriod(Calendar.DECEMBER, 2005);
         AggregateSet aggregateSet = null;
         try {
-            aggregateSet = getPersistenceService().findById(AggregateSet.class, 2L); // houses
+            aggregateSet = em.findById(AggregateSet.class, 2L); // houses
         } catch(PersistenceServiceException e) {
             fail();
         }
@@ -741,13 +672,13 @@ public class TestAnalysis extends DbTestCase {
     public void testDataSourcePersistence() {
         DataSource dataSource = new DataSource("Advertisements: Private Treaty", PriceAnalysisSpooler.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
 
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
         try {
             gateway.save(dataSource);
 
             DataSource result = gateway.findById(DataSource.class, dataSource.getId());
 
-            result.print();
+            result.print(System.out);
         } catch(PersistenceServiceException e) {
             e.printStackTrace();
             fail();
@@ -762,17 +693,17 @@ public class TestAnalysis extends DbTestCase {
 
         DebugTools.printAvailableHeap();
 
-        new AnalysisTestTools(getPersistenceService()).loadSampleSuburbs();
-        Suburb region = (Suburb) new AnalysisTestTools(getPersistenceService()).findRegionByName("Neutral Bay");
+        new AnalysisTestTools(em).loadSampleSuburbs();
+        Suburb region = (Suburb) new AnalysisTestTools(em).findRegionByName("Neutral Bay");
 
         // todo: broken - repair for new region implementation
-        //new AnalysisTestTools(getPersistenceService()).generateRandomPropertiesWithAds(region, null, 5000, 2004, 2005);
+        //new AnalysisTestTools(em).generateRandomPropertiesWithAds(region, null, 5000, 2004, 2005);
         DebugTools.printAvailableHeap();
 
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
+        new AnalysisTestTools(em).mapPropertiesToRegions();
         DebugTools.printAvailableHeap();
 
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToAggregateSets();
+        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         DebugTools.printAvailableHeap();
 
@@ -780,7 +711,7 @@ public class TestAnalysis extends DbTestCase {
         TimePeriod timePeriod = new TimePeriod(Calendar.DECEMBER, 2005);
         /*AggregateSet aggregateSet = null;
         try {
-            aggregateSet = getPersistenceService().findById(AggregateSet.class, 2L); // houses
+            aggregateSet = em.findById(AggregateSet.class, 2L); // houses
         } catch(PersistenceServiceException e) {
             fail();
         }*/
@@ -789,7 +720,7 @@ public class TestAnalysis extends DbTestCase {
 
         DebugTools.printAvailableHeap();
 
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
         DataSource dataSource = null;
         try {
             dataSource = new DataSource("Advertisements: Private Treaty", PriceAnalysisSpooler.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
@@ -799,7 +730,7 @@ public class TestAnalysis extends DbTestCase {
             fail();
         }
 
-        TestTools.printAll(DataSource.class, getPersistenceService());
+        TestTools.printAll(DataSource.class, em);
 
         TaskPlan taskPlan = new TaskPlan("Analysis Tasks");
         TaskGroup all = new TaskGroup("All");
@@ -818,9 +749,9 @@ public class TestAnalysis extends DbTestCase {
         // add some analysis tasks
         try {
             PersistenceSession session = gateway.openSession();
-            australia = new AnalysisTestTools(getPersistenceService()).findRegionByName("Western Australia");
+            australia = new AnalysisTestTools(em).findRegionByName("Western Australia");
             regions = australia.getChildRegions();
-            aggregateSets = new AnalysisTestTools(getPersistenceService()).findAllAggregateSets();
+            aggregateSets = new AnalysisTestTools(em).findAllAggregateSets();
             session.close();
         } catch (PersistenceServiceException e) {
             e.printStackTrace();
@@ -835,7 +766,7 @@ public class TestAnalysis extends DbTestCase {
             regionGroup = new TaskGroup(region.getName());
             all.addTask(regionGroup);
             for (AggregateSet aggregateSet : aggregateSets) {
-                regionGroup.addTask(new PriceAnalysisTask("Test Task: "+region+"-"+aggregateSet, dataSource, region, aggregateSet, timespan, timePeriod, getPersistenceService()).asTask());
+                regionGroup.addTask(new PriceAnalysisTask("Test Task: "+region+"-"+aggregateSet, dataSource, region, aggregateSet, timespan, timePeriod, em).asTask());
                 count++;
                 if (count >= limit) {
                     break;
@@ -852,7 +783,7 @@ public class TestAnalysis extends DbTestCase {
 //            }
         //}
 
-        //taskPlan.print();
+        //taskPlan.print(System.out);
         /*LOG.info("--- Saving the task plan ---");
         // persist the task plan
         try {
@@ -868,11 +799,11 @@ public class TestAnalysis extends DbTestCase {
         ExecutorProvider executorProvider = new SimpleExecutorProvider();
         taskPlan.start(executorProvider);
 
-        TestTools.printAll(PriceAnalysis.class, getPersistenceService());
+        TestTools.printAll(PriceAnalysis.class, em);
     }
 
     private List<DataSource> initialiseDataSources() {
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
         DataSource privateTreaty = null;
         DataSource lease = null;
         try {
@@ -891,14 +822,14 @@ public class TestAnalysis extends DbTestCase {
 
     /** Load all regions decending from the specified parent */
     private Set<RegionOLD> loadRegions(String parentName) {
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
         RegionOLD parent;
         Set<RegionOLD> regions = null;
         List<AggregateSet> aggregateSets = null;
         // add some analysis tasks
         try {
             PersistenceSession session = gateway.openSession();
-            parent = new AnalysisTestTools(getPersistenceService()).findRegionByName(parentName);
+            parent = new AnalysisTestTools(em).findRegionByName(parentName);
             regions = parent.getChildRegions();
             session.close();
         } catch (PersistenceServiceException e) {
@@ -909,21 +840,21 @@ public class TestAnalysis extends DbTestCase {
 
 
     public void testBetterQueriesForPriceAnalysis() {
-        new AnalysisTestTools(getPersistenceService()).loadSampleSuburbs();
-        Suburb region = (Suburb) new AnalysisTestTools(getPersistenceService()).findRegionByName("Neutral Bay");
+        new AnalysisTestTools(em).loadSampleSuburbs();
+        Suburb region = (Suburb) new AnalysisTestTools(em).findRegionByName("Neutral Bay");
           // todo: broken - repair for new region implementation
-        //new AnalysisTestTools(getPersistenceService()).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToAggregateSets();
+        //new AnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
+        new AnalysisTestTools(em).mapPropertiesToRegions();
+        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         AggregateSet aggregateSet = null;
         try {
-            aggregateSet = getPersistenceService().findById(AggregateSet.class, 2L); // houses
+            aggregateSet = em.findById(AggregateSet.class, 2L); // houses
         } catch(PersistenceServiceException e) {
             fail();
         }
         System.out.println("--------AggregateSet: -------");
-        aggregateSet.print();
+        aggregateSet.print(System.out);
 
         /** Advertisements in the Region and Aggregate Set using a theta-style join */
         /*String queryString = "select pa from PropertyAdvertisement pa, PropertyRegionMap prm, PropertyAggregateSetMap pasm " +
@@ -946,7 +877,7 @@ public class TestAnalysis extends DbTestCase {
                            "group by pa2.premise";
 
         List<Object[]> results;
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
         PersistenceSession ps;
 
         Date endDate = new TimePeriod(Calendar.DECEMBER, 2005).lastSecond();
@@ -996,7 +927,7 @@ public class TestAnalysis extends DbTestCase {
             LOG.info("Found "+advertisements.size()+" advertisements");
 
             for (PropertyAdvertisement advertisement : advertisements) {
-                advertisement.print();
+                advertisement.print(System.out);
             }
         } else {
             LOG.info("Found 0 advertisements");
@@ -1033,7 +964,7 @@ public class TestAnalysis extends DbTestCase {
             LOG.info("Found "+advertisements.size()+" advertisements");
 
             for (PropertyAdvertisement advertisement : advertisements) {
-                advertisement.print();
+                advertisement.print(System.out);
             }
         } else {
             LOG.info("Found 0 advertisements");
@@ -1044,25 +975,25 @@ public class TestAnalysis extends DbTestCase {
     AggregateSet lookupAggregateSet(Long id) {
         AggregateSet aggregateSet = null;
         try {
-            aggregateSet = getPersistenceService().findById(AggregateSet.class, id);
+            aggregateSet = em.findById(AggregateSet.class, id);
         } catch(PersistenceServiceException e) {
             fail();
         }
         System.out.println("--------AggregateSet: -------");
-        aggregateSet.print();
+        aggregateSet.print(System.out);
 
         return aggregateSet;
     }
 
     public void testNamedQuery() {
-        new AnalysisTestTools(getPersistenceService()).loadSampleSuburbs();
-        Suburb region = (Suburb) new AnalysisTestTools(getPersistenceService()).findRegionByName("Neutral Bay");
+        new AnalysisTestTools(em).loadSampleSuburbs();
+        Suburb region = (Suburb) new AnalysisTestTools(em).findRegionByName("Neutral Bay");
           // todo: broken - repair for new region implementation
-        //new AnalysisTestTools(getPersistenceService()).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToAggregateSets();
+        //new AnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
+        new AnalysisTestTools(em).mapPropertiesToRegions();
+        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
 
-        PersistenceService gateway = getPersistenceService();
+        PersistenceService gateway = em;
         PersistenceSession ps;
 
         AggregateSet aggregateSet = lookupAggregateSet(2L); // houses
@@ -1091,7 +1022,7 @@ public class TestAnalysis extends DbTestCase {
             LOG.info("Found "+advertisements.size()+" advertisements");
 
             for (PropertyAdvertisement advertisement : advertisements) {
-                advertisement.print();
+                advertisement.print(System.out);
             }
         } else {
             LOG.info("Found 0 advertisements");
@@ -1107,7 +1038,7 @@ public class TestAnalysis extends DbTestCase {
           regionGroup = new TaskGroup(region.getName());
           parent.addTask(regionGroup);
           for (AggregateSet aggregateSet : aggregateSets) {
-              regionGroup.addTask(new PriceAnalysisTask("Test Task: "+region+"-"+aggregateSet, dataSource, region, aggregateSet, timespan, timePeriod, getPersistenceService()).asTask());
+              regionGroup.addTask(new PriceAnalysisTask("Test Task: "+region+"-"+aggregateSet, dataSource, region, aggregateSet, timespan, timePeriod, em).asTask());
           }
       }
 
@@ -1117,13 +1048,13 @@ public class TestAnalysis extends DbTestCase {
 
         DebugTools.printAvailableHeap();
 
-        new AnalysisTestTools(getPersistenceService()).loadSampleSuburbs();
-        Suburb region = (Suburb) new AnalysisTestTools(getPersistenceService()).findRegionByName("Neutral Bay");
+        new AnalysisTestTools(em).loadSampleSuburbs();
+        Suburb region = (Suburb) new AnalysisTestTools(em).findRegionByName("Neutral Bay");
         // todo: broken - repair for new region implementation
-        //new AnalysisTestTools(getPersistenceService()).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 500, 2004, 2005);
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToAggregateSets();
-        new AnalysisTestTools(getPersistenceService()).generateRandomAdsForProperties(PropertyAdvertisementTypes.Lease, 2004, 2005);
+        //new AnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 500, 2004, 2005);
+        new AnalysisTestTools(em).mapPropertiesToRegions();
+        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
+        new AnalysisTestTools(em).generateRandomAdsForProperties(PropertyAdvertisementTypes.Lease, 2004, 2005);
         List<DataSource> dataSources = initialiseDataSources();
 
         DebugTools.printAvailableHeap();
@@ -1135,7 +1066,7 @@ public class TestAnalysis extends DbTestCase {
         TaskGroup all = new TaskGroup("All");
         taskPlan.setRootTask(all);
 
-        List<AggregateSet> aggregateSets = new AnalysisTestTools(getPersistenceService()).findAllAggregateSets();
+        List<AggregateSet> aggregateSets = new AnalysisTestTools(em).findAllAggregateSets();
 
         createPriceAnalysisTasks(all, region, aggregateSets, dataSources.get(0), timespan, timePeriod);  // sales
         createPriceAnalysisTasks(all, region, aggregateSets, dataSources.get(1), timespan, timePeriod);  // rentals
@@ -1150,7 +1081,7 @@ public class TestAnalysis extends DbTestCase {
 
         LOG.info("------ starting spooler for Yield Analysis ---------");
 // todo: enable        
-//        YieldAnalysisSpooler spooler = new YieldAnalysisSpooler(getPersistenceService(), salesDataSource, rentalsDataSource, timespan);
+//        YieldAnalysisSpooler spooler = new YieldAnalysisSpooler(em, salesDataSource, rentalsDataSource, timespan);
 //        spooler.start();
 
 

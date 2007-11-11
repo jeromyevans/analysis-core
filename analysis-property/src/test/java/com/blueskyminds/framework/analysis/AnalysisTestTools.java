@@ -1,10 +1,12 @@
 package com.blueskyminds.framework.analysis;
 
 import com.blueskyminds.landmine.core.property.*;
+import com.blueskyminds.landmine.core.property.attribute.PropertyType;
 import com.blueskyminds.analysis.property.PremiseAggregateSetMap;
 import com.blueskyminds.analysis.core.sets.*;
 import com.blueskyminds.enterprise.address.*;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;
+import com.blueskyminds.enterprise.address.dao.SuburbDAO;
 import com.blueskyminds.framework.persistence.*;
 import com.blueskyminds.framework.persistence.query.PersistenceQuery;
 import com.blueskyminds.framework.measurement.Area;
@@ -30,27 +32,28 @@ import org.hibernate.criterion.Expression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.persistence.EntityManager;
+
 /**
- * Methods helpful for testing the analyis package
+ * Methods helpful for testing the property analyis module
  *
  * Date Started: 25/08/2006
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 public class AnalysisTestTools {
 
     private static final Log LOG = LogFactory.getLog(AnalysisTestTools.class);
 
-    private PersistenceService persistenceService;
+    private EntityManager em;
 
-
-    public AnalysisTestTools(PersistenceService persistenceService) {
-        this.persistenceService = persistenceService;
+    public AnalysisTestTools(EntityManager em) {
+        this.em = em;
     }
 
-    public AggregateSetGroup createAnalysisSet() {
+    public AggregateSetGroup createAnalysisGroup() {
         AggregateSet vacantLand = new SimpleAggregateSet("type", PropertyTypes.Land);
         AggregateSet houses = new SimpleAggregateSet("type", PropertyTypes.House);
         AggregateSet semis = new SimpleAggregateSet("type", PropertyTypes.Semi);
@@ -68,91 +71,80 @@ public class AnalysisTestTools {
         AggregateSet oneBath = new SimpleAggregateSet("bathrooms", 1);
         AggregateSet twoBath = new SimpleAggregateSet("bathrooms", 2);
 
-        AggregateSetGroup analysisSets = new AggregateSetGroup();
+        AggregateSetGroup aggregateSetGroup = new AggregateSetGroup();
 
         AggregateSet detached = new UnionSet(houses, semis, villas);
         AggregateSet unitsOrApartments = new UnionSet(apartments, units);
 
-        analysisSets.defineSet(detached);
-        analysisSets.defineSet(unitsOrApartments);
-        analysisSets.defineSet(vacantLand);
+        aggregateSetGroup.includeSet(detached);
+        aggregateSetGroup.includeSet(unitsOrApartments);
+        aggregateSetGroup.includeSet(vacantLand);
 
-        analysisSets.defineSet(houses);
-        analysisSets.defineSet(new IntersectionSet(houses, oneBed));
-        analysisSets.defineSet(new IntersectionSet(houses, twoBed));
-        analysisSets.defineSet(new IntersectionSet(houses, threeBed));
-        analysisSets.defineSet(new IntersectionSet(houses, threeBed, oneBath));
-        analysisSets.defineSet(new IntersectionSet(houses, threeBed, twoBath));
-        analysisSets.defineSet(new IntersectionSet(houses, fourBed));
-        analysisSets.defineSet(new IntersectionSet(houses, twoBed, oneBath));
-        analysisSets.defineSet(new IntersectionSet(houses, twoBed, twoBath));
-        analysisSets.defineSet(new IntersectionSet(houses, fiveBed));
-        analysisSets.defineSet(semis);
-        analysisSets.defineSet(new IntersectionSet(semis, oneBed));
-        analysisSets.defineSet(new IntersectionSet(semis, twoBed));
-        analysisSets.defineSet(new IntersectionSet(semis, threeBed));
-        analysisSets.defineSet(new IntersectionSet(semis, fourBed));
-        analysisSets.defineSet(villas);
-        analysisSets.defineSet(new IntersectionSet(villas, oneBed));
-        analysisSets.defineSet(new IntersectionSet(villas, twoBed));
-        analysisSets.defineSet(new IntersectionSet(villas, threeBed));
-        analysisSets.defineSet(new IntersectionSet(villas, fourBed));
+        aggregateSetGroup.includeSet(houses);
+        aggregateSetGroup.includeSet(new IntersectionSet(houses, oneBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(houses, twoBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(houses, threeBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(houses, threeBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet(houses, threeBed, twoBath));
+        aggregateSetGroup.includeSet(new IntersectionSet(houses, fourBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(houses, twoBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet(houses, twoBed, twoBath));
+        aggregateSetGroup.includeSet(new IntersectionSet(houses, fiveBed));
+        aggregateSetGroup.includeSet(semis);
+        aggregateSetGroup.includeSet(new IntersectionSet(semis, oneBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(semis, twoBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(semis, threeBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(semis, fourBed));
+        aggregateSetGroup.includeSet(villas);
+        aggregateSetGroup.includeSet(new IntersectionSet(villas, oneBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(villas, twoBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(villas, threeBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(villas, fourBed));
 
-        analysisSets.defineSet(apartments);
-        analysisSets.defineSet(new IntersectionSet(apartments, studio));
-        analysisSets.defineSet(new IntersectionSet(apartments, oneBed));
-        analysisSets.defineSet(new IntersectionSet(apartments, twoBed));
-        analysisSets.defineSet(new IntersectionSet(apartments, threeBed));
-        analysisSets.defineSet(new IntersectionSet(apartments, threeBed, oneBath));
-        analysisSets.defineSet(new IntersectionSet(apartments, threeBed, twoBath));
-        analysisSets.defineSet(new IntersectionSet(apartments, fourBed));
-        analysisSets.defineSet(new IntersectionSet(apartments, fourBed, oneBath));
-        analysisSets.defineSet(new IntersectionSet(apartments, fourBed, twoBath));
+        aggregateSetGroup.includeSet(apartments);
+        aggregateSetGroup.includeSet(new IntersectionSet(apartments, studio));
+        aggregateSetGroup.includeSet(new IntersectionSet(apartments, oneBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(apartments, twoBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(apartments, threeBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(apartments, threeBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet(apartments, threeBed, twoBath));
+        aggregateSetGroup.includeSet(new IntersectionSet(apartments, fourBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(apartments, fourBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet(apartments, fourBed, twoBath));
 
-        analysisSets.defineSet(units);
-        analysisSets.defineSet(new IntersectionSet(units, oneBed));
-        analysisSets.defineSet(new IntersectionSet(units, twoBed));
-        analysisSets.defineSet(new IntersectionSet(units, threeBed));
-        analysisSets.defineSet(new IntersectionSet(units, threeBed, oneBath));
-        analysisSets.defineSet(new IntersectionSet(units, threeBed, twoBath));
-        analysisSets.defineSet(new IntersectionSet(units, fourBed));
-        analysisSets.defineSet(new IntersectionSet(units, fourBed, oneBath));
-        analysisSets.defineSet(new IntersectionSet(units, fourBed, twoBath));
+        aggregateSetGroup.includeSet(units);
+        aggregateSetGroup.includeSet(new IntersectionSet(units, oneBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(units, twoBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(units, threeBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(units, threeBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet(units, threeBed, twoBath));
+        aggregateSetGroup.includeSet(new IntersectionSet(units, fourBed));
+        aggregateSetGroup.includeSet(new IntersectionSet(units, fourBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet(units, fourBed, twoBath));
 
-        return analysisSets;
+        return aggregateSetGroup;
     }
 
     // ------------------------------------------------------------------------------------------------------
 
-    public AggregateSetGroup initialiseAnalysisSets() {
-        AggregateSetGroup analysisSets = createAnalysisSet();
+    /**
+     * Setup default analysis gret groups
+     * @return
+     */
+    public AggregateSetGroup initialiseAnalysisGroups() {
+        AggregateSetGroup analysisSets = createAnalysisGroup();
 
-        try {
-            PersistenceService gateway = getPersistenceService();
-
-            gateway.save(analysisSets);
-        }
-        catch (PersistenceServiceException e) {
-            e.printStackTrace();
-        }
+        em.persist(analysisSets);
+        em.flush();
 
         return analysisSets;
     }
 
-    // ------------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------------
-
-    // ------------------------------------------------------------------------------------------------------
-
-    // ------------------------------------------------------------------------------------------------------
-
-    // ------------------------------------------------------------------------------------------------------
-
-    // ------------------------------------------------------------------------------------------------------
-
-    // ------------------------------------------------------------------------------------------------------
-
-    public PropertyAdvertisement generatePropertyAdvertisement() {
+    /**
+     * Generates a random property advertisement
+     * @return
+     */
+    public PropertyAdvertisement createRandomPropertyAdvertisement() {
         PropertyAdvertisementTypes type = RandomTools.randomEnum(PropertyAdvertisementTypes.class);
         PropertyAdvertisement advertisement = new PropertyAdvertisement(type);
 
@@ -183,18 +175,16 @@ public class AnalysisTestTools {
         return advertisement;
     }
 
-    // ------------------------------------------------------------------------------------------------------
-
-    public void generateRandomAdvertisements(int count) {
-        try {
-            PersistenceService gateway = getPersistenceService();
-
-            for (int i = 0; i < count; i++) {
-                gateway.save(generatePropertyAdvertisement());
-            }
-        } catch(PersistenceServiceException e) {
-            e.printStackTrace();
+    /**
+     * Generates the specified number of property advertisements and persists them
+     *
+     * @param count
+     */
+    public void initialiseRandomAdvertisements(int count) {
+        for (int i = 0; i < count; i++) {
+            em.persist(createRandomPropertyAdvertisement());
         }
+        em.flush();
     }
 
 
@@ -225,6 +215,7 @@ public class AnalysisTestTools {
         }
 
     }
+
     // ------------------------------------------------------------------------------------------------------
 
     /** Loads a CSV file of of sample street names, caches it, and then returns one of the streets in the sample */
@@ -238,72 +229,63 @@ public class AnalysisTestTools {
 
     private static boolean suburbsLoaded;
 
+    /**
+     * Load sample data for testing
+     */
     public void loadSampleSuburbs() {
         AddressTestTools.initialiseCountryList();
-        AddressTestTools.initialiseAustralianStates();
-        AddressTestTools.initialiseAustralianSuburbs();
+        //AddressTestTools.initialiseAustralianStates();
+        //AddressTestTools.initialiseAustralianSuburbs();
         suburbsLoaded = true;
     }
 
-    public SuburbHandle randomSuburb() throws PersistenceServiceException {
+    public SuburbHandle randomSuburb() {
         if (!suburbsLoaded) {
             loadSampleSuburbs();
         }
-        PersistenceService gateway = getPersistenceService();
-
-        return gateway.random(SuburbHandle.class);
+        return new SuburbDAO(em).findRandom();
     }
 
     // ------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------
 
-    /** Creates a property for a random address.
+    /**
+     * Creates a property for a random address.
      * The only attributes of the property are that it has a type, and a certain number of bedrooms and bathrooms
      * The property has not been persisted.
      *
      * Set Suburb to null to use a random suburb
      *  */
-    public Premise generateRandomProperty(SuburbHandle suburb) {
+    public Premise createRandomProperty(SuburbHandle suburb) {
 
-        Premise property = null;
+        Premise property ;
         Address address = null;
-        PersistenceService gateway = getPersistenceService();
-        PersistenceSession session;
 
         // First, choose a type (exclude block of units and unknown types)
         PropertyTypes type = RandomTools.randomEnum(PropertyTypes.class, PropertyTypes.BlockOfUnits, PropertyTypes.Unknown);
 
-        try {
-            //session = gateway.openSession();
-
-            // create a random address
-            Street street = randomStreet();
-            String streetNumber = Integer.toString(RandomTools.randomInt(1, 300));
-            if (suburb == null) {
-                suburb = randomSuburb();
-            }
-
-
-            // todo: broken - repair for new region implementation
-//            if (PropertyType.isTypeOfUnit(type)) {
-//                String unitNumber = Integer.toString(RandomTools.randomInt(1, 20));
-//                address = new UnitAddress(unitNumber, streetNumber, street, suburb, suburb.getPostCode());
-//            } else {
-//                address = new StreetAddress(streetNumber, street, suburb, suburb.getPostCode());
-//            }
-
-            property = new Premise();
-            Date dateApplied = RandomTools.randomDate(1990, 2005);
-            property.associateAddress(address, dateApplied);
-            PremiseAttributeSet attributes = new PremiseAttributeSet(dateApplied);
-            attributes.setPropertyType(type);
-            attributes.setBedrooms(RandomTools.randomInt(1,5));
-            attributes.setBathrooms(RandomTools.randomInt(1,2));
-            property.associateFeatures(attributes);
-            //session.close();
-        } catch (PersistenceServiceException e) {
-            e.printStackTrace();
+        // create a random address
+        Street street = randomStreet();
+        String streetNumber = Integer.toString(RandomTools.randomInt(1, 300));
+        if (suburb == null) {
+            suburb = randomSuburb();
         }
+
+        if (PropertyType.isTypeOfUnit(type)) {
+            String unitNumber = Integer.toString(RandomTools.randomInt(1, 20));
+            address = new UnitAddress(unitNumber, streetNumber, street, suburb, suburb.getPostCode());
+        } else {
+            address = new StreetAddress(streetNumber, street, suburb, suburb.getPostCode());
+        }
+
+        property = new Premise();
+        Date dateApplied = RandomTools.randomDate(1990, 2006);
+        property.associateAddress(address, dateApplied);
+        PremiseAttributeSet attributes = new PremiseAttributeSet(dateApplied);
+        attributes.setPropertyType(type);
+        attributes.setBedrooms(RandomTools.randomInt(1,5));
+        attributes.setBathrooms(RandomTools.randomInt(1,2));
+        property.associateFeatures(attributes);
 
         return property;
     }
@@ -312,7 +294,7 @@ public class AnalysisTestTools {
 
     /** Generate a random advertisement for the specified property
      * @param type - type of advertisement, or null for random */
-    public PropertyAdvertisement generatePropertyAdvertisement(Premise premise, PropertyAdvertisementTypes type, int firstYear, int lastYear) {
+    public PropertyAdvertisement createRandomPropertyAdvertisement(Premise premise, PropertyAdvertisementTypes type, int firstYear, int lastYear) {
         if (type == null) {
             type = RandomTools.randomEnum(PropertyAdvertisementTypes.class);
         }
@@ -349,17 +331,12 @@ public class AnalysisTestTools {
     // ------------------------------------------------------------------------------------------------------        
     // ------------------------------------------------------------------------------------------------------
 
-    /** Create a bunch of properties in persistence */
-    public void generateRandomProperties(int count) {
-        try {
-            PersistenceService gateway = getPersistenceService();
-
-            for (int i = 0; i < count; i++) {
-                gateway.save(generateRandomProperty(null));
-            }
-        } catch(PersistenceServiceException e) {
-            e.printStackTrace();
+    /** Presist a random bunch of properties */
+    public void initialiseRandomProperties(int count) {
+        for (int i = 0; i < count; i++) {
+            em.persist(createRandomProperty(null));
         }
+        em.flush();
     }
 
     /** Creates a QueryBuilder that searches for a ... */
@@ -461,7 +438,7 @@ public class AnalysisTestTools {
             List<Premise> properties = findPropertiesInRegion(region);
             LOG.info("Properties:"+properties.size());
             for (Premise p : properties) {
-                p.print();
+                p.print(System.out);
             }
             session.close();
         } catch(PersistenceServiceException e) {
@@ -476,7 +453,7 @@ public class AnalysisTestTools {
             List<Premise> properties = findPropertiesInAggregateSet(aggregateSet);
             LOG.info("Properties:"+properties.size());
             for (Premise p : properties) {
-                p.print();
+                p.print(System.out);
             }
             session.close();
         } catch(PersistenceServiceException e) {
@@ -484,7 +461,16 @@ public class AnalysisTestTools {
         }
     }
 
-    public void generateRandomPropertiesWithAds(SuburbHandle region, PropertyAdvertisementTypes type, int count, int firstYear, int lastYear) {
+    /**
+     * Persist a bunch of premises with advertisements
+     *
+     * @param region
+     * @param type
+     * @param count
+     * @param firstYear
+     * @param lastYear
+     */
+    public void initialiseRandomPropertiesWithAds(SuburbHandle region, PropertyAdvertisementTypes type, int count, int firstYear, int lastYear) {
 
         Premise premise;
         PropertyAdvertisement advertisement;
@@ -493,68 +479,59 @@ public class AnalysisTestTools {
         int properties = 0;
         int withAds = 0;
         int withTwoAds = 0;
-        PersistenceSession ps = null;
-        try {
-            PersistenceService gateway = getPersistenceService();
-            ps = gateway.openSession();
 
-            properties = 0;
-            while (properties < count) {
-               // PersistenceTransaction transaction = ps.currentTransaction();
+        properties = 0;
+        while (properties < count) {
+           // PersistenceTransaction transaction = ps.currentTransaction();
 
-                premise = generateRandomProperty(region);
+            premise = createRandomProperty(region);
 
-                //gateway.save(premise);
-                if (RandomTools.randomInt(0, 9) == 0) {
-                    // one in ten properties don't get an advertisement
-                } else {
-                    advertisement = generatePropertyAdvertisement(premise, type, firstYear, lastYear);
-                    premise.associateFeatures(advertisement.getAttributes());
-                    advertisement.associateWithPremise(premise);
-                    gateway.save(advertisement);
-                    withAds++;
-                    if (RandomTools.randomInt(0, 4) == 0) {
-                        // one in five have a second advertisement
+            //gateway.save(premise);
+            if (RandomTools.randomInt(0, 9) == 0) {
+                // one in ten properties don't get an advertisement
+            } else {
+                advertisement = createRandomPropertyAdvertisement(premise, type, firstYear, lastYear);
+                premise.associateFeatures(advertisement.getAttributes());
+                advertisement.associateWithPremise(premise);
+                em.persist(advertisement);
+                withAds++;
+                if (RandomTools.randomInt(0, 4) == 0) {
+                    // one in five have a second advertisement
 
-                        // create another advertisement for this property at a lower price and slightly in the future
-                        secondAdvertisement = advertisement.duplicate();
-                        // override values
-                        secondAdvertisement.setDateListed(DateTools.addTimespan(advertisement.getDateListed(), new Timespan(1, PeriodTypes.Fortnight)));
-                        price = advertisement.getPrice();
-                        if (price != null) {
-                            secondAdvertisement.setPrice(price.adjustedPrice(1.1));
-                        } else {
-                            secondAdvertisement.setPrice(null);
-                        }
-
-                        premise.associateFeatures(secondAdvertisement.getAttributes());
-                        secondAdvertisement.associateWithPremise(premise);
-                        gateway.save(secondAdvertisement);
-                        //gateway.save(premise);
-                        withTwoAds++;
+                    // create another advertisement for this property at a lower price and slightly in the future
+                    secondAdvertisement = advertisement.duplicate();
+                    // override values
+                    secondAdvertisement.setDateListed(DateTools.addTimespan(advertisement.getDateListed(), new Timespan(1, PeriodTypes.Fortnight)));
+                    price = advertisement.getPrice();
+                    if (price != null) {
+                        secondAdvertisement.setPrice(price.adjustedPrice(1.1));
+                    } else {
+                        secondAdvertisement.setPrice(null);
                     }
-                }
-                gateway.save(premise);
-                properties++;
-              //  transaction.commit();
-            }
 
-            LOG.info("Created "+properties+" properties, "+withAds+" with ads, "+withTwoAds+" with two ads");
-        } catch (PersistenceServiceException e) {
-            e.printStackTrace();
-        } finally {
-            if (ps != null) {
-                try {
-                    ps.close();
-                } catch(PersistenceServiceException e) {
-                    //
+                    premise.associateFeatures(secondAdvertisement.getAttributes());
+                    secondAdvertisement.associateWithPremise(premise);
+                    em.persist(secondAdvertisement);
+                    //gateway.save(premise);
+                    withTwoAds++;
                 }
             }
+            em.persist(premise);
+            properties++;
         }
+
+        LOG.info("Created "+properties+" properties, "+withAds+" with ads, "+withTwoAds+" with two ads");
     }
 
-    public void generateRandomPropertiesWithAds(int count, int firstYear, int lastYear) {
-        generateRandomPropertiesWithAds(null, null, count, firstYear, lastYear);
+    /**
+     * Initialise a bunch of premises with advertisements
+     *
+     * @param count
+     * @param firstYear
+     * @param lastYear
+     */
+    public void initialiseRandomPropertiesWithAds(int count, int firstYear, int lastYear) {
+        initialiseRandomPropertiesWithAds(null, null, count, firstYear, lastYear);
     }
 
     public void mapPropertiesToRegions() {
@@ -566,7 +543,7 @@ public class AnalysisTestTools {
     }
 
     public void mapPropertiesToAggregateSets() {
-        AggregateSetGroup analysisSets = initialiseAnalysisSets();
+        AggregateSetGroup analysisSets = initialiseAnalysisGroups();
         CountryHandle australia = null;
         australia = new AddressDAO(getPersistenceService()).findCountry("AUS");
         // todo: enable
@@ -617,7 +594,7 @@ public class AnalysisTestTools {
                 if (RandomTools.randomInt(0, 9) == 0) {
                     // one in ten properties don't get an advertisement
                 } else {
-                    advertisement = generatePropertyAdvertisement(premise, type, firstYear, lastYear);
+                    advertisement = createRandomPropertyAdvertisement(premise, type, firstYear, lastYear);
                     premise.associateFeatures(advertisement.getAttributes());
                     advertisement.associateWithPremise(premise);
                     gateway.save(advertisement);
@@ -663,7 +640,8 @@ public class AnalysisTestTools {
     }
 
 
-    public PersistenceService getPersistenceService() {
-        return persistenceService;
+    @Deprecated
+    private PersistenceService getPersistenceService() {
+        return null;
     }
 }

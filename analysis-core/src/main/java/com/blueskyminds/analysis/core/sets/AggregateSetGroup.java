@@ -39,7 +39,7 @@ public class AggregateSetGroup extends AbstractEntity {
     // ------------------------------------------------------------------------------------------------------
 
     /** Create a new Set */
-    public void defineSet(AggregateSet series) {
+    public void includeSet(AggregateSet series) {
         aggregateSets.add(new AggregateSetGroupEntry(this, series));
     }
 
