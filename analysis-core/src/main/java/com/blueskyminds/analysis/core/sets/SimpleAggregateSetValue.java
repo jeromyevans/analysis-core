@@ -1,8 +1,10 @@
-package com.blueskyminds.analysis.sets;
+package com.blueskyminds.analysis.core.sets;
 
 import javax.persistence.*;
 
 /**
+ * A matching value for an aggregate set
+ *
  * Date Started: 17/06/2007
  * <p/>
  * History:
@@ -10,7 +12,7 @@ import javax.persistence.*;
  * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 @Entity
-@Table(name="SimpleAggreateSetValue")
+@Table(name="analysis_SimpleAggregateSetValue")
 public class SimpleAggregateSetValue {
 
     private AggregateSet aggregateSet;

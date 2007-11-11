@@ -1,4 +1,4 @@
-package com.blueskyminds.analysis.sets;
+package com.blueskyminds.analysis.core.sets;
 
 import com.blueskyminds.framework.DomainObject;
 

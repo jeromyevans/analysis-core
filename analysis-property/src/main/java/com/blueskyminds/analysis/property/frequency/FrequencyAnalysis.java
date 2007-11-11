@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.property.frequency;
 
-import com.blueskyminds.analysis.sets.AggregateSet;
+import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.landmine.core.property.PropertyTypes;
 import com.blueskyminds.framework.AbstractDomainObject;
 

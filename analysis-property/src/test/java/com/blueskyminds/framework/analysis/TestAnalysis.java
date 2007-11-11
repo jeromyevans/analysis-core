@@ -11,7 +11,6 @@ import com.blueskyminds.framework.tasks.TaskGroup;
 import com.blueskyminds.framework.tasks.ExecutorProvider;
 import com.blueskyminds.framework.tasks.SimpleExecutorProvider;
 import com.blueskyminds.framework.datetime.*;
-import com.blueskyminds.analysis.sets.*;
 import com.blueskyminds.analysis.statistics.StatisticsWorker;
 import com.blueskyminds.analysis.statistics.Statistics;
 import com.blueskyminds.analysis.statistics.StatisticsEngine;
@@ -25,6 +24,7 @@ import com.blueskyminds.analysis.property.advertised.AdvertisedDataSourceMemento
 import com.blueskyminds.analysis.persistent.DataSource;
 import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis;
 import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisTask;
+import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.landmine.core.property.*;
 import com.blueskyminds.enterprise.address.Suburb;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;

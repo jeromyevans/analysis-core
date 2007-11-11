@@ -1,10 +1,10 @@
-package com.blueskyminds.analysis.sets;
-
-import com.blueskyminds.framework.DomainObject;
+package com.blueskyminds.analysis.core.sets;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -17,13 +17,13 @@ import org.apache.commons.lang.StringUtils;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 @Entity
-@Table(name="UnionSet")
+@DiscriminatorValue("union")
 public class UnionSet extends AggregateSet {
 
-    private List<AggregateSet> unionSets;
+    private Set<UnionSetEntry> unionSets;
 
     // ------------------------------------------------------------------------------------------------------
 
@@ -49,23 +49,18 @@ public class UnionSet extends AggregateSet {
      * Initialise the UnionSet with default attributes
      */
     private void init() {
-        unionSets = new LinkedList<AggregateSet>();
+        unionSets = new HashSet<UnionSetEntry>();
     }
 
     // ------------------------------------------------------------------------------------------------------
 
     /** Get the list of aggregate sets in this series */
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name="UnionSetEntry",
-            joinColumns=@JoinColumn(name="UnionSetId"),
-            inverseJoinColumns = @JoinColumn(name="AggregateSetId")
-    )
-    protected List<AggregateSet> getUnionSets() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UnionSet")
+    protected Set<UnionSetEntry> getUnionSets() {
         return unionSets;
     }
 
-    protected void setUnionSets(List<AggregateSet> unionSets) {
+    protected void setUnionSets(Set<UnionSetEntry> unionSets) {
         this.unionSets = unionSets;
     }
 
@@ -73,7 +68,7 @@ public class UnionSet extends AggregateSet {
 
     /** Add another aggregate set to the union */
     public boolean includeAggregateSet(AggregateSet aggregateSet) {
-        return unionSets.add(aggregateSet);
+        return unionSets.add(new UnionSetEntry(this, aggregateSet));
     }
 
     // ------------------------------------------------------------------------------------------------------
@@ -84,15 +79,15 @@ public class UnionSet extends AggregateSet {
      * Iterates from the first set in the union.  If the domain object belongs in any of the sets
      *  in the series the result is true
      *
-      *@param domainObject
+      *@param object
      * @return true if the domain object belongs in UNION of all of the sets
      */
     @Transient
-    public boolean isInSet(DomainObject domainObject) {
+    public boolean isInSet(Object object) {
         boolean inUnion = false;
 
-        for (AggregateSet aggregateSet : unionSets) {
-            if (aggregateSet.isInSet(domainObject)) {
+        for (UnionSetEntry aggregateSet : unionSets) {
+            if (aggregateSet.isInSet(object)) {
                 inUnion = true;
                 break;
             }
@@ -107,8 +102,8 @@ public class UnionSet extends AggregateSet {
     @Transient
     public String getName() {
         List<String> names = new LinkedList<String>();
-        for (AggregateSet aggregateSet : unionSets) {
-            names.add(aggregateSet.getName());
+        for (UnionSetEntry aggregateSet : unionSets) {
+            names.add(aggregateSet.getAggregateSet().getName());
         }
         return "Union["+ StringUtils.join(names.iterator(), ",")+"]";
     }

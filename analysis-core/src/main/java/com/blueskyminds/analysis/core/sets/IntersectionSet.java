@@ -1,30 +1,29 @@
-package com.blueskyminds.analysis.sets;
+package com.blueskyminds.analysis.core.sets;
 
-import com.blueskyminds.framework.DomainObject;
-import com.blueskyminds.analysis.sets.AggregateSet;
+import com.blueskyminds.analysis.core.sets.AggregateSet;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.apache.commons.lang.StringUtils;
 
 /**
  * Define an intesection of AggegrateSets used to analyse a data series
  *
- * The intersection implies the DomainObject must belong on all sets defined in this series.
+ * Intersection implies the Object belongs to all listed AggregateSets.
  *
  * Date Started: 19/08/2006
  *
- * History:
- *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 @Entity
-@Table(name="IntersectionSet")
+@DiscriminatorValue("intersection")
 public class IntersectionSet extends AggregateSet {
 
-    private List<AggregateSet> intersectingSets;
+    private Set<IntersectionSetEntry> intersectingSets;
 
     // ------------------------------------------------------------------------------------------------------
 
@@ -50,23 +49,18 @@ public class IntersectionSet extends AggregateSet {
      * Initialise the IntersectionSet with default attributes
      */
     private void init() {
-        intersectingSets = new LinkedList<AggregateSet>();
+        intersectingSets = new HashSet<IntersectionSetEntry>();
     }
 
     // ------------------------------------------------------------------------------------------------------
 
     /** Get the list of aggregate sets in this series */
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name="IntersectionSetEntry",
-            joinColumns=@JoinColumn(name="IntersectionSetId"),
-            inverseJoinColumns = @JoinColumn(name="AggregateSetId")
-    )
-    protected List<AggregateSet> getIntersectingSets() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "IntersectionSet")
+    protected Set<IntersectionSetEntry> getIntersectingSets() {
         return intersectingSets;
     }
 
-    protected void setIntersectingSets(List<AggregateSet> intersectingSets) {
+    protected void setIntersectingSets(Set<IntersectionSetEntry> intersectingSets) {
         this.intersectingSets = intersectingSets;
     }
 
@@ -74,27 +68,27 @@ public class IntersectionSet extends AggregateSet {
 
     /** Add another aggregate set to the union */
     public boolean includeAggregateSet(AggregateSet aggregateSet) {
-        return intersectingSets.add(aggregateSet);
+        return intersectingSets.add(new IntersectionSetEntry(this, aggregateSet));
     }
 
     // ------------------------------------------------------------------------------------------------------
 
     /**
-     * Evaluate whether the specified domain object belongs in this union of sets.
+     * Evaluate whether the specified object belongs in this intersection of sets.
      *
-     * Iterates from the first set in the union.  If the domain object belongs in that set, it then
+     * Iterates through all the sets in the intersection.  If the domain object belongs in that set, it then
      *  traverses into the next set in the series and the same test applied until a set is encountered
      *  that the domain object doesn't belong in, or the end of the series is reached (success)
      *
-      *@param domainObject
+      *@param object
      * @return true if the domain object belongs in UNION of all of the sets
      */
     @Transient
-    public boolean isInSet(DomainObject domainObject) {
+    public boolean isInSet(Object object) {
         boolean inIntersection = true;
 
-        for (AggregateSet aggregateSet : intersectingSets) {
-            if (!aggregateSet.isInSet(domainObject)) {
+        for (IntersectionSetEntry aggregateSet : intersectingSets) {
+            if (!aggregateSet.isInSet(object)) {
                 inIntersection = false;
                 break;
             }
@@ -105,12 +99,12 @@ public class IntersectionSet extends AggregateSet {
 
     // ------------------------------------------------------------------------------------------------------
 
-    /** Get the calculated name of this union */
+    /** Get the calculated name of this intersection */
     @Transient
     public String getName() {
         List<String> names = new LinkedList<String>();
-        for (AggregateSet aggregateSet : intersectingSets) {
-            names.add(aggregateSet.getName());
+        for (IntersectionSetEntry entry : intersectingSets) {
+            names.add(entry.getAggregateSet().getName());
         }
         return "Intersection["+ StringUtils.join(names.iterator(), ",")+"]";
     }

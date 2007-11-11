@@ -1,8 +1,8 @@
 package com.blueskyminds.framework.analysis;
 
-import com.blueskyminds.analysis.sets.*;
 import com.blueskyminds.landmine.core.property.*;
 import com.blueskyminds.analysis.property.PremiseAggregateSetMap;
+import com.blueskyminds.analysis.core.sets.*;
 import com.blueskyminds.enterprise.address.*;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;
 import com.blueskyminds.framework.persistence.*;
@@ -50,7 +50,7 @@ public class AnalysisTestTools {
         this.persistenceService = persistenceService;
     }
 
-    public AnalysisSets createAnalysisSet() {
+    public AggregateSetGroup createAnalysisSet() {
         AggregateSet vacantLand = new SimpleAggregateSet("type", PropertyTypes.Land);
         AggregateSet houses = new SimpleAggregateSet("type", PropertyTypes.House);
         AggregateSet semis = new SimpleAggregateSet("type", PropertyTypes.Semi);
@@ -68,7 +68,7 @@ public class AnalysisTestTools {
         AggregateSet oneBath = new SimpleAggregateSet("bathrooms", 1);
         AggregateSet twoBath = new SimpleAggregateSet("bathrooms", 2);
 
-        AnalysisSets analysisSets = new AnalysisSets();
+        AggregateSetGroup analysisSets = new AggregateSetGroup();
 
         AggregateSet detached = new UnionSet(houses, semis, villas);
         AggregateSet unitsOrApartments = new UnionSet(apartments, units);
@@ -124,8 +124,8 @@ public class AnalysisTestTools {
 
     // ------------------------------------------------------------------------------------------------------
 
-    public AnalysisSets initialiseAnalysisSets() {
-        AnalysisSets analysisSets = createAnalysisSet();
+    public AggregateSetGroup initialiseAnalysisSets() {
+        AggregateSetGroup analysisSets = createAnalysisSet();
 
         try {
             PersistenceService gateway = getPersistenceService();
@@ -566,7 +566,7 @@ public class AnalysisTestTools {
     }
 
     public void mapPropertiesToAggregateSets() {
-        AnalysisSets analysisSets = initialiseAnalysisSets();
+        AggregateSetGroup analysisSets = initialiseAnalysisSets();
         CountryHandle australia = null;
         australia = new AddressDAO(getPersistenceService()).findCountry("AUS");
         // todo: enable

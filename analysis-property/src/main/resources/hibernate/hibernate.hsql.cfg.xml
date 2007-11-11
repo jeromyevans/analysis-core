@@ -30,10 +30,10 @@
 
         <property name="hibernate.transaction.auto_close_session">false</property>
 
-       <!-- <mapping class="com.blueskyminds.analysis.sets.AggregateSet"/>
-        <mapping class="com.blueskyminds.analysis.sets.UnionSet"/>
-        <mapping class="com.blueskyminds.analysis.sets.IntersectionSet"/>
-        <mapping class="com.blueskyminds.analysis.sets.SimpleAggregateSet"/>
+       <!-- <mapping class="com.blueskyminds.analysis.core.sets.AggregateSet"/>
+        <mapping class="com.blueskyminds.analysis.core.sets.UnionSet"/>
+        <mapping class="com.blueskyminds.analysis.core.sets.IntersectionSet"/>
+        <mapping class="com.blueskyminds.analysis.core.sets.SimpleAggregateSet"/>
         <mapping class="com.blueskyminds.analysis.sets.AnalysisSets"/>                   -->             
 
     </session-factory>

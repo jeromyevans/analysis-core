@@ -16,10 +16,9 @@
     <orderEntry type="module" module-name="enterprise-core" />
     <orderEntry type="module" module-name="landmine-core" />
     <orderEntry type="module" module-name="landmine-core-api" />
+    <orderEntry type="module" module-name="framework-parent" />
     <orderEntry type="module" module-name="analysis-basic" />
     <orderEntry type="module" module-name="analysis-core" />
-    <orderEntry type="module" module-name="framework-parent" />
-    <orderEntry type="module" module-name="analysis-parent" />
     <orderEntry type="module-library">
       <library name="M2 Dep: commons-lang:commons-lang:jar:2.3:compile">
         <CLASSES>

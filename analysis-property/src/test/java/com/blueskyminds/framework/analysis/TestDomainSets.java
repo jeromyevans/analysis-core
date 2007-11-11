@@ -2,13 +2,10 @@ package com.blueskyminds.framework.analysis;
 
 import com.blueskyminds.framework.test.DbTestCase;
 //import com.blueskyminds.framework.persistence.hibernate.query.HibernateCriteriaImpl;
-import com.blueskyminds.framework.persistence.PersistenceService;
-import com.blueskyminds.framework.persistence.PersistenceServiceException;
 import com.blueskyminds.landmine.core.property.Premise;
 import com.blueskyminds.landmine.core.property.PremiseRegionMap;
-import com.blueskyminds.analysis.sets.DomainSet;
+import com.blueskyminds.analysis.core.sets.DomainSet;
 import com.blueskyminds.enterprise.region.RegionOLD;
-import com.blueskyminds.framework.tools.DebugTools;
 import org.hibernate.criterion.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

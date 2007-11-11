@@ -1,7 +1,7 @@
 package com.blueskyminds.analysis.property;
 
 import com.blueskyminds.enterprise.region.RegionOLD;
-import com.blueskyminds.analysis.sets.AggregateSet;
+import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.series.SeriesDescriptor;
 import com.blueskyminds.framework.datetime.Timespan;
 import com.blueskyminds.framework.datetime.TimePeriod;

@@ -1,7 +1,7 @@
 package com.blueskyminds.analysis.property;
 
 import com.blueskyminds.landmine.core.property.Premise;
-import com.blueskyminds.analysis.sets.AggregateSet;
+import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.framework.AbstractDomainObject;
 
 import javax.persistence.Entity;

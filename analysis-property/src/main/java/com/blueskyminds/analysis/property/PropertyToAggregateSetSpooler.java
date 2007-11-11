@@ -6,8 +6,8 @@ import com.blueskyminds.framework.persistence.paging.QueryPager;
 import com.blueskyminds.framework.persistence.spooler.DomainObjectSpooler;
 import com.blueskyminds.framework.persistence.spooler.SpoolerException;
 import com.blueskyminds.landmine.core.property.Premise;
-import com.blueskyminds.analysis.sets.AggregateSet;
-import com.blueskyminds.analysis.sets.AnalysisSets;
+import com.blueskyminds.analysis.core.sets.AggregateSet;
+import com.blueskyminds.analysis.core.sets.AggregateSetGroup;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -25,9 +25,9 @@ import java.util.HashSet;
  */
 public class PropertyToAggregateSetSpooler extends DomainObjectSpooler<Premise> {
 
-    private AnalysisSets analysisSets;
+    private AggregateSetGroup analysisSets;
 
-    public PropertyToAggregateSetSpooler(EntityManager entityManager, QueryPager pager, AnalysisSets analysisSets) {
+    public PropertyToAggregateSetSpooler(EntityManager entityManager, QueryPager pager, AggregateSetGroup analysisSets) {
         super(entityManager, pager, QueryFactory.createFindAllQuery(entityManager, Premise.class));
         this.analysisSets = analysisSets;
     }

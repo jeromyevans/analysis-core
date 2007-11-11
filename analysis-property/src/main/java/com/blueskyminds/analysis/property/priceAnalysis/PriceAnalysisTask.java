@@ -9,7 +9,7 @@ import com.blueskyminds.framework.persistence.PersistenceServiceException;
 import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisDataSourceMemento;
 import com.blueskyminds.analysis.persistent.DataSource;
-import com.blueskyminds.analysis.sets.AggregateSet;
+import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.AnalysisService;
 import com.blueskyminds.analysis.statistics.StatisticsEngine;
 import org.apache.commons.logging.Log;

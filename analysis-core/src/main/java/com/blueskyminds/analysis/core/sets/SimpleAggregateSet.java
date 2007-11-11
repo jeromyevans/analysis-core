@@ -1,16 +1,16 @@
-package com.blueskyminds.analysis.sets;
-
-import com.blueskyminds.framework.DomainObject;
+package com.blueskyminds.analysis.core.sets;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.LinkedList;
+import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.beanutils.BeanUtils;
 
 /**
  * Simple implementation of an AggregrateSet that matches on whether the named property of the
- *  DomainObject EQUALS a specific value (exactly), or EQUALS of of a set of filterValues (exactly)
+ *  Object EQUALS a specific value (exactly), or EQUALS one of a set of filterValues (exactly)
  *
  * ie. it is in this set if the property equals the value
  *
@@ -18,11 +18,11 @@ import org.apache.commons.lang.StringUtils;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 @Entity
-@Table(name = "SimpleAggregateSet")
-public class SimpleAggregateSet<T extends DomainObject> extends AggregateSet<T> {
+@DiscriminatorValue("equals")
+public class SimpleAggregateSet extends AggregateSet {
 
     private String propertyName;
     private List<SimpleAggregateSetValue> filterValues;
@@ -106,18 +106,51 @@ public class SimpleAggregateSet<T extends DomainObject> extends AggregateSet<T> 
 
     // ------------------------------------------------------------------------------------------------------
 
-    /** Add an additional value that allows entry into this set
-     * NOTE: the filterValue is converted to a String with toString() */
+    /**
+     * Add an value that allows entry into this set
+     * NOTE: the filterValue is converted to a String with toString()
+     **/
     public boolean defineValue(Object filterValue) {
         return filterValues.add(new SimpleAggregateSetValue(this, filterValue.toString()));
     }
 
     // ------------------------------------------------------------------------------------------------------
 
-    /** Evaluate whether the domain object belongs in this Set */
+    /**
+     *  Evaluate whether the domain object belongs in this Set.
+     * Evaluation is by string value
+     **/
     @Transient
-    public boolean isInSet(T domainObject) {
-        return (filterValues.contains(domainObject.getProperty(propertyName)));
+    public boolean isInSet(Object object) {
+        return (filterValues.contains(lookupPropertyValue(object, propertyName)));
+    }
+
+
+    // ------------------------------------------------------------------------------------------------------
+    /**
+     * Get the value for the named property in this domain object, converted to a string.
+     *
+     * @param name
+     * @return the property value, or null if it's not recognised.
+     */
+    @Transient
+    protected String lookupPropertyValue(Object object, String name) {
+        Object value = null;
+
+        try {
+            value = BeanUtils.getSimpleProperty(object, name);
+        } catch(IllegalAccessException e) {
+            //
+        } catch(InvocationTargetException e) {
+            //
+        } catch(NoSuchMethodException e) {
+            //
+        }
+        if (value != null) {
+            return value.toString();
+        } else {
+            return null;
+        }
     }
 
     // ------------------------------------------------------------------------------------------------------
