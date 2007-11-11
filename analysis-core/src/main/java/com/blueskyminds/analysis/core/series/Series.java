@@ -1,11 +1,11 @@
-package com.blueskyminds.analysis.series;
+package com.blueskyminds.analysis.core.series;
 
 import java.io.Serializable;
 import java.util.Iterator;
 
 /**
  *
- * A series of data that for analysis by a ComputeWorker
+ * A series of data for analysis by a ComputeWorker
  *
  * Date Started: 16/09/2006
  *

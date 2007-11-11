@@ -1,4 +1,4 @@
-package com.blueskyminds.analysis.series;
+package com.blueskyminds.analysis.core.series;
 
 import java.math.BigDecimal;
 

@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.engine;
 
-import com.blueskyminds.analysis.series.Series;
+import com.blueskyminds.analysis.core.series.Series;
 import com.blueskyminds.analysis.basic.statistics.ComputeAdapter;
 
 import java.util.concurrent.Callable;

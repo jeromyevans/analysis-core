@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.statistics;
 
-import com.blueskyminds.analysis.series.Series;
+import com.blueskyminds.analysis.core.series.Series;
 import com.blueskyminds.analysis.engine.ComputeWorker;
 import com.blueskyminds.analysis.engine.PartialResult;
 import com.blueskyminds.analysis.engine.ComputationTask;

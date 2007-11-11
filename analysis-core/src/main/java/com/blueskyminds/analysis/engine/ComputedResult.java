@@ -1,11 +1,5 @@
 package com.blueskyminds.analysis.engine;
 
-import com.blueskyminds.analysis.series.SeriesDescriptor;
-
-import javax.persistence.Transient;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 import java.io.Serializable;
 
 /**

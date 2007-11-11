@@ -2,7 +2,7 @@ package com.blueskyminds.analysis.property.yield;
 
 import com.blueskyminds.analysis.engine.ComputeWorker;
 import com.blueskyminds.analysis.engine.ComputeEngine;
-import com.blueskyminds.analysis.series.Series;
+import com.blueskyminds.analysis.core.series.Series;
 
 /**
  * Implements a ComputeEngine that calculates the Yield on a series

@@ -1,7 +1,6 @@
 package com.blueskyminds.analysis.statistics;
 
 import com.blueskyminds.analysis.engine.ComputedResult;
-import com.blueskyminds.analysis.series.SeriesDescriptor;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Basic;

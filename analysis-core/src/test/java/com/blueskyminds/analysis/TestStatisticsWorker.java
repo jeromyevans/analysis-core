@@ -1,8 +1,7 @@
 package com.blueskyminds.analysis;
 
-import com.blueskyminds.framework.test.OutOfContainerTestCase;
 import com.blueskyminds.framework.test.BaseTestCase;
-import com.blueskyminds.analysis.series.UnivariateSeries;
+import com.blueskyminds.analysis.core.series.UnivariateSeries;
 import com.blueskyminds.analysis.statistics.StatisticsWorker;
 import com.blueskyminds.analysis.statistics.Statistics;
 

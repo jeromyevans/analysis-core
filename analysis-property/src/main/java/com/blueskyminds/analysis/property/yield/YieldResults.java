@@ -1,7 +1,7 @@
 package com.blueskyminds.analysis.property.yield;
 
 import com.blueskyminds.analysis.engine.ComputedResult;
-import com.blueskyminds.analysis.series.SeriesDescriptor;
+import com.blueskyminds.analysis.core.series.SeriesDescriptor;
 
 import java.math.BigDecimal;
 import java.util.List;

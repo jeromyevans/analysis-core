@@ -1,12 +1,12 @@
 package com.blueskyminds.analysis.property.yield;
 
 import com.blueskyminds.analysis.engine.*;
-import com.blueskyminds.analysis.series.*;
-import com.blueskyminds.analysis.statistics.Statistics;
 import com.blueskyminds.analysis.basic.statistics.BigDecimalAdapter;
+import com.blueskyminds.analysis.core.series.Pair;
+import com.blueskyminds.analysis.core.series.BivariateSeries;
+import com.blueskyminds.analysis.core.series.Series;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Iterator;
 
 /**

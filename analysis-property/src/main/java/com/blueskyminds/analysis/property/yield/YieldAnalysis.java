@@ -1,8 +1,6 @@
 package com.blueskyminds.analysis.property.yield;
 
 import com.blueskyminds.framework.AbstractDomainObject;
-import com.blueskyminds.analysis.series.SeriesDescriptor;
-import com.blueskyminds.analysis.persistent.DataSource;
 
 import javax.persistence.Entity;
 import javax.persistence.Embedded;

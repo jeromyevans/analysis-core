@@ -1,11 +1,7 @@
-package com.blueskyminds.analysis.series;
+package com.blueskyminds.analysis.core.series;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Iterator;
 import java.util.Arrays;
-import java.io.Serializable;
 
 /**
  *

@@ -1,8 +1,8 @@
 package com.blueskyminds.analysis.engine;
 
-import com.blueskyminds.analysis.series.ImmutableSeries;
-import com.blueskyminds.analysis.series.AggregateSeries;
-import com.blueskyminds.analysis.series.Series;
+import com.blueskyminds.analysis.core.series.ImmutableSeries;
+import com.blueskyminds.analysis.core.series.AggregateSeries;
+import com.blueskyminds.analysis.core.series.Series;
 
 import java.util.concurrent.*;
 import java.util.LinkedList;
