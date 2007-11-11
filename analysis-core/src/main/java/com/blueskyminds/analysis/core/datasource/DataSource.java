@@ -4,16 +4,19 @@ import com.blueskyminds.framework.memento.CaretakerDomainObject;
 import com.blueskyminds.framework.memento.MementoOriginator;
 import com.blueskyminds.framework.memento.XMLMemento;
 import com.blueskyminds.framework.persistence.spooler.Spooler;
-import com.blueskyminds.framework.tools.ReflectionTools;
 import com.blueskyminds.framework.tools.ReflectionException;
+import com.blueskyminds.framework.tools.ReflectionTools;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.PrintStream;
 
 /**
  * Identifies a source of data for analysis
  *
- * The DomainObjectSpooler may use properties of the DataSource in the query
+ * The EntitySpooler may use properties of the DataSource in the query
  *
  * Date Started: 24/08/2006
  *

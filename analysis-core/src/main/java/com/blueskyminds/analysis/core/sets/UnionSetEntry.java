@@ -41,7 +41,7 @@ public class UnionSetEntry extends AbstractEntity {
         this.unionSet = unionSet;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="AggregateSetId")
     public AggregateSet getAggregateSet() {
         return aggregateSet;

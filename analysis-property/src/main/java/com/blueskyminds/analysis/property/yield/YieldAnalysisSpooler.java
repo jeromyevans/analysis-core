@@ -1,28 +1,22 @@
 package com.blueskyminds.analysis.property.yield;
 
-import com.blueskyminds.framework.persistence.spooler.DomainObjectSpooler;
-import com.blueskyminds.framework.persistence.spooler.SpoolerException;
 import com.blueskyminds.analysis.core.datasource.DataSource;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisDescriptor;
-import com.blueskyminds.analysis.core.statistics.Statistics;
-import com.blueskyminds.analysis.core.engine.ComputedResult;
-import com.blueskyminds.analysis.core.engine.AggregateResult;
-import com.blueskyminds.analysis.AnalysisService;
-import com.blueskyminds.analysis.core.series.Pair;
 import com.blueskyminds.analysis.core.series.AggregateSeries;
 import com.blueskyminds.analysis.core.series.BivariateSeries;
+import com.blueskyminds.analysis.core.series.Pair;
+import com.blueskyminds.analysis.core.statistics.Statistics;
+import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis;
+import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisDescriptor;
 import com.blueskyminds.framework.datetime.Timespan;
-//import com.blueskyminds.framework.persistence.hibernate.query.HibernateNamedQueryImpl;
 import com.blueskyminds.framework.persistence.PersistenceServiceException;
 import com.blueskyminds.framework.persistence.paging.Pager;
+import com.blueskyminds.framework.persistence.spooler.EntitySpooler;
+import com.blueskyminds.framework.persistence.spooler.SpoolerException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.concurrent.Future;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Spools PriceAnalysis data for calculating Yield
@@ -33,7 +27,7 @@ import java.util.concurrent.ExecutionException;
  *
  * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
  */
-public class YieldAnalysisSpooler extends DomainObjectSpooler {
+public class YieldAnalysisSpooler extends EntitySpooler {
 
     private static final Log LOG = LogFactory.getLog(YieldAnalysisSpooler.class);
 
@@ -48,7 +42,7 @@ public class YieldAnalysisSpooler extends DomainObjectSpooler {
     /** Instantiate a new spooler for the specific source, region, set and time span */
     public YieldAnalysisSpooler(EntityManager entityManager, Pager pager, DataSource salesDataSource, DataSource rentalsDataSource, Timespan timespan) {
         //super(pager, new HibernateNamedQueryImpl(QUERY_NAME));  // todo: come back to this
-        super(entityManager, null, null);
+        super(null, null);
         //this.dataSource = dataSource;
         this.salesDataSource = salesDataSource;
         this.rentalsDataSource = rentalsDataSource;
@@ -60,7 +54,7 @@ public class YieldAnalysisSpooler extends DomainObjectSpooler {
     /** Mandatory constructor for instantiation by Task */
     public YieldAnalysisSpooler(EntityManager entityManager) {
         //super(new HibernateNamedQueryImpl(QUERY_NAME)); todo: need dependency injection
-        super(entityManager, null, null);
+        super(null, null);
     }
 
     // ------------------------------------------------------------------------------------------------------
@@ -147,7 +141,8 @@ public class YieldAnalysisSpooler extends DomainObjectSpooler {
     /** Passes the three aggregate aggregateSeries (means, medians, modes) to the ComputeEngine for calculation.
      *  Blocks until results are available, then persists results
      */
-    protected void onComplete() {
+    // todo: broken
+   /* protected void onComplete() {
         AggregateResult aggregateResults;
         YieldEngine yieldEngine = AnalysisService.yieldEngine();
         YieldResults yieldResult;
@@ -180,7 +175,7 @@ public class YieldAnalysisSpooler extends DomainObjectSpooler {
         } catch(InterruptedException e) {
             LOG.error("Analysis failed: ", e);
         }
-    }
+    }*/
 
     protected void onError(PersistenceServiceException e) {
         //To change body of implemented methods use File | Settings | File Templates.

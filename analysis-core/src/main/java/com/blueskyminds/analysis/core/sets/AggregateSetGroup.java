@@ -1,13 +1,13 @@
 package com.blueskyminds.analysis.core.sets;
 
 import com.blueskyminds.framework.AbstractEntity;
-import com.blueskyminds.framework.transformer.Transformer;
 import com.blueskyminds.framework.tools.filters.FilterTools;
+import com.blueskyminds.framework.transformer.Transformer;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
 
 /**
  * A group of AggregateSets for analysis
@@ -46,12 +46,12 @@ public class AggregateSetGroup extends AbstractEntity {
     // ------------------------------------------------------------------------------------------------------
 
     /** Get the list of aggregate sets in this collection */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "Group")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     protected Set<AggregateSetGroupEntry> getAggregateSetGroupEntries() {
         return aggregateSets;
     }
 
-    protected void SetAggregateSetGroupEntries(Set<AggregateSetGroupEntry> aggregateSets) {
+    protected void setAggregateSetGroupEntries(Set<AggregateSetGroupEntry> aggregateSets) {
         this.aggregateSets = aggregateSets;
     }
 

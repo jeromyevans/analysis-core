@@ -1,14 +1,15 @@
 package com.blueskyminds.framework.analysis;
 
-import com.blueskyminds.framework.test.DbTestCase;
-//import com.blueskyminds.framework.persistence.hibernate.query.HibernateCriteriaImpl;
-import com.blueskyminds.landmine.core.property.Premise;
-import com.blueskyminds.landmine.core.property.PremiseRegionMap;
 import com.blueskyminds.analysis.core.sets.DomainSet;
 import com.blueskyminds.enterprise.region.RegionOLD;
-import org.hibernate.criterion.*;
+import com.blueskyminds.framework.test.DbTestCase;
+import com.blueskyminds.landmine.core.property.Premise;
+import com.blueskyminds.landmine.core.property.PremiseRegionMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.Collection;
 
@@ -69,9 +70,9 @@ public class TestDomainSets extends DbTestCase {
     // ------------------------------------------------------------------------------------------------------
 
     public void testDomainSetLookup() {
-        new AnalysisTestTools(getPersistenceService()).initialiseRandomPropertiesWithAds(200, 2004, 2005);
-        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
-        loopkupPropertiesInRegion(new AnalysisTestTools(getPersistenceService()).findRegionByName("New South Wales"));
+//        new AnalysisTestTools(getPersistenceService()).initialiseRandomPropertiesWithAds(200, 2004, 2005);
+//        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
+//        loopkupPropertiesInRegion(new AnalysisTestTools(getPersistenceService()).findRegionByName("New South Wales"));
         //AnalysisTestTools.mapPropertiesToAggregateSets();
 
         // lookup a set of domain objects - properties

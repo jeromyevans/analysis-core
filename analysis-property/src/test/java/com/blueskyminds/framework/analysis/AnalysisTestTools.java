@@ -125,12 +125,12 @@ public class AnalysisTestTools {
      * @return
      */
     public AggregateSetGroup initialiseAnalysisGroups() {
-        AggregateSetGroup analysisSets = createAnalysisGroup();
+        AggregateSetGroup analysisGroup = createAnalysisGroup();
 
-        em.persist(analysisSets);
+        em.persist(analysisGroup);
         em.flush();
 
-        return analysisSets;
+        return analysisGroup;
     }
 
     /**
@@ -396,7 +396,7 @@ public class AnalysisTestTools {
         CountryHandle australia = null;
         australia = new AddressDAO(getPersistenceService()).findCountry("AUS");
         // todo: enable
-        //PropertyToAggregateSetSpooler propertyToAggregateSetSpooler = new PropertyToAggregateSetSpooler(persistenceService, analysisSets);
+        //PremiseAggregateSetSpoolerTask propertyToAggregateSetSpooler = new PremiseAggregateSetSpoolerTask(persistenceService, analysisSets);
         //propertyToAggregateSetSpooler.start();
     }
 

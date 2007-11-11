@@ -1,17 +1,13 @@
 package com.blueskyminds.analysis.property.frequency;
 
-import com.blueskyminds.framework.persistence.spooler.DomainObjectSpooler;
-import com.blueskyminds.framework.persistence.spooler.SpoolerException;
-import com.blueskyminds.framework.persistence.PersistenceServiceException;
-import com.blueskyminds.framework.persistence.PersistenceService;
-import com.blueskyminds.framework.persistence.paging.Pager;
 import com.blueskyminds.framework.persistence.paging.QueryPager;
-import com.blueskyminds.framework.persistence.query.PersistenceQuery;
+import com.blueskyminds.framework.persistence.spooler.EntitySpooler;
+import com.blueskyminds.framework.persistence.spooler.SpoolerException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.persistence.Query;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -23,7 +19,7 @@ import java.util.List;
  * <p/>
  * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
  */
-public class FrequencyAnalysisSpooler extends DomainObjectSpooler {
+public class FrequencyAnalysisSpooler extends EntitySpooler {
 
     private static final Log LOG = LogFactory.getLog(FrequencyAnalysisSpooler.class);
     private static final String ADVERTISEMENT_QUERY_NAME = "propertyAdvertisement.mostRecentInRegion";
@@ -37,7 +33,7 @@ public class FrequencyAnalysisSpooler extends DomainObjectSpooler {
 //    }
 
     public FrequencyAnalysisSpooler(EntityManager entityManager, QueryPager pager, Query query) {
-        super(entityManager, pager, query);
+        super(pager, query, null);         // todo: broken
     }
 
     // ------------------------------------------------------------------------------------------------------

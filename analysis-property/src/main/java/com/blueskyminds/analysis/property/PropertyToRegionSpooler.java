@@ -1,22 +1,18 @@
 package com.blueskyminds.analysis.property;
 
-import com.blueskyminds.enterprise.region.RegionOLD;
-import com.blueskyminds.landmine.core.property.Premise;
-import com.blueskyminds.landmine.core.property.PremiseRegionMap;
-import com.blueskyminds.enterprise.address.Country;
 import com.blueskyminds.enterprise.address.Address;
-import com.blueskyminds.enterprise.regionx.suburb.SuburbHandle;
+import com.blueskyminds.enterprise.address.Country;
+import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.enterprise.regionx.postcode.PostCodeHandle;
-import com.blueskyminds.framework.persistence.*;
-import com.blueskyminds.framework.persistence.query.QueryFactory;
+import com.blueskyminds.enterprise.regionx.suburb.SuburbHandle;
+import com.blueskyminds.framework.persistence.PersistenceServiceException;
 import com.blueskyminds.framework.persistence.paging.QueryPager;
-import com.blueskyminds.framework.persistence.spooler.DomainObjectSpooler;
-import com.blueskyminds.framework.persistence.spooler.SpoolerException;
+import com.blueskyminds.framework.persistence.spooler.EntitySpooler;
+import com.blueskyminds.landmine.core.property.Premise;
 
 import javax.persistence.EntityManager;
-import java.util.List;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Calculates which Region(s) a real property is mapped to within a country
@@ -29,12 +25,14 @@ import java.util.HashSet;
  *
  * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
  */
-public class PropertyToRegionSpooler extends DomainObjectSpooler<Premise> {
+public class PropertyToRegionSpooler extends EntitySpooler<Premise> {
 
     private Country country;
 
+    // todo: broken
     public PropertyToRegionSpooler(EntityManager entityManager, QueryPager pager, Country country) {
-        super(entityManager, pager, QueryFactory.createFindAllQuery(entityManager, Premise.class));
+        //super(pager, QueryFactory.createFindAllQuery(entityManager, Premise.class));
+        super(null, null);
         this.country = country;
     }
 
@@ -47,6 +45,7 @@ public class PropertyToRegionSpooler extends DomainObjectSpooler<Premise> {
     // ------------------------------------------------------------------------------------------------------
 
     /** Iterates through all of the specified properties and allocates them to regions */
+/*
     protected void process(List<Premise> queryResults) throws SpoolerException {
         Set<RegionOLD> regions;
         PremiseRegionMap map;
@@ -64,6 +63,7 @@ public class PropertyToRegionSpooler extends DomainObjectSpooler<Premise> {
             }
         }
     }
+*/
 
     // ------------------------------------------------------------------------------------------------------
 

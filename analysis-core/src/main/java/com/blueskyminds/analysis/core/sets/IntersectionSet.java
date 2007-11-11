@@ -1,14 +1,12 @@
 package com.blueskyminds.analysis.core.sets;
 
-import com.blueskyminds.analysis.core.sets.AggregateSet;
+import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Set;
 import java.util.HashSet;
-
-import org.apache.commons.lang.StringUtils;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Define an intesection of AggegrateSets used to analyse a data series
@@ -55,12 +53,12 @@ public class IntersectionSet extends AggregateSet {
     // ------------------------------------------------------------------------------------------------------
 
     /** Get the list of aggregate sets in this series */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "IntersectionSet")
-    protected Set<IntersectionSetEntry> getIntersectingSets() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "intersectionSet")
+    public Set<IntersectionSetEntry> getIntersectingSets() {
         return intersectingSets;
     }
 
-    protected void setIntersectingSets(Set<IntersectionSetEntry> intersectingSets) {
+    public void setIntersectingSets(Set<IntersectionSetEntry> intersectingSets) {
         this.intersectingSets = intersectingSets;
     }
 

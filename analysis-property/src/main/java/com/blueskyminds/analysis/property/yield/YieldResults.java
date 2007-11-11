@@ -4,8 +4,8 @@ import com.blueskyminds.analysis.core.engine.ComputedResult;
 import com.blueskyminds.analysis.core.series.SeriesDescriptor;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Results of a yield calculations by the YieldWorker
@@ -16,7 +16,7 @@ import java.util.LinkedList;
  * <p/>
  * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
  */
-public class YieldResults extends ComputedResult {
+public class YieldResults implements ComputedResult {
 
     private SeriesDescriptor descriptor;
     private List<BigDecimal> yield;
@@ -55,5 +55,17 @@ public class YieldResults extends ComputedResult {
 
     public int size() {
         return yield.size();
+    }
+
+
+    /**
+     * This flag indicates whether this result is part of a ComputedResult and needs to be merged
+     * with other parts.
+     *
+     * @return false
+     * @see com.blueskyminds.analysis.core.engine.PartialResult
+     */
+    public boolean isPartial() {
+        return false;  
     }
 }

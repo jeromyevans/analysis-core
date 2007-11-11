@@ -1,58 +1,25 @@
 package com.blueskyminds.framework.analysis;
 
-import com.blueskyminds.analysis.core.datasource.DataSource;
-import com.blueskyminds.analysis.core.engine.ComputedResult;
-import com.blueskyminds.analysis.core.series.AggregateSeries;
-import com.blueskyminds.analysis.core.series.BivariateSeries;
-import com.blueskyminds.analysis.core.series.Pair;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
-import com.blueskyminds.analysis.core.sets.dao.AggregateSetDAO;
-import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
 import com.blueskyminds.analysis.property.PremiseAggregateSetMap;
-import com.blueskyminds.analysis.property.advertised.AdvertisedDataSourceMemento;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisSpooler;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisTask;
-import com.blueskyminds.analysis.property.yield.YieldEngine;
-import com.blueskyminds.enterprise.address.Suburb;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;
-import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.enterprise.regionx.country.CountryHandle;
-import com.blueskyminds.framework.datetime.PeriodTypes;
-import com.blueskyminds.framework.datetime.TimePeriod;
-import com.blueskyminds.framework.datetime.Timespan;
-import com.blueskyminds.framework.persistence.PersistenceService;
-import com.blueskyminds.framework.persistence.PersistenceServiceException;
-import com.blueskyminds.framework.persistence.PersistenceSession;
 import com.blueskyminds.framework.persistence.paging.Page;
-import com.blueskyminds.framework.tasks.ExecutorProvider;
-import com.blueskyminds.framework.tasks.SimpleExecutorProvider;
-import com.blueskyminds.framework.tasks.TaskGroup;
-import com.blueskyminds.framework.tasks.TaskPlan;
 import com.blueskyminds.framework.test.OutOfContainerTestCase;
 import com.blueskyminds.framework.test.TestTools;
-import com.blueskyminds.framework.tools.DebugTools;
 import com.blueskyminds.landmine.core.property.Premise;
 import com.blueskyminds.landmine.core.property.PremiseRegionMap;
+import com.blueskyminds.landmine.core.property.PremiseTestTools;
 import com.blueskyminds.landmine.core.property.PropertyAdvertisement;
-import com.blueskyminds.landmine.core.property.PropertyAdvertisementTypes;
 import com.blueskyminds.landmine.core.property.advertisement.dao.AdvertisementDAO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.math.random.RandomData;
-import org.apache.commons.math.random.RandomDataImpl;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
-import java.util.*;
-import java.util.concurrent.Future;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -101,7 +68,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         int count = 20;
         List<Premise> properties = new LinkedList<Premise>();
         for (int i = 0; i < count; i++) {
-            properties.add(new AnalysisTestTools(em).createRandomProperty(null));
+            properties.add(PremiseTestTools.createRandomPremise(null, em));
         }
 
         for (Premise property : properties) {
@@ -169,7 +136,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
     /** Test the algorithm that maps a property to one or more regions */
     public void testMapPropertyToRegion() throws Exception {
-        Premise property = new AnalysisTestTools(em).createRandomProperty(null);
+        Premise property = PremiseTestTools.createRandomPremise(null, em);
         CountryHandle australia = new AddressDAO(em).findCountry("AUS");
 // todo: enable
 //        PropertyToRegionSpooler propertyToRegionSpooler = new PropertyToRegionSpooler(em, australia);
@@ -421,7 +388,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
      * @param timePeriod
      * @return list of properties matching the criteria
      */
-    public List<Premise> lookupProperties(RegionOLD region, AggregateSet aggregateSet, Timespan timespan, TimePeriod timePeriod) {
+   /* public List<Premise> lookupProperties(RegionOLD region, AggregateSet aggregateSet, Timespan timespan, TimePeriod timePeriod) {
         String queryString = "select propertyAdvertisement.premise " +
                 "from PropertyAdvertisement as propertyAdvertisement, PropertyRegionMap as propertyRegionMap, PropertyAggregateSetMap as propertyAggregateSetMap " +
                 "where propertyAdvertisement.premise = propertyRegionMap.premise " +
@@ -453,10 +420,10 @@ public class TestAnalysis extends OutOfContainerTestCase {
         }
 
         return properties;
-    }
+    }*/
 
     // see note above - it's better to lookup the advertisements, not the properties
-    public void testLookupProperties() {
+   /* public void testLookupProperties() {
         new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
         new AnalysisTestTools(em).mapPropertiesToRegions();
         new AnalysisTestTools(em).mapPropertiesToAggregateSets();
@@ -490,7 +457,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
             fail();
         }
     }
-
+*/
     /**
      * Lookup advertisements for properties featuring an during the timespan for a specific region and aggregateSet
      *
@@ -502,7 +469,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
      * @param timePeriod
      * @return list of advertisements for properties matching the criteria
      */
-    public List<PropertyAdvertisement> lookupAdvertisments(RegionOLD region, AggregateSet aggregateSet, Timespan timespan, TimePeriod timePeriod) {
+   /* public List<PropertyAdvertisement> lookupAdvertisments(RegionOLD region, AggregateSet aggregateSet, Timespan timespan, TimePeriod timePeriod) {
         String queryString = "" +
                 "from PropertyAdvertisement as propertyAdvertisement, PropertyRegionMap as propertyRegionMap, PropertyAggregateSetMap as propertyAggregateSetMap " +
                 "where propertyAdvertisement.premise = propertyRegionMap.premise " +
@@ -534,9 +501,9 @@ public class TestAnalysis extends OutOfContainerTestCase {
         }
 
         return advertisements;
-    }
+    }*/
 
-    public void testLookupAdvertisements() {
+   /* public void testLookupAdvertisements() {
         new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
         new AnalysisTestTools(em).mapPropertiesToRegions();
         new AnalysisTestTools(em).mapPropertiesToAggregateSets();
@@ -564,14 +531,14 @@ public class TestAnalysis extends OutOfContainerTestCase {
         }
 
     }
-
-    public Session openSession() throws PersistenceServiceException {
+*/
+    /*public Session openSession() throws PersistenceServiceException {
         PersistenceService gateway = em;
         PersistenceSession ps = gateway.openSession();
         return (Session) ps.getSessionImpl();
-    }
+    }*/
 
-    public void testNativeSql() {
+    /*public void testNativeSql() {
         new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
         new AnalysisTestTools(em).mapPropertiesToRegions();
         new AnalysisTestTools(em).mapPropertiesToAggregateSets();
@@ -640,9 +607,9 @@ public class TestAnalysis extends OutOfContainerTestCase {
         } catch(PersistenceServiceException e) {
             fail();
         }
-    }
+    }*/
 
-    public void testAdvertisementSpooler() {
+    /*public void testAdvertisementSpooler() {
         new AnalysisTestTools(em).loadSampleSuburbs();
         Suburb region = (Suburb) new AnalysisTestTools(em).findRegionByName("Neutral Bay");
         // todo: broken - repair for new region implementation
@@ -666,11 +633,11 @@ public class TestAnalysis extends OutOfContainerTestCase {
         LOG.info("------ starting spooler ---------");
         PriceAnalysisSpooler spooler = new PriceAnalysisSpooler(statisticsEngine, dataSource, region, aggregateSet, timespan, timePeriod);
         spooler.start();
-    }
+    }*/
 
     // ------------------------------------------------------------------------------------------------------
 
-    public void testDataSourcePersistence() {
+  /*  public void testDataSourcePersistence() {
         DataSource dataSource = new DataSource("Advertisements: Private Treaty", PriceAnalysisSpooler.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
 
         em.persist(dataSource);
@@ -678,11 +645,11 @@ public class TestAnalysis extends OutOfContainerTestCase {
         DataSource result = gateway.findById(DataSource.class, dataSource.getId());
 
         result.print(System.out);
-    }
+    }*/
 
     // ------------------------------------------------------------------------------------------------------
 
-    public void testAnalysisTasks() {
+   /* public void testAnalysisTasks() {
 
         DebugTools.printAvailableHeap();
 
@@ -702,12 +669,12 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
         Timespan timespan = new Timespan(4, PeriodTypes.Year);
         TimePeriod timePeriod = new TimePeriod(Calendar.DECEMBER, 2005);
-        /*AggregateSet aggregateSet = null;
+        *//*AggregateSet aggregateSet = null;
         try {
             aggregateSet = em.findById(AggregateSet.class, 2L); // houses
         } catch(PersistenceServiceException e) {
             fail();
-        }*/
+        }*//*
 
         //Region region = AnalysisTestTools.findRegionByName("New South Wales");
 
@@ -767,14 +734,14 @@ public class TestAnalysis extends OutOfContainerTestCase {
         //}
 
         //taskPlan.print(System.out);
-        /*LOG.info("--- Saving the task plan ---");
+        *//*LOG.info("--- Saving the task plan ---");
         // persist the task plan
         try {
             gateway.save(taskPlan);
         } catch (PersistenceServiceException e) {
             e.printStackTrace();
             fail();
-        }*/
+        }*//*
 
         //TestTools.printAll(RealProperty.class);
 
@@ -803,7 +770,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         return dataSources;
     }
 
-    /** Load all regions decending from the specified parent */
+    *//** Load all regions decending from the specified parent *//*
     private Set<RegionOLD> loadRegions(String parentName) {
         PersistenceService gateway = em;
         RegionOLD parent;
@@ -839,13 +806,13 @@ public class TestAnalysis extends OutOfContainerTestCase {
         System.out.println("--------AggregateSet: -------");
         aggregateSet.print(System.out);
 
-        /** Advertisements in the Region and Aggregate Set using a theta-style join */
-        /*String queryString = "select pa from PropertyAdvertisement pa, PropertyRegionMap prm, PropertyAggregateSetMap pasm " +
+        *//** Advertisements in the Region and Aggregate Set using a theta-style join *//*
+        *//*String queryString = "select pa from PropertyAdvertisement pa, PropertyRegionMap prm, PropertyAggregateSetMap pasm " +
                 "where pa.premise = prm.premise and " +
                 "prm.premise = pasm.premise and " +
                 "pa.premise = pasm.premise and " +
                 "prm.region = :region and " +
-                "pasm.aggregateSet = :aggregateSet ";*/
+                "pasm.aggregateSet = :aggregateSet ";*//*
 
 //        String queryString = "select pa from PropertyAdvertisement pa, PropertyRegionMap prm " +
 //                "where pa.premise = prm.premise and " +
@@ -853,7 +820,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
         //String queryString = "select pa from PropertyAdvertisement pa, PropertyRegionMap prm ";
 
-        /** The sub query gets the most recent advertisement for a property within the time span */
+        *//** The sub query gets the most recent advertisement for a property within the time span *//*
         String mostRecentAd = "select pa2.premise.id, max(pa2.dateListed) from PropertyAdvertisement pa2 " +
                            "where type = :type " +
                            "and dateListed between :startDate and :endDate " +
@@ -1015,7 +982,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
     // ------------------------------------------------------------------------------------------------------
 
-    /** Create analysis tasks for all the aggregate groups in the specified region and data source */
+    *//** Create analysis tasks for all the aggregate groups in the specified region and data source *//*
       private void createPriceAnalysisTasks(TaskGroup parent, RegionOLD region, List<AggregateSet> aggregateSets, DataSource dataSource, Timespan timespan, TimePeriod timePeriod) {
           TaskGroup regionGroup;
           regionGroup = new TaskGroup(region.getName());
@@ -1086,7 +1053,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         return series;
     }
 
-    /** Feed random series into the compute engine */
+    *//** Feed random series into the compute engine *//*
     private List<Future<ComputedResult>> feedYieldEngine(YieldEngine engine, int maxCount) {
         BivariateSeries series;
         AggregateSeries aggregateSeries = new AggregateSeries(null);
@@ -1140,7 +1107,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
                 }
             }
         }
-    }
+    }*/
 
 
 }

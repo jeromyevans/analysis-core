@@ -1,12 +1,12 @@
 package com.blueskyminds.analysis.core.sets;
 
-import javax.persistence.*;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Set;
-import java.util.HashSet;
-
 import org.apache.commons.lang.StringUtils;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Define a union of AggegrateSets used to analyse a data series
@@ -55,7 +55,7 @@ public class UnionSet extends AggregateSet {
     // ------------------------------------------------------------------------------------------------------
 
     /** Get the list of aggregate sets in this series */
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "UnionSet")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "unionSet")
     protected Set<UnionSetEntry> getUnionSets() {
         return unionSets;
     }

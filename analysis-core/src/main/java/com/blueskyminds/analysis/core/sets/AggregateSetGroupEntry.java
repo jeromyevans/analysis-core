@@ -1,9 +1,8 @@
 package com.blueskyminds.analysis.core.sets;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
+import com.blueskyminds.framework.AbstractEntity;
+
+import javax.persistence.*;
 
 /**
  * Records an entry in an AggregateSetGroup
@@ -14,11 +13,10 @@ import javax.persistence.JoinColumn;
  */
 @Entity
 @Table(name="analysis_AggregateSetGroupEntry")
-public class AggregateSetGroupEntry {
+public class AggregateSetGroupEntry extends AbstractEntity {
 
     private AggregateSetGroup group;
     private AggregateSet aggregateSet;
-
 
     public AggregateSetGroupEntry(AggregateSetGroup group, AggregateSet aggregateSet) {
         this.group = group;
@@ -39,7 +37,7 @@ public class AggregateSetGroupEntry {
         this.group = group;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="AggregateSetId")
     public AggregateSet getAggregateSet() {
         return aggregateSet;

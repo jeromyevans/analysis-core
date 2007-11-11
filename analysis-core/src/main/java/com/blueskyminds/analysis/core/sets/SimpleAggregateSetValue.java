@@ -1,5 +1,7 @@
 package com.blueskyminds.analysis.core.sets;
 
+import com.blueskyminds.framework.AbstractEntity;
+
 import javax.persistence.*;
 
 /**
@@ -13,7 +15,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="analysis_SimpleAggregateSetValue")
-public class SimpleAggregateSetValue {
+public class SimpleAggregateSetValue extends AbstractEntity {
 
     private AggregateSet aggregateSet;
     private String value;

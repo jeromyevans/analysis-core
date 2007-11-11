@@ -41,7 +41,7 @@ public class IntersectionSetEntry extends AbstractEntity {
         this.intersectionSet = intersectionSet;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="AggregateSetId")
     public AggregateSet getAggregateSet() {
         return aggregateSet;

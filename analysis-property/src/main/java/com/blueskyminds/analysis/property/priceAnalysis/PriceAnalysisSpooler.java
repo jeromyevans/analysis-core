@@ -1,30 +1,23 @@
 package com.blueskyminds.analysis.property.priceAnalysis;
 
-import com.blueskyminds.landmine.core.property.AskingPrice;
-import com.blueskyminds.framework.persistence.PersistenceServiceException;
+import com.blueskyminds.analysis.core.datasource.DataSource;
+import com.blueskyminds.analysis.core.series.UnivariateSeries;
+import com.blueskyminds.analysis.core.sets.AggregateSet;
+import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
+import com.blueskyminds.analysis.property.advertised.AdvertisedDataSourceMemento;
+import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.framework.datetime.TimePeriod;
 import com.blueskyminds.framework.datetime.Timespan;
-import com.blueskyminds.enterprise.region.RegionOLD;
-import com.blueskyminds.analysis.core.sets.AggregateSet;
-import com.blueskyminds.analysis.core.series.UnivariateSeries;
-import com.blueskyminds.analysis.core.datasource.DataSource;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis;
-import com.blueskyminds.analysis.property.advertised.AdvertisedDataSourceMemento;
-import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
-import com.blueskyminds.analysis.core.statistics.Statistics;
-import com.blueskyminds.analysis.core.engine.ComputedResult;
-import com.blueskyminds.framework.persistence.spooler.DomainObjectSpooler;
+import com.blueskyminds.framework.persistence.PersistenceServiceException;
+import com.blueskyminds.framework.persistence.spooler.EntitySpooler;
 import com.blueskyminds.framework.persistence.spooler.SpoolerException;
-
-import java.util.List;
-import java.util.Date;
-import java.util.concurrent.Future;
-import java.util.concurrent.ExecutionException;
-
+import com.blueskyminds.landmine.core.property.AskingPrice;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.persistence.TemporalType;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Spools prices from property advertisements into the ComputeEngine for analysis
@@ -35,7 +28,7 @@ import javax.persistence.TemporalType;
  *
  * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
  */
-public class PriceAnalysisSpooler extends DomainObjectSpooler {
+public class PriceAnalysisSpooler extends EntitySpooler {
 
     private static final Log LOG = LogFactory.getLog(PriceAnalysisSpooler.class);
     private static final String QUERY_NAME = "propertyAdvertisement.mostRecentPrice";
@@ -136,7 +129,8 @@ public class PriceAnalysisSpooler extends DomainObjectSpooler {
 
     /** Called when all of the domain objects have been processed and the series extracted - the series can be
      * passed to the engine for computation.  Blocks until the result it available. */
-    protected void onComplete() {
+    // todo: broken
+/*    protected void onComplete() {
         Statistics statistics;
         Future<ComputedResult> result = statisticsEngine.compute(series);
         try {
@@ -155,7 +149,7 @@ public class PriceAnalysisSpooler extends DomainObjectSpooler {
         } catch(InterruptedException e) {
             LOG.error("Analysis failed: ", e);
         }
-    }
+    }*/
 
     // ------------------------------------------------------------------------------------------------------
 }
