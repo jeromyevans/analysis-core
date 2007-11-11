@@ -181,52 +181,6 @@ public class TestAnalysis extends DbTestCase {
         return series;
     }
 
-        // ------------------------------------------------------------------------------------------------------
-
-    public void testStatisticsWorkerExact() {
-        StatisticsWorker statisticsWorker = new StatisticsWorker();
-        UnivariateSeries s = generateTestSeries();
-        Statistics result = (Statistics) statisticsWorker.compute(s);
-
-        assertNotNull(result);
-        assertEquals(new BigDecimal(9), result.getMax());
-        assertEquals(new BigDecimal(-9), result.getMin());
-        assertEquals((Integer) 5, (Integer) result.getSize());
-        assertEquals(new BigDecimal("1.4"), result.getMean());
-        assertEquals(new BigDecimal("7.23187389"), result.getStdDev().round(new MathContext(9, RoundingMode.HALF_UP)));
-        assertNull(result.getMode());
-        assertEquals(new BigDecimal("2"), result.getMedian());
-    }
-
-    // ------------------------------------------------------------------------------------------------------
-
-    public void testStatisticsWorker2() {
-        StatisticsWorker statisticsWorker = new StatisticsWorker();
-        UnivariateSeries s = generateRandomSeries(100000);
-        Statistics result = (Statistics) statisticsWorker.compute(s);
-
-        assertNotNull(result);
-    }
-
-    public void testStatisticsWorkerReuse() {
-        StatisticsWorker statisticsWorker = new StatisticsWorker();
-
-        // use the worker  multiple times
-        UnivariateSeries s = generateRandomSeries(100000);
-        Statistics result1 = (Statistics) statisticsWorker.compute(s);
-        s = generateRandomSeries(100000);
-        Statistics result2 = (Statistics) statisticsWorker.compute(s);
-        s = generateRandomSeries(100000);
-        Statistics result3 = (Statistics) statisticsWorker.compute(s);
-        s = generateRandomSeries(100000);
-        Statistics result4 = (Statistics) statisticsWorker.compute(s);
-
-        assertNotNull(result1);
-        assertNotNull(result2);
-        assertNotNull(result3);
-        assertNotNull(result4);
-    }
-
     // ------------------------------------------------------------------------------------------------------
 
     /** Returns true if there's not much heap left */

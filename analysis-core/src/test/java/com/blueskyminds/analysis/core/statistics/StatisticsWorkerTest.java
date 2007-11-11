@@ -22,7 +22,7 @@ import junit.framework.TestCase;
  * <p/>
  * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
-public class TestStatisticsWorker extends TestCase {
+public class StatisticsWorkerTest extends TestCase {
 
     private UnivariateSeries generateRandomSeries(int size) {
         UnivariateSeries series = new UnivariateSeries(null);
