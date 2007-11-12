@@ -2,13 +2,13 @@ package com.blueskyminds.framework.analysis;
 
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap;
+import com.blueskyminds.analysis.property.classification.PremiseRegionMap;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;
 import com.blueskyminds.enterprise.regionx.country.CountryHandle;
 import com.blueskyminds.framework.persistence.paging.Page;
 import com.blueskyminds.framework.test.OutOfContainerTestCase;
 import com.blueskyminds.framework.test.TestTools;
 import com.blueskyminds.landmine.core.property.Premise;
-import com.blueskyminds.landmine.core.property.PremiseRegionMap;
 import com.blueskyminds.landmine.core.property.PremiseTestTools;
 import com.blueskyminds.landmine.core.property.PropertyAdvertisement;
 import com.blueskyminds.landmine.core.property.advertisement.dao.AdvertisementDAO;
@@ -139,7 +139,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         Premise property = PremiseTestTools.createRandomPremise(null, em);
         CountryHandle australia = new AddressDAO(em).findCountry("AUS");
 // todo: enable
-//        PropertyToRegionSpooler propertyToRegionSpooler = new PropertyToRegionSpooler(em, australia);
+//        PremiseRegionSpoolerTask propertyToRegionSpooler = new PremiseRegionSpoolerTask(em, australia);
 //        Set<Region> regions = propertyToRegionSpooler.mapPropertyToRegions(property);
 
 //        assertNotNull(regions);

@@ -2,6 +2,7 @@ package com.blueskyminds.framework.analysis;
 
 import com.blueskyminds.analysis.core.sets.*;
 import com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap;
+import com.blueskyminds.analysis.property.classification.PremiseRegionMap;
 import com.blueskyminds.enterprise.address.PlainTextAddress;
 import com.blueskyminds.enterprise.address.dao.AddressDAO;
 import com.blueskyminds.enterprise.pricing.Money;
@@ -387,7 +388,7 @@ public class AnalysisTestTools {
         CountryHandle australia = null;
         australia = new AddressDAO(getPersistenceService()).findCountry("AUS");
 // todo: enable
-        //PropertyToRegionSpooler propertyToRegionSpooler = new PropertyToRegionSpooler(persistenceService, australia);
+        //PremiseRegionSpoolerTask propertyToRegionSpooler = new PremiseRegionSpoolerTask(persistenceService, australia);
         //propertyToRegionSpooler.start();
     }
 

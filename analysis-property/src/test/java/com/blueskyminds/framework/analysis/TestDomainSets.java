@@ -1,10 +1,10 @@
 package com.blueskyminds.framework.analysis;
 
 import com.blueskyminds.analysis.core.sets.DomainSet;
+import com.blueskyminds.analysis.property.classification.PremiseRegionMap;
 import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.framework.test.DbTestCase;
 import com.blueskyminds.landmine.core.property.Premise;
-import com.blueskyminds.landmine.core.property.PremiseRegionMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.criterion.DetachedCriteria;

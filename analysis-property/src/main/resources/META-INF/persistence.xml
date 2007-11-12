@@ -212,7 +212,6 @@ To do: many of these properties need to be able to be changed -->
        <class>com.blueskyminds.landmine.core.property.FeatureListEntry</class>
        <class>com.blueskyminds.landmine.core.property.AskingPrice</class>
        <class>com.blueskyminds.landmine.core.property.PremiseAddressMap</class>
-       <class>com.blueskyminds.landmine.core.property.PremiseRegionMap</class>
        <class>com.blueskyminds.landmine.core.property.PropertyAdvertisement</class>
        <class>com.blueskyminds.landmine.core.property.PropertyAdvertisementContact</class>
 
@@ -231,6 +230,7 @@ To do: many of these properties need to be able to be changed -->
 
         <!-- Property analysis -->
         <class>com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap</class>
+        <class>com.blueskyminds.analysis.property.classification.PremiseRegionMap</class>
 
 
          <properties>
