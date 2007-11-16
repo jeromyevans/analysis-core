@@ -5,9 +5,9 @@ import com.blueskyminds.analysis.core.series.AggregateSeries;
 import com.blueskyminds.analysis.core.series.BivariateSeries;
 import com.blueskyminds.analysis.core.series.Pair;
 import com.blueskyminds.analysis.core.statistics.Statistics;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisDescriptor;
-import com.blueskyminds.framework.datetime.Timespan;
+import com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor;
+import com.blueskyminds.analysis.property.pricestatistics.PriceAnalysis;
+import com.blueskyminds.framework.datetime.Interval;
 import com.blueskyminds.framework.persistence.PersistenceServiceException;
 import com.blueskyminds.framework.persistence.paging.Pager;
 import com.blueskyminds.framework.persistence.spooler.EntitySpooler;
@@ -34,19 +34,19 @@ public class YieldAnalysisSpooler extends EntitySpooler {
     private static final String QUERY_NAME = "priceAnalysis.statisticsForYieldAnalysis";
     private DataSource salesDataSource;
     private DataSource rentalsDataSource;
-    private Timespan timespan;
+    private Interval interval;
     private AggregateSeries aggregateSeries;
 
     // ------------------------------------------------------------------------------------------------------
 
     /** Instantiate a new spooler for the specific source, region, set and time span */
-    public YieldAnalysisSpooler(EntityManager entityManager, Pager pager, DataSource salesDataSource, DataSource rentalsDataSource, Timespan timespan) {
+    public YieldAnalysisSpooler(EntityManager entityManager, Pager pager, DataSource salesDataSource, DataSource rentalsDataSource, Interval interval) {
         //super(pager, new HibernateNamedQueryImpl(QUERY_NAME));  // todo: come back to this
         super(null, null);
         //this.dataSource = dataSource;
         this.salesDataSource = salesDataSource;
         this.rentalsDataSource = rentalsDataSource;
-        this.timespan = timespan;
+        this.interval = interval;
     }
 
     // ------------------------------------------------------------------------------------------------------
@@ -71,8 +71,8 @@ public class YieldAnalysisSpooler extends EntitySpooler {
         this.rentalsDataSource = rentalsDataSource;
     }
 
-    public void setTimespan(Timespan timespan) {
-        this.timespan = timespan;
+    public void setTimespan(Interval interval) {
+        this.interval = interval;
     }
 
     // ------------------------------------------------------------------------------------------------------
@@ -85,16 +85,16 @@ public class YieldAnalysisSpooler extends EntitySpooler {
   //      HibernateNamedQueryImpl searchCriteria = (HibernateNamedQueryImpl) getQuery();
 
         // todo: check this migration
-        getQuery().setParameter("ts_periods", timespan.getPeriods()).
-              setParameter("ts_periodType", timespan.getPeriodType()).
+        getQuery().setParameter("ts_periods", interval.getPeriods()).
+              setParameter("ts_periodType", interval.getPeriodType()).
               setParameter("salesDataSource", salesDataSource).
               setParameter("rentalsDataSource", rentalsDataSource);
 
 //        searchCriteria.attachToSession((Session) session().getSessionImpl());
 //
 //        Query query = searchCriteria.getUnderlying();
-//        query.setParameter("ts_periods", timespan.getPeriods()).
-//              setParameter("ts_periodType", timespan.getPeriodType()).
+//        query.setParameter("ts_periods", interval.getPeriods()).
+//              setParameter("ts_periodType", interval.getPeriodType()).
 //              setEntity("salesDataSource", salesDataSource).
 //              setEntity("rentalsDataSource", rentalsDataSource);
     }
@@ -111,7 +111,7 @@ public class YieldAnalysisSpooler extends EntitySpooler {
         PriceAnalysis sales;
         PriceAnalysis rentals;
         Object[] tuple;
-        PriceAnalysisDescriptor salesSeriesDescriptor;
+        PriceAnalysisSampleDescriptor salesSeriesDescriptor;
         BivariateSeries inputSeries;
 
         Statistics salesStatistics;
@@ -144,7 +144,7 @@ public class YieldAnalysisSpooler extends EntitySpooler {
     // todo: broken
    /* protected void onComplete() {
         AggregateResult aggregateResults;
-        YieldEngine yieldEngine = AnalysisService.yieldEngine();
+        YieldEngine yieldEngine = AnalysisServiceImpl.yieldEngine();
         YieldResults yieldResult;
 
         Future<ComputedResult> results = yieldEngine.compute(aggregateSeries);

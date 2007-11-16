@@ -32,7 +32,7 @@ public class TestFeeder extends BaseTestCase {
     // ------------------------------------------------------------------------------------------------------
 
     /** Creates a QueryBuilder that looks up listing prices from advertisments in a  */
-//    public PersistenceQuery searchByName(Region region, Timespan timespan, TimePeriod timePeriod) {
+//    public PersistenceQuery searchByName(Region region, Interval timespan, MonthOfYear timePeriod) {
 //        DetachedCriteria criteria = DetachedCriteria.forClass(PropertyAdvertisement.class);
 //        criteria.add(Expression.eq("region", region));
 //        return new HibernateCriteriaImpl(criteria);
@@ -41,7 +41,7 @@ public class TestFeeder extends BaseTestCase {
 
 //    private void testQuery() {
 //
-//        AnalysisTestTools.generateRandomAdvertisements(1000);
+//        PropertyAnalysisTestTools.generateRandomAdvertisements(1000);
 //
 //        try {
 //            PersistenceService gateway = getPersistenceService();

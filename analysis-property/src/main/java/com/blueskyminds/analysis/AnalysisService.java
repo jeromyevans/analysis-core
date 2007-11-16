@@ -1,45 +1,35 @@
 package com.blueskyminds.analysis;
 
-import com.blueskyminds.framework.ServiceLocator;
-import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
-import com.blueskyminds.analysis.property.yield.YieldEngine;
+import com.blueskyminds.analysis.core.sets.AggregateSetGroup;
 
 /**
- * A ServiceLocator for the Analysis framework
- *
- * Date Started: 4/09/2006
- *
+ * Date Started: 15/11/2007
+ * <p/>
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
+ *
  */
-public class AnalysisService extends ServiceLocator {
-
-    /** Instance of the StatisticsEngine */
-    private StatisticsEngine statisticsEngine;
-    /** Instance of the YieldEngine */
-    private YieldEngine yieldEngine;
-
-    // ------------------------------------------------------------------------------------------------------
+public interface AnalysisService {
 
     /**
-     * Initialise the AnalysisService with default attributes
+     * Lookup an AggregateSetGroup by its unique key
+     *
+     * @param key
+     * @return
      */
-    protected void templateInit() {
-        super.templateInit();
-        statisticsEngine = new StatisticsEngine();
-        yieldEngine = new YieldEngine();
-    }
+    AggregateSetGroup findAggregateSetGroup(String key);
 
-    // ------------------------------------------------------------------------------------------------------
+    /**
+     * In one long blocking iteration, calculates all the mappings between premises to aggregatesets in the specified group
+     *
+     * @param aggregateSetGroupKey
+     */
+    void recalculatePremiseToAggregateSetMaps(String aggregateSetGroupKey);
 
-    /** Get an instance of the StatisticsEngine */
-    public static StatisticsEngine statisticsEngine() {
-        return instance(AnalysisService.class).statisticsEngine;
-    }
-
-    /** Get an instance of the YieldEngine */
-    public static YieldEngine yieldEngine() {
-        return instance(AnalysisService.class).yieldEngine;
-    }
+    /**
+     * In one long blocking iteration, calculates all the mappings between premises and regions
+     *
+     */
+    void recalculatePremiseToRegionMaps();
 }

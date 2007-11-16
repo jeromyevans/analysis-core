@@ -22,10 +22,17 @@ import java.util.Set;
 @Table(name="analysis_AggregateSetGroup")
 public class AggregateSetGroup extends AbstractEntity {
 
+    private String key;
     private Set<AggregateSetGroupEntry> aggregateSets;
 
-    public AggregateSetGroup() {
-        aggregateSets = new HashSet<AggregateSetGroupEntry>();
+    public AggregateSetGroup(String key) {
+        this.key = key;
+        init();
+    }
+
+    /** Default constructor for ORM */
+    protected AggregateSetGroup() {
+        init();
     }
 
     // ------------------------------------------------------------------------------------------------------
@@ -34,6 +41,7 @@ public class AggregateSetGroup extends AbstractEntity {
      * Initialise the AnalysisSets with default attributes
      */
     private void init() {
+        aggregateSets = new HashSet<AggregateSetGroupEntry>();
     }
 
     // ------------------------------------------------------------------------------------------------------
@@ -43,7 +51,16 @@ public class AggregateSetGroup extends AbstractEntity {
         aggregateSets.add(new AggregateSetGroupEntry(this, series));
     }
 
-    // ------------------------------------------------------------------------------------------------------
+    /** Unique name of this group */
+    @Basic
+    @Column(name="KeyValue")
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     /** Get the list of aggregate sets in this collection */
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")

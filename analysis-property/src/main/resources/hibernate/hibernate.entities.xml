@@ -3,20 +3,20 @@
     <mapping className="com.blueskyminds.analysis.core.sets.AggregateSet"/>
     <mapping className="com.blueskyminds.analysis.core.sets.UnionSet"/>
     <mapping className="com.blueskyminds.analysis.core.sets.IntersectionSet"/>
-    <mapping className="com.blueskyminds.analysis.core.sets.SimpleAggregateSet"/>
+    <mapping className="com.blueskyminds.analysis.core.sets.PropertyValueSet"/>
     <mapping className="com.blueskyminds.analysis.core.sets.AggregateSetGroup"/>
 
     <mapping className="com.blueskyminds.analysis.core.engine.ComputedResult"/>
     <mapping className="com.blueskyminds.analysis.core.statistics.Statistics"/>
-    <mapping className="com.blueskyminds.analysis.property.BaseDescriptor"/>
+    <mapping className="com.blueskyminds.analysis.property.AnalysisSampleDescriptor"/>
 
     <mapping className="com.blueskyminds.analysis.property.classification.PremiseRegionMap"/>
     <mapping className="com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap"/>
 
     <mapping className="com.blueskyminds.analysis.core.datasource.DataSource"/>
 
-    <mapping className="com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysis"/>
-    <mapping className="com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisDescriptor"/>
+    <mapping className="com.blueskyminds.analysis.property.pricestatistics.PriceAnalysis"/>
+    <mapping className="com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor"/>
 
     <mapping className="com.blueskyminds.analysis.property.yield.YieldAnalysis"/>
     <mapping className="com.blueskyminds.analysis.property.yield.YieldAnalysisDescriptor"/>

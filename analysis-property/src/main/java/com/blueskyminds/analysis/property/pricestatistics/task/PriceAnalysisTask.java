@@ -1,17 +1,18 @@
-package com.blueskyminds.analysis.property.priceAnalysis;
+package com.blueskyminds.analysis.property.pricestatistics.task;
 
-import com.blueskyminds.framework.tasks.SimpleTask;
-import com.blueskyminds.framework.datetime.TimePeriod;
-import com.blueskyminds.framework.datetime.Timespan;
-import com.blueskyminds.framework.persistence.PersistenceService;
-import com.blueskyminds.framework.persistence.PersistenceSession;
-import com.blueskyminds.framework.persistence.PersistenceServiceException;
-import com.blueskyminds.enterprise.region.RegionOLD;
-import com.blueskyminds.analysis.property.priceAnalysis.PriceAnalysisDataSourceMemento;
+import com.blueskyminds.analysis.AnalysisServiceImpl;
 import com.blueskyminds.analysis.core.datasource.DataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
-import com.blueskyminds.analysis.AnalysisService;
 import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
+import com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor;
+import com.blueskyminds.analysis.property.pricestatistics.AskingPriceStatisticsTask;
+import com.blueskyminds.enterprise.region.RegionOLD;
+import com.blueskyminds.framework.datetime.Interval;
+import com.blueskyminds.framework.datetime.MonthOfYear;
+import com.blueskyminds.framework.persistence.PersistenceService;
+import com.blueskyminds.framework.persistence.PersistenceServiceException;
+import com.blueskyminds.framework.persistence.PersistenceSession;
+import com.blueskyminds.framework.tasks.SimpleTask;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,9 +41,9 @@ public class PriceAnalysisTask extends SimpleTask {
 
     // ------------------------------------------------------------------------------------------------------
 
-    public PriceAnalysisTask(String name, DataSource dataSource, RegionOLD region, AggregateSet aggregateSet, Timespan timespan, TimePeriod timePeriod, PersistenceService persistenceService) {
+    public PriceAnalysisTask(String name, DataSource dataSource, RegionOLD region, AggregateSet aggregateSet, Interval interval, MonthOfYear monthOfYear, PersistenceService persistenceService) {
         super(name);
-        setMemento(new PriceAnalysisDataSourceMemento(dataSource, region, aggregateSet, timePeriod,  timespan, persistenceService));
+        setMemento(new PriceAnalysisDataSourceMemento(dataSource, region, aggregateSet, monthOfYear, interval, persistenceService));
         this.persistenceService = persistenceService;
     }
 
@@ -63,17 +64,17 @@ public class PriceAnalysisTask extends SimpleTask {
             session = persistenceService.openSession();
 
             PriceAnalysisDataSourceMemento memento = (PriceAnalysisDataSourceMemento) getMemento();
-            StatisticsEngine statisticsEngine = AnalysisService.statisticsEngine();
-            PriceAnalysisDescriptor descriptor = memento.toDescriptor();
+            StatisticsEngine statisticsEngine = AnalysisServiceImpl.statisticsEngine();
+            PriceAnalysisSampleDescriptor descriptor = memento.toDescriptor();
 
-            PriceAnalysisSpooler spooler = (PriceAnalysisSpooler) descriptor.getDataSource().createSpooler();
-            // inject properties for the spooler
-            spooler.setDescriptor(descriptor);
-            spooler.setStatisticsEngine(statisticsEngine);
-
-            // start the spooler
-            spooler.start();
-            result = true;
+            AskingPriceStatisticsTask spooler = (AskingPriceStatisticsTask) descriptor.getDataSource().createSpooler();
+//            // inject properties for the spooler
+//            spooler.setDescriptor(descriptor);
+//            spooler.setStatisticsEngine(statisticsEngine);
+//
+//            // start the spooler
+//            spooler.start();
+//            result = true;
         } catch (PersistenceServiceException e) {
             e.printStackTrace();
         } finally {

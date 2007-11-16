@@ -28,6 +28,10 @@
         <priority value="info"/>
     </category>
 
+    <category name="com.blueskyminds.framework.test">
+        <priority value="debug"/>
+    </category>
+
     <category name="com.blueskyminds.wdis.WdisTestTools">
         <priority value="info"/>
     </category>

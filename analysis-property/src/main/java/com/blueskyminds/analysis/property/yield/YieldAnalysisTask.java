@@ -1,11 +1,11 @@
 package com.blueskyminds.analysis.property.yield;
 
-import com.blueskyminds.framework.tasks.SimpleTask;
-import com.blueskyminds.framework.datetime.Timespan;
-import com.blueskyminds.framework.persistence.PersistenceService;
-import com.blueskyminds.framework.persistence.PersistenceSession;
-import com.blueskyminds.framework.persistence.PersistenceServiceException;
 import com.blueskyminds.analysis.core.datasource.DataSource;
+import com.blueskyminds.framework.datetime.Interval;
+import com.blueskyminds.framework.persistence.PersistenceService;
+import com.blueskyminds.framework.persistence.PersistenceServiceException;
+import com.blueskyminds.framework.persistence.PersistenceSession;
+import com.blueskyminds.framework.tasks.SimpleTask;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,10 +28,10 @@ public class YieldAnalysisTask extends SimpleTask {
     // ------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------
 
-    /** Creates a task that performs YieldAnalysis for the sales and rentals source and timespan */
-    public YieldAnalysisTask(String name, DataSource salesDataSource, DataSource rentalsDataSource, Timespan timespan) {
+    /** Creates a task that performs YieldAnalysis for the sales and rentals source and interval */
+    public YieldAnalysisTask(String name, DataSource salesDataSource, DataSource rentalsDataSource, Interval interval) {
         super(name);
-        setMemento(new YieldAnalysisDataSourceMemento(salesDataSource, rentalsDataSource, timespan));
+        setMemento(new YieldAnalysisDataSourceMemento(salesDataSource, rentalsDataSource, interval));
     }
 
     // ------------------------------------------------------------------------------------------------------

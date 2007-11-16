@@ -29,7 +29,8 @@ public class IntersectionSet extends AggregateSet {
      * Create a new intersection from one or more aggregate sets
      * @param aggregateSets
      */
-    public IntersectionSet(AggregateSet... aggregateSets) {
+    public IntersectionSet(String key, AggregateSet... aggregateSets) {
+        super(key);
         init();
         for (AggregateSet aggregateSet : aggregateSets) {
             includeAggregateSet(aggregateSet);
@@ -99,10 +100,10 @@ public class IntersectionSet extends AggregateSet {
 
     /** Get the calculated name of this intersection */
     @Transient
-    public String getName() {
+    public String getRuleName() {
         List<String> names = new LinkedList<String>();
         for (IntersectionSetEntry entry : intersectingSets) {
-            names.add(entry.getAggregateSet().getName());
+            names.add(entry.getAggregateSet().getRuleName());
         }
         return "Intersection["+ StringUtils.join(names.iterator(), ",")+"]";
     }

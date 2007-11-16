@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-mappings
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_1_0.xsd"
+    version="1.0">
+
+  <!--
+  PropertyAdvertisement.price for the most recent PropertyAdvertisment of Type for each Property in Region
+   and AggregateSet, listed between StartDate and EndDate
+
+   Parameters:
+     type:   property advertisement type
+     startDate:  advertised after this date
+     endDate:    advertised before this date
+     region:     region
+     aggregateSet:  aggregateSet
+   -->
+  <named-query name="analysis.advertisement.mostRecentPrice">
+    <query>
+        select pa.price from PropertyAdvertisement pa, PremiseRegionMap prm, PremiseAggregateSetMap pasm where
+                     pa.premise = prm.premise and prm.region = :region and
+                     pa.premise = pasm.premise and pasm.aggregateSet = :aggregateSet and
+                     pa.dateListed in (select max(pa2.dateListed) from PropertyAdvertisement pa2 where
+                                              pa2.premise = pa.premise and
+                                              type = :type and pa2.dateListed between :startDate and :endDate group by pa2.premise)
+    </query>
+  </named-query>
+</entity-mappings>
+

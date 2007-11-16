@@ -7,8 +7,10 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Simple implementation of an AggregrateSet that matches on whether the named property of the
@@ -23,17 +25,18 @@ import java.util.List;
  * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 @Entity
-@DiscriminatorValue("equals")
-public class SimpleAggregateSet extends AggregateSet {
+@DiscriminatorValue("property")
+public class PropertyValueSet extends AggregateSet {
 
     private String propertyName;
-    private List<SimpleAggregateSetValue> filterValues;
+    private Set<PropertyValueSetEntry> propertyValueEntries;
 
     // ------------------------------------------------------------------------------------------------------
 
     /** Define a new set, matching on the specified property of the domain object,
      * specifying a single permissible values */
-    public SimpleAggregateSet(String propertyName, Object filterValue) {
+    public PropertyValueSet(String key, String propertyName, Object filterValue) {
+        super(key);
         this.propertyName = propertyName;
         init();
         defineValue(filterValue);
@@ -47,7 +50,8 @@ public class SimpleAggregateSet extends AggregateSet {
      * @param propertyName
      * @param filterValues
      */
-    public SimpleAggregateSet(String propertyName, Object... filterValues) {
+    public PropertyValueSet(String key, String propertyName, Object... filterValues) {
+        super(key);
         this.propertyName = propertyName;
         init();
         for (Object filterValue : filterValues) {
@@ -56,20 +60,20 @@ public class SimpleAggregateSet extends AggregateSet {
     }
 
     /** Default constructor for ORM */
-    protected SimpleAggregateSet() {
+    protected PropertyValueSet() {
     }
 
     // ------------------------------------------------------------------------------------------------------
 
     private void init() {
-        filterValues = new LinkedList<SimpleAggregateSetValue>();
+        propertyValueEntries = new HashSet<PropertyValueSetEntry>();
     }
 
     // ------------------------------------------------------------------------------------------------------
 
     /** Get the name of the property that this SimpleAggregateSet is testing */
     @Basic
-    @Column(name = "Property")
+    @Column(name = "PropertyName")
     public String getPropertyName() {
         return propertyName;
     }
@@ -81,39 +85,33 @@ public class SimpleAggregateSet extends AggregateSet {
     // ------------------------------------------------------------------------------------------------------
 
     /** Get the list of values that determine whether a DomainObject belongs in this set */
-//    @CollectionOfElements
-//    @JoinTable(
-//            name="SimpleAggreateSetValues",
-//            joinColumns=@JoinColumn(name="SimpleAggregateSetId")
-//    )
-//    @Column(name="Value")
-    @OneToMany(mappedBy = "aggregateSet", cascade = CascadeType.ALL)
-    public List<SimpleAggregateSetValue> getFilterValueMaps() {
-        return filterValues;
-    }
 
-    protected void setFilterValueMaps(List<SimpleAggregateSetValue> filterValues) {
-        this.filterValues = filterValues;
-    }
 
     @Transient
    /** Get the list of values that determine whether a DomainObject belongs in this set */
-    public List<String> getFilterValues() {
+    public List<String> getValues() {
         List<String> values = new LinkedList<String>();
-        for (SimpleAggregateSetValue value : filterValues) {
+        for (PropertyValueSetEntry value : propertyValueEntries) {
             values.add(value.getValue());
         }
         return values;
     }
+    
+    @OneToMany(mappedBy = "propertyValueSet", cascade = CascadeType.ALL)
+    public Set<PropertyValueSetEntry> getPropertyValueEntries() {
+        return propertyValueEntries;
+    }
 
-    // ------------------------------------------------------------------------------------------------------
+    public void setPropertyValueEntries(Set<PropertyValueSetEntry> propertyValueEntries) {
+        this.propertyValueEntries = propertyValueEntries;
+    }
 
     /**
      * Add an value that allows entry into this set
      * NOTE: the filterValue is converted to a String with toString()
      **/
     public boolean defineValue(Object filterValue) {
-        return filterValues.add(new SimpleAggregateSetValue(this, filterValue.toString()));
+        return propertyValueEntries.add(new PropertyValueSetEntry(this, filterValue.toString()));
     }
 
     // ------------------------------------------------------------------------------------------------------
@@ -125,14 +123,13 @@ public class SimpleAggregateSet extends AggregateSet {
     @Transient
     public boolean isInSet(Object object) {
         final String value = lookupPropertyValue(object, propertyName);
-        return FilterTools.matchesAny(filterValues, new Filter<SimpleAggregateSetValue>(){
-            public boolean accept(SimpleAggregateSetValue filterValue) {
+        return FilterTools.matchesAny(propertyValueEntries, new Filter<PropertyValueSetEntry>(){
+            public boolean accept(PropertyValueSetEntry filterValue) {
                 return filterValue.getValue().equals(value);
             }
         });
     }
 
-    // ------------------------------------------------------------------------------------------------------
     /**
      * Get the value for the named property in this domain object, converted to a string.
      *
@@ -159,20 +156,10 @@ public class SimpleAggregateSet extends AggregateSet {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------
-
     /** Get the calculated name of this union */
     @Transient
-    public String getName() {
-        return "'"+propertyName+"' in ["+ StringUtils.join(filterValues.iterator(), ",")+"]";
+    public String getRuleName() {
+        return "'"+propertyName+"' in ["+ StringUtils.join(propertyValueEntries.iterator(), ",")+"]";
     }
 
-    // ------------------------------------------------------------------------------------------------------
-
-    /*@Transient
-    public String getIdentityName() {
-        return super.getIdentityName()+"("+getNamed()+")";
-    }*/
-
-    // ------------------------------------------------------------------------------------------------------
 }

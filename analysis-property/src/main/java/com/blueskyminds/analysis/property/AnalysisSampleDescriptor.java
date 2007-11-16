@@ -1,15 +1,18 @@
 package com.blueskyminds.analysis.property;
 
-import com.blueskyminds.enterprise.region.RegionOLD;
-import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.core.series.SeriesDescriptor;
-import com.blueskyminds.framework.datetime.Timespan;
-import com.blueskyminds.framework.datetime.TimePeriod;
+import com.blueskyminds.analysis.core.sets.AggregateSet;
+import com.blueskyminds.enterprise.regionx.RegionHandle;
+import com.blueskyminds.framework.datetime.Interval;
+import com.blueskyminds.framework.datetime.MonthOfYear;
 
-import javax.persistence.*;
+import javax.persistence.Embedded;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 /**
- * A common-superclass for SeriesDescriptor's used by the property analysis results
+ * A common-superclass identify the sample used for aggregated property analysis
  *
  * Date Started: 25/09/2006
  * <p/>
@@ -18,41 +21,41 @@ import javax.persistence.*;
  * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 @MappedSuperclass
-public abstract class BaseDescriptor implements SeriesDescriptor {
+public abstract class AnalysisSampleDescriptor implements SeriesDescriptor {
 
-    private RegionOLD region;
+    private RegionHandle region;
     private AggregateSet aggregateSet;
-    private Timespan timespan;
-    private TimePeriod timePeriod;
+    private Interval interval;
+    private MonthOfYear monthOfYear;
 
-    protected BaseDescriptor(RegionOLD region, AggregateSet aggregateSet, Timespan timespan, TimePeriod timePeriod) {
+    protected AnalysisSampleDescriptor(RegionHandle region, AggregateSet aggregateSet, Interval interval, MonthOfYear monthOfYear) {
         this.region = region;
         this.aggregateSet = aggregateSet;
-        this.timespan = timespan;
-        this.timePeriod = timePeriod;
+        this.interval = interval;
+        this.monthOfYear = monthOfYear;
     }
 
     /** Default constructor for ORM */
-    protected BaseDescriptor() {
+    protected AnalysisSampleDescriptor() {
     }
 
     // ------------------------------------------------------------------------------------------------------
 
     /** Get the region specified in this descriptor */
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="RegionId")
-    public RegionOLD getRegion() {
+    public RegionHandle getRegion() {
         return region;
     }
 
-    protected  void setRegion(RegionOLD region) {
+    protected  void setRegion(RegionHandle region) {
         this.region = region;
     }
 
     // ------------------------------------------------------------------------------------------------------
 
     /** Get the AggregateSet specified in this descriptor */
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="AggregateSetId")
     public AggregateSet getAggregateSet() {
         return aggregateSet;
@@ -66,24 +69,24 @@ public abstract class BaseDescriptor implements SeriesDescriptor {
 
     /** Get the TimeSpan specified in this descriptor */
     @Embedded
-    public Timespan getTimespan() {
-        return timespan;
+    public Interval getTimespan() {
+        return interval;
     }
 
-    protected  void setTimespan(Timespan timespan) {
-        this.timespan = timespan;
+    protected  void setTimespan(Interval interval) {
+        this.interval = interval;
     }
 
     // ------------------------------------------------------------------------------------------------------
 
-    /** Get the TimePeriod specified in this descriptor */
+    /** Get the MonthOfYear specified in this descriptor */
     @Embedded
-    public TimePeriod getTimePeriod() {
-        return timePeriod;
+    public MonthOfYear getTimePeriod() {
+        return monthOfYear;
     }
 
-    protected void setTimePeriod(TimePeriod timePeriod) {
-        this.timePeriod = timePeriod;
+    protected void setTimePeriod(MonthOfYear monthOfYear) {
+        this.monthOfYear = monthOfYear;
     }
 
 

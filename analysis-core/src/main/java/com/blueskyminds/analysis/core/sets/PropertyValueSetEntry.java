@@ -14,29 +14,29 @@ import javax.persistence.*;
  * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
 @Entity
-@Table(name="analysis_SimpleAggregateSetValue")
-public class SimpleAggregateSetValue extends AbstractEntity {
+@Table(name="analysis_PropertyValueSetEntry")
+public class PropertyValueSetEntry extends AbstractEntity {
 
-    private AggregateSet aggregateSet;
+    private PropertyValueSet propertyValueSet;
     private String value;
 
-    public SimpleAggregateSetValue(AggregateSet aggregateSet, String value) {
-        this.aggregateSet = aggregateSet;
+    public PropertyValueSetEntry(PropertyValueSet aggregateSet, String value) {
+        this.propertyValueSet = aggregateSet;
         this.value = value;
     }
 
     /** Default constructor for ORM */
-    protected SimpleAggregateSetValue() {
+    protected PropertyValueSetEntry() {
     }
 
     @ManyToOne
-    @JoinColumn(name="AggregateSetId")
-    public AggregateSet getAggregateSet() {
-        return aggregateSet;
+    @JoinColumn(name="PropertyValueSetId")
+    public PropertyValueSet getPropertyValueSet() {
+        return propertyValueSet;
     }
 
-    public void setAggregateSet(AggregateSet aggregateSet) {
-        this.aggregateSet = aggregateSet;
+    public void setPropertyValueSet(PropertyValueSet propertyValueSet) {
+        this.propertyValueSet = propertyValueSet;
     }
 
     @Basic

@@ -2,41 +2,90 @@
 
 To do: many of these properties need to be able to be changed -->
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
-      version="1.0">
-      <persistence-unit name="TestAnalysisPersistenceUnit" transaction-type="RESOURCE_LOCAL">
-         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-         <!--<non-jta-data-source></non-jta-data-source>-->
-         <!--<jta-data-source>java:/DefaultDS</jta-data-source>         -->
-         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+             version="1.0">
 
-            <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
-            <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:mem"/>
-            <property name="hibernate.connection.username" value="sa"/>
-            <property name="hibernate.connection.password" value=""/>
+  <persistence-unit name="TestAnalysisPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-            <!-- JDBC connection pool (use the built-in) -->
-            <property name="hibernate.connection.pool_size" value="1"/>
+    <mapping-file>META-INF/queries_analysis.xml</mapping-file>
+    <mapping-file>META-INF/queries_framework_substitution.xml</mapping-file>
+
+    <!-- Persistent classes from the Framework module-->
+    <class>com.blueskyminds.framework.measurement.Quantity</class>
+    <class>com.blueskyminds.framework.measurement.Area</class>
+
+    <class>com.blueskyminds.framework.datetime.Interval</class>
+    <class>com.blueskyminds.framework.datetime.TimeOfDay</class>
+    <class>com.blueskyminds.framework.datetime.MonthOfYearr</class>
+
+    <class>com.blueskyminds.framework.recurrence.Recurrence</class>
+    <class>com.blueskyminds.framework.recurrence.MonthlyRecurrence</class>
+    <class>com.blueskyminds.framework.recurrence.HourlyRecurrence</class>
+    <class>com.blueskyminds.framework.recurrence.OnceOffRecurrence</class>
+    <class>com.blueskyminds.framework.recurrence.strategy.RecurrenceStrategy</class>
+    <class>com.blueskyminds.framework.recurrence.strategy.LastDayOfMonth</class>
+    <class>com.blueskyminds.framework.recurrence.strategy.NthDayOfMonth</class>
+    <class>com.blueskyminds.framework.recurrence.strategy.NthDayOfWeekOfMonth</class>
+    <class>com.blueskyminds.framework.recurrence.strategy.OnSpecificDate</class>
+    <class>com.blueskyminds.framework.recurrence.constraint.RecurrenceConstraint</class>
+    <class>com.blueskyminds.framework.recurrence.constraint.After</class>
+    <class>com.blueskyminds.framework.recurrence.constraint.Before</class>
+    <class>com.blueskyminds.framework.recurrence.constraint.NoEarlierThan</class>
+    <class>com.blueskyminds.framework.recurrence.constraint.NoLaterThan</class>
+
+    <class>com.blueskyminds.framework.memento.CaretakerDomainObject</class>
+
+    <class>com.blueskyminds.framework.tasks.Task</class>
+    <class>com.blueskyminds.framework.tasks.TaskGroup</class>
+    <class>com.blueskyminds.framework.tasks.TaskPlan</class>
+
+    <class>com.blueskyminds.framework.tools.substitutions.Substitution</class>
+
+    <!--- end of framework -->
+
+    <!-- Analysis -->
+    <class>com.blueskyminds.analysis.core.sets.AggregateSet</class>
+    <class>com.blueskyminds.analysis.core.sets.IntersectionSet</class>
+    <class>com.blueskyminds.analysis.core.sets.IntersectionSetEntry</class>
+    <class>com.blueskyminds.analysis.core.sets.UnionSet</class>
+    <class>com.blueskyminds.analysis.core.sets.UnionSetEntry</class>
+    <class>com.blueskyminds.analysis.core.sets.PropertyValueSet</class>
+    <class>com.blueskyminds.analysis.core.sets.PropertyValueSetEntry</class>
+    <class>com.blueskyminds.analysis.core.sets.AggregateSetGroup</class>
+    <class>com.blueskyminds.analysis.core.sets.AggregateSetGroupEntry</class>
+
+    <class>com.blueskyminds.analysis.core.datasource.DataSource</class>
+
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+
+      <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+      <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:mem"/>
+      <property name="hibernate.connection.username" value="sa"/>
+      <property name="hibernate.connection.password" value=""/>
+
+      <!-- JDBC connection pool (use the built-in) -->
+      <property name="hibernate.connection.pool_size" value="1"/>
 
 
-            <!-- Enable Hibernate's automatic session context management -->
-            <property name="hibernate.current_session_context_class" value="thread"/>
+      <!-- Enable Hibernate's automatic session context management -->
+      <property name="hibernate.current_session_context_class" value="thread"/>
 
-            <!-- Disable the second-level cache  -->
-            <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+      <!-- Disable the second-level cache  -->
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
 
-            <!-- Echo all executed SQL to stdout -->
-            <property name="hibernate.show_sql" value="true"/>
+      <!-- Echo all executed SQL to stdout -->
+      <property name="hibernate.show_sql" value="true"/>
 
-            <!-- Drop and re-create the database schema on startup -->
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+      <!-- Drop and re-create the database schema on startup -->
+      <property name="hibernate.hbm2ddl.auto" value="create"/>
 
-            <property name="hibernate.transaction.auto_close_session" value="false"/>
+      <property name="hibernate.transaction.auto_close_session" value="false"/>
 
-         </properties>
+    </properties>
 
-      </persistence-unit>
-    
+  </persistence-unit>
+
 </persistence>

@@ -70,10 +70,10 @@ public class TestDomainSets extends DbTestCase {
     // ------------------------------------------------------------------------------------------------------
 
     public void testDomainSetLookup() {
-//        new AnalysisTestTools(getPersistenceService()).initialiseRandomPropertiesWithAds(200, 2004, 2005);
-//        new AnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
-//        loopkupPropertiesInRegion(new AnalysisTestTools(getPersistenceService()).findRegionByName("New South Wales"));
-        //AnalysisTestTools.mapPropertiesToAggregateSets();
+//        new PropertyAnalysisTestTools(getPersistenceService()).initialiseRandomPropertiesWithAds(200, 2004, 2005);
+//        new PropertyAnalysisTestTools(getPersistenceService()).mapPropertiesToRegions();
+//        loopkupPropertiesInRegion(new PropertyAnalysisTestTools(getPersistenceService()).findRegionByName("New South Wales"));
+        //PropertyAnalysisTestTools.mapPropertiesToAggregateSets();
 
         // lookup a set of domain objects - properties
 

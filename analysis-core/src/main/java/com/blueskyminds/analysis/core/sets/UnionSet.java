@@ -31,7 +31,8 @@ public class UnionSet extends AggregateSet {
      * Create a new union from one or more aggregate sets
      * @param aggregateSets
      */
-    public UnionSet(AggregateSet... aggregateSets) {
+    public UnionSet(String key, AggregateSet... aggregateSets) {
+        super(key);
         init();
         for (AggregateSet aggregateSet : aggregateSets) {
             includeAggregateSet(aggregateSet);
@@ -100,10 +101,10 @@ public class UnionSet extends AggregateSet {
 
     /** Get the calculated name of this union */
     @Transient
-    public String getName() {
+    public String getRuleName() {
         List<String> names = new LinkedList<String>();
         for (UnionSetEntry aggregateSet : unionSets) {
-            names.add(aggregateSet.getAggregateSet().getName());
+            names.add(aggregateSet.getAggregateSet().getRuleName());
         }
         return "Union["+ StringUtils.join(names.iterator(), ",")+"]";
     }

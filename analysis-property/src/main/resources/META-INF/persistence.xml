@@ -42,22 +42,24 @@ To do: many of these properties need to be able to be changed -->
   <persistence-unit name="TestPremiseAnalysisPersistenceUnit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-    <mapping-file>META-INF/queries_premise.xml</mapping-file>
-    <mapping-file>META-INF/queries_advertisement.xml</mapping-file>
+    <mapping-file>META-INF/queries_analysis_premise.xml</mapping-file>
+    <mapping-file>META-INF/queries_analysis.xml</mapping-file>
+    <mapping-file>META-INF/queries_landmine_premise.xml</mapping-file>
+    <mapping-file>META-INF/queries_landmine_advertisement.xml</mapping-file>
     <mapping-file>META-INF/queries_address.xml</mapping-file>
     <mapping-file>META-INF/queries_accounting.xml</mapping-file>
     <mapping-file>META-INF/queries_party.xml</mapping-file>
-    <mapping-file>META-INF/queries_substitution.xml</mapping-file>
-    <mapping-file>META-INF/queries_region.xml</mapping-file>
-    <mapping-file>META-INF/queries_tag.xml</mapping-file>
+    <mapping-file>META-INF/queries_framework_substitution.xml</mapping-file>
+    <mapping-file>META-INF/queries_enterprise_region.xml</mapping-file>
+    <mapping-file>META-INF/queries_enterprise_tag.xml</mapping-file>
 
     <!-- Persistent classes from the Framework module-->
     <class>com.blueskyminds.framework.measurement.Quantity</class>
     <class>com.blueskyminds.framework.measurement.Area</class>
 
-    <class>com.blueskyminds.framework.datetime.Timespan</class>
+    <class>com.blueskyminds.framework.datetime.Interval</class>
     <class>com.blueskyminds.framework.datetime.TimeOfDay</class>
-    <class>com.blueskyminds.framework.datetime.TimePeriod</class>
+    <class>com.blueskyminds.framework.datetime.MonthOfYear</class>
 
     <class>com.blueskyminds.framework.recurrence.Recurrence</class>
     <class>com.blueskyminds.framework.recurrence.MonthlyRecurrence</class>
@@ -221,8 +223,8 @@ To do: many of these properties need to be able to be changed -->
         <class>com.blueskyminds.analysis.core.sets.IntersectionSetEntry</class>
         <class>com.blueskyminds.analysis.core.sets.UnionSet</class>
         <class>com.blueskyminds.analysis.core.sets.UnionSetEntry</class>
-        <class>com.blueskyminds.analysis.core.sets.SimpleAggregateSet</class>
-        <class>com.blueskyminds.analysis.core.sets.SimpleAggregateSetValue</class>
+        <class>com.blueskyminds.analysis.core.sets.PropertyValueSet</class>
+        <class>com.blueskyminds.analysis.core.sets.PropertyValueSetEntry</class>
         <class>com.blueskyminds.analysis.core.sets.AggregateSetGroup</class>
         <class>com.blueskyminds.analysis.core.sets.AggregateSetGroupEntry</class>
 

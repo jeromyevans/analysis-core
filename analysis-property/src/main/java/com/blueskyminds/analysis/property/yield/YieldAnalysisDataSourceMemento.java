@@ -1,14 +1,14 @@
 package com.blueskyminds.analysis.property.yield;
 
-import com.blueskyminds.framework.memento.XMLMemento;
-import com.blueskyminds.framework.IdentityRef;
-import com.blueskyminds.framework.DomainObject;
-import com.blueskyminds.framework.datetime.Timespan;
 import com.blueskyminds.analysis.core.datasource.DataSource;
+import com.blueskyminds.framework.DomainObject;
+import com.blueskyminds.framework.IdentityRef;
+import com.blueskyminds.framework.datetime.Interval;
+import com.blueskyminds.framework.memento.XMLMemento;
 
 /**
  * A memento describing a Yield datasource - the memento identifies the sales datasource, rentals datasource
- *   and analysis timespan
+ *   and analysis interval
  *
  * Date Started: 16/09/2006
  *
@@ -21,14 +21,14 @@ public class YieldAnalysisDataSourceMemento extends XMLMemento {
     private IdentityRef salesDataSource;
     private IdentityRef rentalsDataSource;
 
-    private Timespan timespan;
+    private Interval interval;
 
     // ------------------------------------------------------------------------------------------------------
 
-    public YieldAnalysisDataSourceMemento(DataSource salesDataSource, DataSource rentalsDataSource, Timespan timespan) {
+    public YieldAnalysisDataSourceMemento(DataSource salesDataSource, DataSource rentalsDataSource, Interval interval) {
         this.salesDataSource = salesDataSource.getIdentity();
         this.rentalsDataSource = rentalsDataSource.getIdentity();
-        this.timespan = timespan;
+        this.interval = interval;
     }
 
     // ------------------------------------------------------------------------------------------------------
@@ -49,8 +49,8 @@ public class YieldAnalysisDataSourceMemento extends XMLMemento {
         return rentalsDataSource;
     }
 
-    public Timespan getTimespan() {
-        return timespan;
+    public Interval getTimespan() {
+        return interval;
     }
 
     public DataSource realizeSalesDataSource() {

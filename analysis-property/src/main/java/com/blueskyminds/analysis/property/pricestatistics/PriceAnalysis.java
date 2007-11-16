@@ -1,10 +1,11 @@
-package com.blueskyminds.analysis.property.priceAnalysis;
+package com.blueskyminds.analysis.property.pricestatistics;
 
-import com.blueskyminds.framework.AbstractDomainObject;
 import com.blueskyminds.analysis.core.statistics.Statistics;
+import com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor;
+import com.blueskyminds.framework.AbstractDomainObject;
 
-import javax.persistence.Entity;
 import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import java.io.PrintStream;
@@ -36,12 +37,12 @@ import java.io.PrintStream;
                      "sales.descriptor.timePeriod.month = rentals.descriptor.timePeriod.month")})
 public class PriceAnalysis extends AbstractDomainObject {
 
-    private PriceAnalysisDescriptor descriptor;
+    private PriceAnalysisSampleDescriptor descriptor;
     private Statistics statistics;
 
     // ------------------------------------------------------------------------------------------------------
 
-    public PriceAnalysis(PriceAnalysisDescriptor descriptor, Statistics statistics) {
+    public PriceAnalysis(PriceAnalysisSampleDescriptor descriptor, Statistics statistics) {
         this.descriptor = descriptor;
         this.statistics = statistics;
         init();
@@ -65,11 +66,11 @@ public class PriceAnalysis extends AbstractDomainObject {
 
     /** The descriptor for the analysis */
     @Embedded
-    public PriceAnalysisDescriptor getDescriptor() {
+    public PriceAnalysisSampleDescriptor getDescriptor() {
         return descriptor;
     }
 
-    public void setDescriptor(PriceAnalysisDescriptor descriptor) {
+    public void setDescriptor(PriceAnalysisSampleDescriptor descriptor) {
         this.descriptor = descriptor;
     }
 

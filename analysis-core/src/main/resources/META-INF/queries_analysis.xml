@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-mappings
+    xmlns="http://java.sun.com/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_1_0.xsd"
+    version="1.0">
+
+    <!--
+    Find an AggregateSetGroup by its unique key
+
+     The Entries are eaglerly loaded
+
+     Parameters:
+       keyValue  : string key
+    -->
+    <named-query name="aggegrateSetGroup.byKey">
+        <query>
+            select asg from AggregateSetGroup asg
+            left join fetch asg.aggregateSetGroupEntries where
+               keyValue = :keyValue
+        </query>
+    </named-query>
+
+    <!--
+     Find an AggregateSet by its unique key
+
+      Parameters:
+        keyValue  : string key
+     -->
+     <named-query name="aggegrateSet.byKey">
+         <query>
+             select aggregateSet from AggregateSet aggregateSet
+             where keyValue = :keyValue
+         </query>
+     </named-query>
+
+
+</entity-mappings>

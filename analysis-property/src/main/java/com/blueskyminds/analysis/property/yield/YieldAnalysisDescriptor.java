@@ -2,12 +2,15 @@ package com.blueskyminds.analysis.property.yield;
 
 import com.blueskyminds.analysis.core.datasource.DataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
-import com.blueskyminds.analysis.property.BaseDescriptor;
-import com.blueskyminds.enterprise.region.RegionOLD;
-import com.blueskyminds.framework.datetime.Timespan;
-import com.blueskyminds.framework.datetime.TimePeriod;
+import com.blueskyminds.analysis.property.AnalysisSampleDescriptor;
+import com.blueskyminds.enterprise.regionx.RegionHandle;
+import com.blueskyminds.framework.datetime.Interval;
+import com.blueskyminds.framework.datetime.MonthOfYear;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Contains the IdentityRef for a YieldAnalysis result
@@ -19,15 +22,15 @@ import javax.persistence.*;
  * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
  */
 @Embeddable
-public class YieldAnalysisDescriptor extends BaseDescriptor {
+public class YieldAnalysisDescriptor extends AnalysisSampleDescriptor {
 
     private DataSource salesDataSource;
     private DataSource rentalsDataSource;
 
     // ------------------------------------------------------------------------------------------------------
 
-    public YieldAnalysisDescriptor(RegionOLD region, AggregateSet aggregateSet, Timespan timespan, TimePeriod timePeriod, DataSource salesDataSource, DataSource rentalsDataSource) {
-        super(region, aggregateSet, timespan, timePeriod);
+    public YieldAnalysisDescriptor(RegionHandle region, AggregateSet aggregateSet, Interval interval, MonthOfYear monthOfYear, DataSource salesDataSource, DataSource rentalsDataSource) {
+        super(region, aggregateSet, interval, monthOfYear);
         this.salesDataSource = salesDataSource;
         this.rentalsDataSource = rentalsDataSource;
     }

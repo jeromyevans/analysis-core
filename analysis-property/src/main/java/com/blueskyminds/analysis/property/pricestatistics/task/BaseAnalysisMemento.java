@@ -1,12 +1,12 @@
-package com.blueskyminds.analysis.property.priceAnalysis;
+package com.blueskyminds.analysis.property.pricestatistics.task;
 
-import com.blueskyminds.framework.IdentityRef;
-import com.blueskyminds.framework.memento.XMLMemento;
-import com.blueskyminds.framework.datetime.TimePeriod;
-import com.blueskyminds.framework.datetime.Timespan;
 import com.blueskyminds.analysis.core.datasource.DataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.enterprise.region.RegionOLD;
+import com.blueskyminds.framework.IdentityRef;
+import com.blueskyminds.framework.datetime.Interval;
+import com.blueskyminds.framework.datetime.MonthOfYear;
+import com.blueskyminds.framework.memento.XMLMemento;
 
 /**
  * Contains some common code for an analysis datasource memento
@@ -22,15 +22,15 @@ public class BaseAnalysisMemento extends XMLMemento {
     private IdentityRef dataSource;
     private IdentityRef region;
     private IdentityRef aggregateSet;
-    private TimePeriod timePeriod;
-    private Timespan timespan;
+    private MonthOfYear monthOfYear;
+    private Interval interval;
 
-    public BaseAnalysisMemento(DataSource dataSource, RegionOLD region, AggregateSet aggregateSet, TimePeriod timePeriod, Timespan timespan) {
+    public BaseAnalysisMemento(DataSource dataSource, RegionOLD region, AggregateSet aggregateSet, MonthOfYear monthOfYear, Interval interval) {
         this.dataSource = dataSource.getIdentity();
         this.region = region.getIdentity();
         this.aggregateSet = aggregateSet.getIdentity();
-        this.timePeriod = timePeriod;
-        this.timespan = timespan;
+        this.monthOfYear = monthOfYear;
+        this.interval = interval;
     }
 
     public IdentityRef getDataSource() {
@@ -57,20 +57,20 @@ public class BaseAnalysisMemento extends XMLMemento {
         this.aggregateSet = aggregateSet;
     }
 
-    public TimePeriod getTimePeriod() {
-        return timePeriod;
+    public MonthOfYear getTimePeriod() {
+        return monthOfYear;
     }
 
-    public void setTimePeriod(TimePeriod timePeriod) {
-        this.timePeriod = timePeriod;
+    public void setTimePeriod(MonthOfYear monthOfYear) {
+        this.monthOfYear = monthOfYear;
     }
 
-    public Timespan getTimespan() {
-        return timespan;
+    public Interval getTimespan() {
+        return interval;
     }
 
-    public void setTimespan(Timespan timespan) {
-        this.timespan = timespan;
+    public void setTimespan(Interval interval) {
+        this.interval = interval;
     }
     
     // ------------------------------------------------------------------------------------------------------

@@ -4,14 +4,12 @@ import com.blueskyminds.analysis.core.sets.*;
 import com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap;
 import com.blueskyminds.analysis.property.classification.PremiseRegionMap;
 import com.blueskyminds.enterprise.address.PlainTextAddress;
-import com.blueskyminds.enterprise.address.dao.AddressDAO;
 import com.blueskyminds.enterprise.pricing.Money;
 import com.blueskyminds.enterprise.region.RegionOLD;
-import com.blueskyminds.enterprise.regionx.country.CountryHandle;
 import com.blueskyminds.enterprise.regionx.suburb.SuburbHandle;
 import com.blueskyminds.framework.datetime.DateTools;
+import com.blueskyminds.framework.datetime.Interval;
 import com.blueskyminds.framework.datetime.PeriodTypes;
-import com.blueskyminds.framework.datetime.Timespan;
 import com.blueskyminds.framework.measurement.Area;
 import com.blueskyminds.framework.measurement.UnitsOfArea;
 import com.blueskyminds.framework.persistence.PersistenceService;
@@ -37,84 +35,85 @@ import java.util.*;
  *
  * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
  */
-public class AnalysisTestTools {
+public class PropertyAnalysisTestTools {
 
-    private static final Log LOG = LogFactory.getLog(AnalysisTestTools.class);
+    private static final Log LOG = LogFactory.getLog(PropertyAnalysisTestTools.class);
 
     private EntityManager em;
+    public static final String GROUP_NAME = "Property";
 
-    public AnalysisTestTools(EntityManager em) {
+    public PropertyAnalysisTestTools(EntityManager em) {
         this.em = em;
     }
 
     public AggregateSetGroup createAnalysisGroup() {
-        AggregateSet vacantLand = new SimpleAggregateSet("type", PropertyTypes.Land);
-        AggregateSet houses = new SimpleAggregateSet("type", PropertyTypes.House);
-        AggregateSet semis = new SimpleAggregateSet("type", PropertyTypes.Semi);
-        AggregateSet apartments = new SimpleAggregateSet("type", PropertyTypes.Apartment);
-        AggregateSet units = new SimpleAggregateSet("type", PropertyTypes.Unit);
-        AggregateSet villas = new SimpleAggregateSet("type", PropertyTypes.Villa);
+        AggregateSet vacantLand = new PropertyValueSet("land", "type", PropertyTypes.Land);
+        AggregateSet houses = new PropertyValueSet("houses", "type", PropertyTypes.House);
+        AggregateSet semis = new PropertyValueSet("semis", "type", PropertyTypes.Semi);
+        AggregateSet apartments = new PropertyValueSet("apartments", "type", PropertyTypes.Apartment);
+        AggregateSet units = new PropertyValueSet("units", "type", PropertyTypes.Unit);
+        AggregateSet villas = new PropertyValueSet("villas", "type", PropertyTypes.Villa);
 
-        AggregateSet studio = new SimpleAggregateSet("bedrooms", 0);
-        AggregateSet oneBed = new SimpleAggregateSet("bedrooms", 1);
-        AggregateSet twoBed = new SimpleAggregateSet("bedrooms", 2);
-        AggregateSet threeBed = new SimpleAggregateSet("bedrooms", 3);
-        AggregateSet fourBed = new SimpleAggregateSet("bedrooms", 4);
-        AggregateSet fiveBed = new SimpleAggregateSet("bedrooms", 5);
+        AggregateSet studio = new PropertyValueSet("Studio", "bedrooms", 0);
+        AggregateSet oneBed = new PropertyValueSet("1bed", "bedrooms", 1);
+        AggregateSet twoBed = new PropertyValueSet("2bed", "bedrooms", 2);
+        AggregateSet threeBed = new PropertyValueSet("3bed", "bedrooms", 3);
+        AggregateSet fourBed = new PropertyValueSet("4bed", "bedrooms", 4);
+        AggregateSet fiveBed = new PropertyValueSet("5bed", "bedrooms", 5);
 
-        AggregateSet oneBath = new SimpleAggregateSet("bathrooms", 1);
-        AggregateSet twoBath = new SimpleAggregateSet("bathrooms", 2);
+        AggregateSet oneBath = new PropertyValueSet("1bath", "bathrooms", 1);
+        AggregateSet twoBath = new PropertyValueSet("2bath", "bathrooms", 2);
 
-        AggregateSetGroup aggregateSetGroup = new AggregateSetGroup();
+        AggregateSetGroup aggregateSetGroup = new AggregateSetGroup(GROUP_NAME);
 
-        AggregateSet detached = new UnionSet(houses, semis, villas);
-        AggregateSet unitsOrApartments = new UnionSet(apartments, units);
+        AggregateSet detached = new UnionSet("detached", houses, semis, villas);
+        AggregateSet unitsOrApartments = new UnionSet("unitsOrApartments", apartments, units);
 
         aggregateSetGroup.includeSet(detached);
         aggregateSetGroup.includeSet(unitsOrApartments);
         aggregateSetGroup.includeSet(vacantLand);
 
         aggregateSetGroup.includeSet(houses);
-        aggregateSetGroup.includeSet(new IntersectionSet(houses, oneBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(houses, twoBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(houses, threeBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(houses, threeBed, oneBath));
-        aggregateSetGroup.includeSet(new IntersectionSet(houses, threeBed, twoBath));
-        aggregateSetGroup.includeSet(new IntersectionSet(houses, fourBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(houses, twoBed, oneBath));
-        aggregateSetGroup.includeSet(new IntersectionSet(houses, twoBed, twoBath));
-        aggregateSetGroup.includeSet(new IntersectionSet(houses, fiveBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("houses1Bed", houses, oneBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("houses2Bed", houses, twoBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("houses3Bed", houses, threeBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("houses3Bed1Bath", houses, threeBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("houses3Bed2Bath", houses, threeBed, twoBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("houses4Bed", houses, fourBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("houses4Bed1Bath", houses, fourBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("houses4Bed2Bath", houses, fourBed, twoBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("houses5Bed", houses, fiveBed));
         aggregateSetGroup.includeSet(semis);
-        aggregateSetGroup.includeSet(new IntersectionSet(semis, oneBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(semis, twoBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(semis, threeBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(semis, fourBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("semis1Bed", semis, oneBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("semis2Bed", semis, twoBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("semis3Bed", semis, threeBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("semis4Bed", semis, fourBed));
         aggregateSetGroup.includeSet(villas);
-        aggregateSetGroup.includeSet(new IntersectionSet(villas, oneBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(villas, twoBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(villas, threeBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(villas, fourBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("villas1Bed", villas, oneBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("villas2Bed", villas, twoBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("villas3Bed", villas, threeBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("villas4Bed", villas, fourBed));
 
         aggregateSetGroup.includeSet(apartments);
-        aggregateSetGroup.includeSet(new IntersectionSet(apartments, studio));
-        aggregateSetGroup.includeSet(new IntersectionSet(apartments, oneBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(apartments, twoBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(apartments, threeBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(apartments, threeBed, oneBath));
-        aggregateSetGroup.includeSet(new IntersectionSet(apartments, threeBed, twoBath));
-        aggregateSetGroup.includeSet(new IntersectionSet(apartments, fourBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(apartments, fourBed, oneBath));
-        aggregateSetGroup.includeSet(new IntersectionSet(apartments, fourBed, twoBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("apartmentsStudio", apartments, studio));
+        aggregateSetGroup.includeSet(new IntersectionSet("apartments1Bed", apartments, oneBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("apartments2Bed", apartments, twoBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("apartments3Bed", apartments, threeBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("apartments3Bed1Bath", apartments, threeBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("apartments3Bed2Bath", apartments, threeBed, twoBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("apartments4Bed", apartments, fourBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("apartments4Bed1Bath", apartments, fourBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("apartments4Bed2Bath", apartments, fourBed, twoBath));
 
         aggregateSetGroup.includeSet(units);
-        aggregateSetGroup.includeSet(new IntersectionSet(units, oneBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(units, twoBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(units, threeBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(units, threeBed, oneBath));
-        aggregateSetGroup.includeSet(new IntersectionSet(units, threeBed, twoBath));
-        aggregateSetGroup.includeSet(new IntersectionSet(units, fourBed));
-        aggregateSetGroup.includeSet(new IntersectionSet(units, fourBed, oneBath));
-        aggregateSetGroup.includeSet(new IntersectionSet(units, fourBed, twoBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("units1Bed", units, oneBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("units2Bed", units, twoBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("units3Bed", units, threeBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("units3Bed1Bath", units, threeBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("units3Bed2Bath", units, threeBed, twoBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("units4Bed", units, fourBed));
+        aggregateSetGroup.includeSet(new IntersectionSet("units4Bed1Bath", units, fourBed, oneBath));
+        aggregateSetGroup.includeSet(new IntersectionSet("units4Bed2Bath", units, fourBed, twoBath));
 
         return aggregateSetGroup;
     }
@@ -125,7 +124,7 @@ public class AnalysisTestTools {
      * Setup default analysis gret groups
      * @return
      */
-    public AggregateSetGroup initialiseAnalysisGroups() {
+    public AggregateSetGroup initialiseAggregateSetGroups() {
         AggregateSetGroup analysisGroup = createAnalysisGroup();
 
         em.persist(analysisGroup);
@@ -351,7 +350,7 @@ public class AnalysisTestTools {
                     // create another advertisement for this property at a lower price and slightly in the future
                     secondAdvertisement = advertisement.duplicate();
                     // override values
-                    secondAdvertisement.setDateListed(DateTools.addTimespan(advertisement.getDateListed(), new Timespan(1, PeriodTypes.Fortnight)));
+                    secondAdvertisement.setDateListed(DateTools.addTimespan(advertisement.getDateListed(), new Interval(1, PeriodTypes.Fortnight)));
                     price = advertisement.getPrice();
                     if (price != null) {
                         secondAdvertisement.setPrice(price.adjustedPrice(1.1));
@@ -382,23 +381,6 @@ public class AnalysisTestTools {
      */
     public void initialiseRandomPropertiesWithAds(int count, int firstYear, int lastYear) {
         initialiseRandomPropertiesWithAds(null, null, count, firstYear, lastYear);
-    }
-
-    public void mapPropertiesToRegions() {
-        CountryHandle australia = null;
-        australia = new AddressDAO(getPersistenceService()).findCountry("AUS");
-// todo: enable
-        //PremiseRegionSpoolerTask propertyToRegionSpooler = new PremiseRegionSpoolerTask(persistenceService, australia);
-        //propertyToRegionSpooler.start();
-    }
-
-    public void mapPropertiesToAggregateSets() {
-        AggregateSetGroup analysisSets = initialiseAnalysisGroups();
-        CountryHandle australia = null;
-        australia = new AddressDAO(getPersistenceService()).findCountry("AUS");
-        // todo: enable
-        //PremiseAggregateSetSpoolerTask propertyToAggregateSetSpooler = new PremiseAggregateSetSpoolerTask(persistenceService, analysisSets);
-        //propertyToAggregateSetSpooler.start();
     }
 
     public List<RegionOLD> findAllRegions() {

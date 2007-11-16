@@ -18,11 +18,28 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class AggregateSet extends AbstractEntity {
 
-    /** Get the calculated name of this set */
-    @Transient
-    public abstract String getName();
+    private String key;
 
-    // ------------------------------------------------------------------------------------------------------
+    protected AggregateSet(String key) {
+        this.key = key;
+    }
+
+    protected AggregateSet() {
+    }
+
+    /**
+     * Unique key used to identify this set
+     * @return
+     */
+    @Basic
+    @Column(name="KeyValue")
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     /** Evaluate whether the entity is in this Set */
     @Transient
@@ -32,4 +49,8 @@ public abstract class AggregateSet extends AbstractEntity {
         return getIdentityName();
     }
 
+
+    /** Get the calculated name of this set */
+    @Transient
+    public abstract String getRuleName();
 }

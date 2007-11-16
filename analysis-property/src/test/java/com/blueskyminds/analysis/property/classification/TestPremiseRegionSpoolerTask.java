@@ -4,7 +4,7 @@ import com.blueskyminds.analysis.core.sets.AggregateSetGroup;
 import com.blueskyminds.enterprise.AddressTestTools;
 import com.blueskyminds.enterprise.region.service.RegionService;
 import com.blueskyminds.enterprise.region.service.RegionServiceImpl;
-import com.blueskyminds.framework.analysis.AnalysisTestTools;
+import com.blueskyminds.framework.analysis.PropertyAnalysisTestTools;
 import com.blueskyminds.framework.persistence.spooler.EntitySpooler;
 import com.blueskyminds.framework.test.OutOfContainerTestCase;
 import com.blueskyminds.landmine.core.property.Premise;
@@ -45,7 +45,7 @@ public class TestPremiseRegionSpoolerTask extends OutOfContainerTestCase {
         AddressTestTools.initialiseSampleAusAddresses();
         PremiseTestTools.initialiseSampleAusPremises();
 
-        aggregateSetGroup = new AnalysisTestTools(em).initialiseAnalysisGroups();
+        aggregateSetGroup = new PropertyAnalysisTestTools(em).initialiseAggregateSetGroups();
         regionService = new RegionServiceImpl(em);
         propertyDAO = new PropertyDAO(em);
     }

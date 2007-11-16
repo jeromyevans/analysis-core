@@ -8,7 +8,7 @@ import java.util.List;
  * A series that is immutable, derived from a mutable series
  *
  * Creates a new copy of the data in the original series, and a new SeriesDescriptor
- *  The new SeriesDescriptor will have the same references as the orginal 
+ *  The new SeriesDescriptor will have the same references as the orginal
  *
  * Date Started: 25/08/2006
  *

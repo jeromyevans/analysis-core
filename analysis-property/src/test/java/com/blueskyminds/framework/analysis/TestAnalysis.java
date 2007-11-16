@@ -1,10 +1,6 @@
 package com.blueskyminds.framework.analysis;
 
 import com.blueskyminds.analysis.core.sets.AggregateSet;
-import com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap;
-import com.blueskyminds.analysis.property.classification.PremiseRegionMap;
-import com.blueskyminds.enterprise.address.dao.AddressDAO;
-import com.blueskyminds.enterprise.regionx.country.CountryHandle;
 import com.blueskyminds.framework.persistence.paging.Page;
 import com.blueskyminds.framework.test.OutOfContainerTestCase;
 import com.blueskyminds.framework.test.TestTools;
@@ -40,7 +36,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
     }
 
     public void testAggregateSets() {
-        new AnalysisTestTools(em).initialiseAnalysisGroups();
+        new PropertyAnalysisTestTools(em).initialiseAggregateSetGroups();
 
         TestTools.printAll(em, AggregateSet.class);
     }
@@ -52,7 +48,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         int pageNo = 0;
         Page page;
         boolean lastPage = false;
-        new AnalysisTestTools(em).initialiseRandomAdvertisements(1000);
+        new PropertyAnalysisTestTools(em).initialiseRandomAdvertisements(1000);
         AdvertisementDAO advertisementDAO = new AdvertisementDAO(em);
 
         while (!lastPage) {
@@ -79,7 +75,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
     /** Test the tool that generates a random property and adds an advertisement for each one*/
     public void testCreateRandomPropertyAdvertisement() {
-        new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(20, 1990, 2005);
+        new PropertyAnalysisTestTools(em).initialiseRandomPropertiesWithAds(20, 1990, 2005);
         TestTools.printAll(em, PropertyAdvertisement.class);
     }
 
@@ -87,8 +83,8 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
     public void testDataSeries() {
 //        DataSeries dataSeries = new DataSeries();
-//        AnalysisTestTools.initialiseAnalysisSets();
-//        AnalysisTestTools.generateRandomAdvertisements(100);
+//        PropertyAnalysisTestTools.initialiseAnalysisSets();
+//        PropertyAnalysisTestTools.generateRandomAdvertisements(100);
 
         // generate price analysis statistics on the random advertisements:
 
@@ -132,36 +128,6 @@ public class TestAnalysis extends OutOfContainerTestCase {
         return (percent > 80.0);
     }
 
-
-
-    /** Test the algorithm that maps a property to one or more regions */
-    public void testMapPropertyToRegion() throws Exception {
-        Premise property = PremiseTestTools.createRandomPremise(null, em);
-        CountryHandle australia = new AddressDAO(em).findCountry("AUS");
-// todo: enable
-//        PremiseRegionSpoolerTask propertyToRegionSpooler = new PremiseRegionSpoolerTask(em, australia);
-//        Set<Region> regions = propertyToRegionSpooler.mapPropertyToRegions(property);
-
-//        assertNotNull(regions);
-        // assert that the property is in 4 regions: suburb, postcode, state and country
-//        assertEquals(4, regions.size());
-    }
-
-    public void testRegionComputer() {
-        new AnalysisTestTools(em).initialiseRandomProperties(20);
-
-        new AnalysisTestTools(em).mapPropertiesToRegions();
-
-        TestTools.printAll(PremiseRegionMap.class, em);
-    }
-
-    public void testAggregateSetComputer() {
-
-        new AnalysisTestTools(em).initialiseRandomProperties(20);
-        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
-
-        TestTools.printAll(PremiseAggregateSetMap.class, em);
-    }
 
   /*  private void doQuery(String query) {
         PersistenceService gateway = em;
@@ -259,9 +225,9 @@ public class TestAnalysis extends OutOfContainerTestCase {
     }
 
     public void testQueries() {
-        new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(20, 1990, 2005);
-        new AnalysisTestTools(em).mapPropertiesToRegions();
-        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
+        new PropertyAnalysisTestTools(em).initialiseRandomPropertiesWithAds(20, 1990, 2005);
+        new PropertyAnalysisTestTools(em).mapPropertiesToRegions();
+        new PropertyAnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         // all properties with advertisements (BROKEN)
         //String query1 = "from RealProperty as realProperty left join PropertyAdvertisement as propertyAdvertisement where propertyAdvertisement.premise = realProperty";
@@ -339,8 +305,8 @@ public class TestAnalysis extends OutOfContainerTestCase {
                         "and propertyAggregateSetMap.aggregateSet = :aggregateSet";
         doQuery(query8, "region", nsw, "aggregateSet", aggregateSet);*//*
 
-        Timespan timespan = new Timespan(4, PeriodTypes.Year);
-        TimePeriod timePeriod = new TimePeriod(Calendar.DECEMBER, 2005);
+        Interval timespan = new Interval(4, PeriodTypes.Year);
+        MonthOfYear timePeriod = new MonthOfYear(Calendar.DECEMBER, 2005);
 
         Date endDate = timePeriod.lastSecond();
         Date startDate = timespan.firstSecond(endDate);
@@ -388,7 +354,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
      * @param timePeriod
      * @return list of properties matching the criteria
      */
-   /* public List<Premise> lookupProperties(RegionOLD region, AggregateSet aggregateSet, Timespan timespan, TimePeriod timePeriod) {
+   /* public List<Premise> lookupProperties(RegionOLD region, AggregateSet aggregateSet, Interval timespan, MonthOfYear timePeriod) {
         String queryString = "select propertyAdvertisement.premise " +
                 "from PropertyAdvertisement as propertyAdvertisement, PropertyRegionMap as propertyRegionMap, PropertyAggregateSetMap as propertyAggregateSetMap " +
                 "where propertyAdvertisement.premise = propertyRegionMap.premise " +
@@ -424,9 +390,9 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
     // see note above - it's better to lookup the advertisements, not the properties
    /* public void testLookupProperties() {
-        new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
-        new AnalysisTestTools(em).mapPropertiesToRegions();
-        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
+        new PropertyAnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
+        new PropertyAnalysisTestTools(em).mapPropertiesToRegions();
+        new PropertyAnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         TestTools.printAll(AggregateSet.class, em);
 
@@ -445,7 +411,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         }
 
         // lookup all properties in the region and aggregate set for the timeperiod and timespan
-        List<Premise> properties = lookupProperties(nsw, aggregateSet, new Timespan(4, PeriodTypes.Year), new TimePeriod(Calendar.DECEMBER, 2005));
+        List<Premise> properties = lookupProperties(nsw, aggregateSet, new Interval(4, PeriodTypes.Year), new MonthOfYear(Calendar.DECEMBER, 2005));
         if (properties != null) {
             LOG.info("Found "+properties.size()+" properties");
 
@@ -469,7 +435,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
      * @param timePeriod
      * @return list of advertisements for properties matching the criteria
      */
-   /* public List<PropertyAdvertisement> lookupAdvertisments(RegionOLD region, AggregateSet aggregateSet, Timespan timespan, TimePeriod timePeriod) {
+   /* public List<PropertyAdvertisement> lookupAdvertisments(RegionOLD region, AggregateSet aggregateSet, Interval timespan, MonthOfYear timePeriod) {
         String queryString = "" +
                 "from PropertyAdvertisement as propertyAdvertisement, PropertyRegionMap as propertyRegionMap, PropertyAggregateSetMap as propertyAggregateSetMap " +
                 "where propertyAdvertisement.premise = propertyRegionMap.premise " +
@@ -504,9 +470,9 @@ public class TestAnalysis extends OutOfContainerTestCase {
     }*/
 
    /* public void testLookupAdvertisements() {
-        new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
-        new AnalysisTestTools(em).mapPropertiesToRegions();
-        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
+        new PropertyAnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
+        new PropertyAnalysisTestTools(em).mapPropertiesToRegions();
+        new PropertyAnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         AggregateSet houses = new AggregateSetDAO(em).findById(2L); // houses
 
@@ -518,7 +484,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         }
 
         // lookup all advertisements for properties in the region and aggregate set for the timeperiod and timespan
-        List<PropertyAdvertisement> advertisements = lookupAdvertisments(nsw, houses, new Timespan(4, PeriodTypes.Year), new TimePeriod(Calendar.DECEMBER, 2005));
+        List<PropertyAdvertisement> advertisements = lookupAdvertisments(nsw, houses, new Interval(4, PeriodTypes.Year), new MonthOfYear(Calendar.DECEMBER, 2005));
         if (advertisements != null) {
             LOG.info("Found "+advertisements.size()+" advertisements");
 
@@ -539,13 +505,13 @@ public class TestAnalysis extends OutOfContainerTestCase {
     }*/
 
     /*public void testNativeSql() {
-        new AnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
-        new AnalysisTestTools(em).mapPropertiesToRegions();
-        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
+        new PropertyAnalysisTestTools(em).initialiseRandomPropertiesWithAds(50, 2004, 2005);
+        new PropertyAnalysisTestTools(em).mapPropertiesToRegions();
+        new PropertyAnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         try {
-            Timespan timespan = new Timespan(4, PeriodTypes.Year);
-            TimePeriod timePeriod = new TimePeriod(Calendar.DECEMBER, 2005);
+            Interval timespan = new Interval(4, PeriodTypes.Year);
+            MonthOfYear timePeriod = new MonthOfYear(Calendar.DECEMBER, 2005);
 
             Date endDate = timePeriod.lastSecond();
             Date startDate = timespan.firstSecond(endDate);
@@ -610,15 +576,15 @@ public class TestAnalysis extends OutOfContainerTestCase {
     }*/
 
     /*public void testAdvertisementSpooler() {
-        new AnalysisTestTools(em).loadSampleSuburbs();
-        Suburb region = (Suburb) new AnalysisTestTools(em).findRegionByName("Neutral Bay");
+        new PropertyAnalysisTestTools(em).loadSampleSuburbs();
+        Suburb region = (Suburb) new PropertyAnalysisTestTools(em).findRegionByName("Neutral Bay");
         // todo: broken - repair for new region implementation
-        //new AnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
-        new AnalysisTestTools(em).mapPropertiesToRegions();
-        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
+        //new PropertyAnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
+        new PropertyAnalysisTestTools(em).mapPropertiesToRegions();
+        new PropertyAnalysisTestTools(em).mapPropertiesToAggregateSets();
 
-        Timespan timespan = new Timespan(4, PeriodTypes.Year);
-        TimePeriod timePeriod = new TimePeriod(Calendar.DECEMBER, 2005);
+        Interval timespan = new Interval(4, PeriodTypes.Year);
+        MonthOfYear timePeriod = new MonthOfYear(Calendar.DECEMBER, 2005);
         AggregateSet aggregateSet = null;
         try {
             aggregateSet = em.findById(AggregateSet.class, 2L); // houses
@@ -629,16 +595,16 @@ public class TestAnalysis extends OutOfContainerTestCase {
         LOG.info("------ starting statistics engine ---------");
         StatisticsEngine statisticsEngine = new StatisticsEngine();
 
-        DataSource dataSource = new DataSource("Advertisements: Private Treaty", PriceAnalysisSpooler.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
+        DataSource dataSource = new DataSource("Advertisements: Private Treaty", AskingPriceStatisticsTask.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
         LOG.info("------ starting spooler ---------");
-        PriceAnalysisSpooler spooler = new PriceAnalysisSpooler(statisticsEngine, dataSource, region, aggregateSet, timespan, timePeriod);
+        AskingPriceStatisticsTask spooler = new AskingPriceStatisticsTask(statisticsEngine, dataSource, region, aggregateSet, timespan, timePeriod);
         spooler.start();
     }*/
 
     // ------------------------------------------------------------------------------------------------------
 
   /*  public void testDataSourcePersistence() {
-        DataSource dataSource = new DataSource("Advertisements: Private Treaty", PriceAnalysisSpooler.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
+        DataSource dataSource = new DataSource("Advertisements: Private Treaty", AskingPriceStatisticsTask.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
 
         em.persist(dataSource);
 
@@ -653,22 +619,22 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
         DebugTools.printAvailableHeap();
 
-        new AnalysisTestTools(em).loadSampleSuburbs();
-        Suburb region = (Suburb) new AnalysisTestTools(em).findRegionByName("Neutral Bay");
+        new PropertyAnalysisTestTools(em).loadSampleSuburbs();
+        Suburb region = (Suburb) new PropertyAnalysisTestTools(em).findRegionByName("Neutral Bay");
 
         // todo: broken - repair for new region implementation
-        //new AnalysisTestTools(em).generateRandomPropertiesWithAds(region, null, 5000, 2004, 2005);
+        //new PropertyAnalysisTestTools(em).generateRandomPropertiesWithAds(region, null, 5000, 2004, 2005);
         DebugTools.printAvailableHeap();
 
-        new AnalysisTestTools(em).mapPropertiesToRegions();
+        new PropertyAnalysisTestTools(em).mapPropertiesToRegions();
         DebugTools.printAvailableHeap();
 
-        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
+        new PropertyAnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         DebugTools.printAvailableHeap();
 
-        Timespan timespan = new Timespan(4, PeriodTypes.Year);
-        TimePeriod timePeriod = new TimePeriod(Calendar.DECEMBER, 2005);
+        Interval timespan = new Interval(4, PeriodTypes.Year);
+        MonthOfYear timePeriod = new MonthOfYear(Calendar.DECEMBER, 2005);
         *//*AggregateSet aggregateSet = null;
         try {
             aggregateSet = em.findById(AggregateSet.class, 2L); // houses
@@ -676,13 +642,13 @@ public class TestAnalysis extends OutOfContainerTestCase {
             fail();
         }*//*
 
-        //Region region = AnalysisTestTools.findRegionByName("New South Wales");
+        //Region region = PropertyAnalysisTestTools.findRegionByName("New South Wales");
 
         DebugTools.printAvailableHeap();
 
         DataSource dataSource = null;
 
-        dataSource = new DataSource("Advertisements: Private Treaty", PriceAnalysisSpooler.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
+        dataSource = new DataSource("Advertisements: Private Treaty", AskingPriceStatisticsTask.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
         em.persist(dataSource);
 
         TestTools.printAll(DataSource.class, em);
@@ -691,8 +657,8 @@ public class TestAnalysis extends OutOfContainerTestCase {
         TaskGroup all = new TaskGroup("All");
         taskPlan.setRootTask(all);
 
-        //AnalysisTestTools.printPropertiesInRegion(region);
-        //AnalysisTestTools.printPropertiesInAggregateSet(aggregateSet);
+        //PropertyAnalysisTestTools.printPropertiesInRegion(region);
+        //PropertyAnalysisTestTools.printPropertiesInAggregateSet(aggregateSet);
 
         DebugTools.printAvailableHeap();
         //TestTools.printAll(PropertyRegionMap.class);
@@ -703,9 +669,9 @@ public class TestAnalysis extends OutOfContainerTestCase {
         List<AggregateSet> aggregateSets = null;
         // add some analysis tasks
 
-        australia = new AnalysisTestTools(em).findRegionByName("Western Australia");
+        australia = new PropertyAnalysisTestTools(em).findRegionByName("Western Australia");
         regions = australia.getChildRegions();
-        aggregateSets = new AnalysisTestTools(em).findAllAggregateSets();
+        aggregateSets = new PropertyAnalysisTestTools(em).findAllAggregateSets();
 
 
         int limit = 200;
@@ -757,8 +723,8 @@ public class TestAnalysis extends OutOfContainerTestCase {
         DataSource privateTreaty = null;
         DataSource lease = null;
         try {
-            privateTreaty = new DataSource("Advertisements: Private Treaty", PriceAnalysisSpooler.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
-            lease = new DataSource("Advertisements: Lease", PriceAnalysisSpooler.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.Lease));
+            privateTreaty = new DataSource("Advertisements: Private Treaty", AskingPriceStatisticsTask.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.PrivateTreaty));
+            lease = new DataSource("Advertisements: Lease", AskingPriceStatisticsTask.class, new AdvertisedDataSourceMemento(PropertyAdvertisementTypes.Lease));
             gateway.save(privateTreaty);
             gateway.save(lease);
         } catch (PersistenceServiceException e) {
@@ -779,7 +745,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
         // add some analysis tasks
         try {
             PersistenceSession session = gateway.openSession();
-            parent = new AnalysisTestTools(em).findRegionByName(parentName);
+            parent = new PropertyAnalysisTestTools(em).findRegionByName(parentName);
             regions = parent.getChildRegions();
             session.close();
         } catch (PersistenceServiceException e) {
@@ -790,12 +756,12 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
 
     public void testBetterQueriesForPriceAnalysis() {
-        new AnalysisTestTools(em).loadSampleSuburbs();
-        Suburb region = (Suburb) new AnalysisTestTools(em).findRegionByName("Neutral Bay");
+        new PropertyAnalysisTestTools(em).loadSampleSuburbs();
+        Suburb region = (Suburb) new PropertyAnalysisTestTools(em).findRegionByName("Neutral Bay");
           // todo: broken - repair for new region implementation
-        //new AnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
-        new AnalysisTestTools(em).mapPropertiesToRegions();
-        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
+        //new PropertyAnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
+        new PropertyAnalysisTestTools(em).mapPropertiesToRegions();
+        new PropertyAnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         AggregateSet aggregateSet = null;
         try {
@@ -830,8 +796,8 @@ public class TestAnalysis extends OutOfContainerTestCase {
         PersistenceService gateway = em;
         PersistenceSession ps;
 
-        Date endDate = new TimePeriod(Calendar.DECEMBER, 2005).lastSecond();
-        Date startDate = new Timespan(4, PeriodTypes.Year).firstSecond(endDate);
+        Date endDate = new MonthOfYear(Calendar.DECEMBER, 2005).lastSecond();
+        Date startDate = new Interval(4, PeriodTypes.Year).firstSecond(endDate);
 
 
         try {
@@ -936,20 +902,20 @@ public class TestAnalysis extends OutOfContainerTestCase {
     }
 
     public void testNamedQuery() {
-        new AnalysisTestTools(em).loadSampleSuburbs();
-        Suburb region = (Suburb) new AnalysisTestTools(em).findRegionByName("Neutral Bay");
+        new PropertyAnalysisTestTools(em).loadSampleSuburbs();
+        Suburb region = (Suburb) new PropertyAnalysisTestTools(em).findRegionByName("Neutral Bay");
           // todo: broken - repair for new region implementation
-        //new AnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
-        new AnalysisTestTools(em).mapPropertiesToRegions();
-        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
+        //new PropertyAnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 50, 2004, 2005);
+        new PropertyAnalysisTestTools(em).mapPropertiesToRegions();
+        new PropertyAnalysisTestTools(em).mapPropertiesToAggregateSets();
 
         PersistenceService gateway = em;
         PersistenceSession ps;
 
         AggregateSet aggregateSet = lookupAggregateSet(2L); // houses
 
-        Date endDate = new TimePeriod(Calendar.DECEMBER, 2005).lastSecond();
-        Date startDate = new Timespan(4, PeriodTypes.Year).firstSecond(endDate);
+        Date endDate = new MonthOfYear(Calendar.DECEMBER, 2005).lastSecond();
+        Date startDate = new Interval(4, PeriodTypes.Year).firstSecond(endDate);
         List<PropertyAdvertisement> advertisements = null;
         try {
             ps = gateway.openSession();
@@ -983,7 +949,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
     // ------------------------------------------------------------------------------------------------------
 
     *//** Create analysis tasks for all the aggregate groups in the specified region and data source *//*
-      private void createPriceAnalysisTasks(TaskGroup parent, RegionOLD region, List<AggregateSet> aggregateSets, DataSource dataSource, Timespan timespan, TimePeriod timePeriod) {
+      private void createPriceAnalysisTasks(TaskGroup parent, RegionOLD region, List<AggregateSet> aggregateSets, DataSource dataSource, Interval timespan, MonthOfYear timePeriod) {
           TaskGroup regionGroup;
           regionGroup = new TaskGroup(region.getName());
           parent.addTask(regionGroup);
@@ -998,25 +964,25 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
         DebugTools.printAvailableHeap();
 
-        new AnalysisTestTools(em).loadSampleSuburbs();
-        Suburb region = (Suburb) new AnalysisTestTools(em).findRegionByName("Neutral Bay");
+        new PropertyAnalysisTestTools(em).loadSampleSuburbs();
+        Suburb region = (Suburb) new PropertyAnalysisTestTools(em).findRegionByName("Neutral Bay");
         // todo: broken - repair for new region implementation
-        //new AnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 500, 2004, 2005);
-        new AnalysisTestTools(em).mapPropertiesToRegions();
-        new AnalysisTestTools(em).mapPropertiesToAggregateSets();
-        new AnalysisTestTools(em).generateRandomAdsForProperties(PropertyAdvertisementTypes.Lease, 2004, 2005);
+        //new PropertyAnalysisTestTools(em).generateRandomPropertiesWithAds(region, PropertyAdvertisementTypes.PrivateTreaty, 500, 2004, 2005);
+        new PropertyAnalysisTestTools(em).mapPropertiesToRegions();
+        new PropertyAnalysisTestTools(em).mapPropertiesToAggregateSets();
+        new PropertyAnalysisTestTools(em).generateRandomAdsForProperties(PropertyAdvertisementTypes.Lease, 2004, 2005);
         List<DataSource> dataSources = initialiseDataSources();
 
         DebugTools.printAvailableHeap();
 
-        Timespan timespan = new Timespan(4, PeriodTypes.Year);
-        TimePeriod timePeriod = new TimePeriod(Calendar.DECEMBER, 2005);
+        Interval timespan = new Interval(4, PeriodTypes.Year);
+        MonthOfYear timePeriod = new MonthOfYear(Calendar.DECEMBER, 2005);
 
         TaskPlan taskPlan = new TaskPlan("Analysis Tasks");
         TaskGroup all = new TaskGroup("All");
         taskPlan.setRootTask(all);
 
-        List<AggregateSet> aggregateSets = new AnalysisTestTools(em).findAllAggregateSets();
+        List<AggregateSet> aggregateSets = new PropertyAnalysisTestTools(em).findAllAggregateSets();
 
         createPriceAnalysisTasks(all, region, aggregateSets, dataSources.get(0), timespan, timePeriod);  // sales
         createPriceAnalysisTasks(all, region, aggregateSets, dataSources.get(1), timespan, timePeriod);  // rentals

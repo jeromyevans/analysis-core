@@ -1,8 +1,9 @@
 package com.blueskyminds.analysis.property.frequency;
 
 import com.blueskyminds.analysis.core.sets.AggregateSet;
-import com.blueskyminds.landmine.core.property.PropertyTypes;
+import com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor;
 import com.blueskyminds.framework.AbstractDomainObject;
+import com.blueskyminds.landmine.core.property.PropertyTypes;
 
 import javax.persistence.*;
 
@@ -18,7 +19,7 @@ import javax.persistence.*;
 //@Entity incomplete
 public class FrequencyAnalysis extends AbstractDomainObject {
 
-    private FrequencyAnalysisDescriptor descriptor;
+    private PriceAnalysisSampleDescriptor descriptor;
     private Integer size;
     private PropertyTypes modeType;
     private Integer sizeModeType;
@@ -29,7 +30,7 @@ public class FrequencyAnalysis extends AbstractDomainObject {
     private AggregateSet modeAggregateSet;
     private Integer sizeModeAggregateSet;
 
-    public FrequencyAnalysis(FrequencyAnalysisDescriptor descriptor) {
+    public FrequencyAnalysis(PriceAnalysisSampleDescriptor descriptor) {
         this.descriptor = descriptor;
     }
 
@@ -48,11 +49,11 @@ public class FrequencyAnalysis extends AbstractDomainObject {
     // ------------------------------------------------------------------------------------------------------
 
     @Embedded
-    public FrequencyAnalysisDescriptor getDescriptor() {
+    public PriceAnalysisSampleDescriptor getDescriptor() {
         return descriptor;
     }
 
-    public void setDescriptor(FrequencyAnalysisDescriptor descriptor) {
+    public void setDescriptor(PriceAnalysisSampleDescriptor descriptor) {
         this.descriptor = descriptor;
     }
 
