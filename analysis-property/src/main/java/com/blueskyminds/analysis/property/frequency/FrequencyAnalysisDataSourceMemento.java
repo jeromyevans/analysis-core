@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.property.frequency;
 
-import com.blueskyminds.analysis.core.datasource.DataSource;
+import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor;
 import com.blueskyminds.analysis.property.pricestatistics.task.BaseAnalysisMemento;
@@ -24,7 +24,7 @@ public class FrequencyAnalysisDataSourceMemento extends BaseAnalysisMemento {
 
     private PersistenceService persistenceService;
 
-    public FrequencyAnalysisDataSourceMemento(DataSource dataSource, RegionOLD region, AggregateSet aggregateSet, MonthOfYear monthOfYear, Interval interval, PersistenceService persistenceService) {
+    public FrequencyAnalysisDataSourceMemento(AnalysisDataSource dataSource, RegionOLD region, AggregateSet aggregateSet, MonthOfYear monthOfYear, Interval interval, PersistenceService persistenceService) {
         super(dataSource, region, aggregateSet, monthOfYear, interval);
         this.persistenceService = persistenceService;
     }
@@ -36,7 +36,7 @@ public class FrequencyAnalysisDataSourceMemento extends BaseAnalysisMemento {
         PriceAnalysisSampleDescriptor seriesDescriptor = null;
 
         try {
-            DataSource dataSource = (DataSource) persistenceService.findById(getDataSource());
+            AnalysisDataSource dataSource = (AnalysisDataSource) persistenceService.findById(getDataSource());
             RegionHandle region = (RegionHandle) persistenceService.findById(getRegion());
             AggregateSet aggregateSet = (AggregateSet) persistenceService.findById(getAggregateSet());
 

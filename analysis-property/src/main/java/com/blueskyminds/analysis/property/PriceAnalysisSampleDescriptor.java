@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.property;
 
-import com.blueskyminds.analysis.core.datasource.DataSource;
+import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.enterprise.regionx.RegionHandle;
 import com.blueskyminds.framework.datetime.Interval;
@@ -22,9 +22,9 @@ import javax.persistence.ManyToOne;
 @Embeddable
 public class PriceAnalysisSampleDescriptor extends AnalysisSampleDescriptor {
 
-    private DataSource dataSource;
+    private AnalysisDataSource dataSource;
 
-    public PriceAnalysisSampleDescriptor(RegionHandle region, AggregateSet aggregateSet, Interval interval, MonthOfYear monthOfYear, DataSource dataSource) {
+    public PriceAnalysisSampleDescriptor(RegionHandle region, AggregateSet aggregateSet, Interval interval, MonthOfYear monthOfYear, AnalysisDataSource dataSource) {
         super(region, aggregateSet, interval, monthOfYear);
         this.dataSource = dataSource;
     }
@@ -41,11 +41,11 @@ public class PriceAnalysisSampleDescriptor extends AnalysisSampleDescriptor {
      */
     @ManyToOne
     @JoinColumn(name="DataSourceId")
-    public DataSource getDataSource() {
+    public AnalysisDataSource getDataSource() {
         return dataSource;
     }
 
-    public void setDataSource(DataSource dataSource) {
+    public void setDataSource(AnalysisDataSource dataSource) {
         this.dataSource = dataSource;
     }
 

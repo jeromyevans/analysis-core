@@ -36,4 +36,17 @@
      </named-query>
 
 
+  <!--
+     Find an AggregateSet by its unique key
+
+      Parameters:
+        keyValue  : string key
+     -->
+     <named-query name="analysisDataSource.byKey">
+         <query>
+             select analysisDataSource from AnalysisDataSource analysisDataSource
+             where keyValue = :keyValue
+         </query>
+     </named-query>
+
 </entity-mappings>

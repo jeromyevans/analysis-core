@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.property.yield;
 
-import com.blueskyminds.analysis.core.datasource.DataSource;
+import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.framework.DomainObject;
 import com.blueskyminds.framework.IdentityRef;
 import com.blueskyminds.framework.datetime.Interval;
@@ -25,7 +25,7 @@ public class YieldAnalysisDataSourceMemento extends XMLMemento {
 
     // ------------------------------------------------------------------------------------------------------
 
-    public YieldAnalysisDataSourceMemento(DataSource salesDataSource, DataSource rentalsDataSource, Interval interval) {
+    public YieldAnalysisDataSourceMemento(AnalysisDataSource salesDataSource, AnalysisDataSource rentalsDataSource, Interval interval) {
         this.salesDataSource = salesDataSource.getIdentity();
         this.rentalsDataSource = rentalsDataSource.getIdentity();
         this.interval = interval;
@@ -53,12 +53,12 @@ public class YieldAnalysisDataSourceMemento extends XMLMemento {
         return interval;
     }
 
-    public DataSource realizeSalesDataSource() {
-        return (DataSource) realizeFromIdentity(salesDataSource);
+    public AnalysisDataSource realizeSalesDataSource() {
+        return (AnalysisDataSource) realizeFromIdentity(salesDataSource);
     }
 
-    public DataSource realizeRentalsDataSource() {
-        return (DataSource) realizeFromIdentity(rentalsDataSource);
+    public AnalysisDataSource realizeRentalsDataSource() {
+        return (AnalysisDataSource) realizeFromIdentity(rentalsDataSource);
     }
 
     private DomainObject realizeFromIdentity(IdentityRef identityRef) {

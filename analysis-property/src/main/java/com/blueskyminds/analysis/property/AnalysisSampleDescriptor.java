@@ -67,13 +67,13 @@ public abstract class AnalysisSampleDescriptor implements SeriesDescriptor {
 
     // ------------------------------------------------------------------------------------------------------
 
-    /** Get the TimeSpan specified in this descriptor */
+    /** Get the Interval specified in this descriptor */
     @Embedded
-    public Interval getTimespan() {
+    public Interval getInterval() {
         return interval;
     }
 
-    protected  void setTimespan(Interval interval) {
+    protected  void setInterval(Interval interval) {
         this.interval = interval;
     }
 
@@ -81,11 +81,11 @@ public abstract class AnalysisSampleDescriptor implements SeriesDescriptor {
 
     /** Get the MonthOfYear specified in this descriptor */
     @Embedded
-    public MonthOfYear getTimePeriod() {
+    public MonthOfYear getMonthOfYear() {
         return monthOfYear;
     }
 
-    protected void setTimePeriod(MonthOfYear monthOfYear) {
+    protected void setMonthOfYear(MonthOfYear monthOfYear) {
         this.monthOfYear = monthOfYear;
     }
 

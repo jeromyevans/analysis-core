@@ -90,8 +90,8 @@ public class AskingPriceStatisticsTask implements SpoolerTask<AskingPrice>, Page
 //    protected void onStart() {
 //        series = new UnivariateSeries(descriptor);
 //
-//        Date endDate = descriptor.getTimePeriod().lastSecond();
-//        Date startDate = descriptor.getTimespan().firstSecond(endDate);
+//        Date endDate = descriptor.getMonthOfYear().lastSecond();
+//        Date startDate = descriptor.getInterval().firstSecond(endDate);
 //
 //        // todo: check this migration
 //        getQuery().setParameter("type", ((AdvertisedDataSourceMemento) descriptor.getDataSource().getMemento()).getType()).

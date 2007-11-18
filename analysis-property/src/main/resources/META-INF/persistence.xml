@@ -228,7 +228,7 @@ To do: many of these properties need to be able to be changed -->
         <class>com.blueskyminds.analysis.core.sets.AggregateSetGroup</class>
         <class>com.blueskyminds.analysis.core.sets.AggregateSetGroupEntry</class>
 
-        <class>com.blueskyminds.analysis.core.datasource.DataSource</class>
+        <class>com.blueskyminds.analysis.core.datasource.AnalysisDataSource</class>
 
         <!-- Property analysis -->
         <class>com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap</class>

@@ -45,7 +45,7 @@ public class TestPremiseRegionSpoolerTask extends OutOfContainerTestCase {
         AddressTestTools.initialiseSampleAusAddresses();
         PremiseTestTools.initialiseSampleAusPremises();
 
-        aggregateSetGroup = new PropertyAnalysisTestTools(em).initialiseAggregateSetGroups();
+        aggregateSetGroup = PropertyAnalysisTestTools.initialiseAggregateSetGroups(em);
         regionService = new RegionServiceImpl(em);
         propertyDAO = new PropertyDAO(em);
     }

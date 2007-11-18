@@ -13,7 +13,7 @@
     <mapping className="com.blueskyminds.analysis.property.classification.PremiseRegionMap"/>
     <mapping className="com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap"/>
 
-    <mapping className="com.blueskyminds.analysis.core.datasource.DataSource"/>
+    <mapping className="com.blueskyminds.analysis.core.datasource.AnalysisDataSource"/>
 
     <mapping className="com.blueskyminds.analysis.property.pricestatistics.PriceAnalysis"/>
     <mapping className="com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor"/>

@@ -36,7 +36,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
     }
 
     public void testAggregateSets() {
-        new PropertyAnalysisTestTools(em).initialiseAggregateSetGroups();
+        PropertyAnalysisTestTools.initialiseAggregateSetGroups(em);
 
         TestTools.printAll(em, AggregateSet.class);
     }

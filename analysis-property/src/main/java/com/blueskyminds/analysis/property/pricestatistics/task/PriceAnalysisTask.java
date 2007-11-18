@@ -1,11 +1,10 @@
 package com.blueskyminds.analysis.property.pricestatistics.task;
 
-import com.blueskyminds.analysis.AnalysisServiceImpl;
-import com.blueskyminds.analysis.core.datasource.DataSource;
+import com.blueskyminds.analysis.AdvertisementAnalysisServiceImpl;
+import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
 import com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor;
-import com.blueskyminds.analysis.property.pricestatistics.AskingPriceStatisticsTask;
 import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.framework.datetime.Interval;
 import com.blueskyminds.framework.datetime.MonthOfYear;
@@ -41,7 +40,7 @@ public class PriceAnalysisTask extends SimpleTask {
 
     // ------------------------------------------------------------------------------------------------------
 
-    public PriceAnalysisTask(String name, DataSource dataSource, RegionOLD region, AggregateSet aggregateSet, Interval interval, MonthOfYear monthOfYear, PersistenceService persistenceService) {
+    public PriceAnalysisTask(String name, AnalysisDataSource dataSource, RegionOLD region, AggregateSet aggregateSet, Interval interval, MonthOfYear monthOfYear, PersistenceService persistenceService) {
         super(name);
         setMemento(new PriceAnalysisDataSourceMemento(dataSource, region, aggregateSet, monthOfYear, interval, persistenceService));
         this.persistenceService = persistenceService;
@@ -64,10 +63,10 @@ public class PriceAnalysisTask extends SimpleTask {
             session = persistenceService.openSession();
 
             PriceAnalysisDataSourceMemento memento = (PriceAnalysisDataSourceMemento) getMemento();
-            StatisticsEngine statisticsEngine = AnalysisServiceImpl.statisticsEngine();
+            StatisticsEngine statisticsEngine = AdvertisementAnalysisServiceImpl.statisticsEngine();
             PriceAnalysisSampleDescriptor descriptor = memento.toDescriptor();
 
-            AskingPriceStatisticsTask spooler = (AskingPriceStatisticsTask) descriptor.getDataSource().createSpooler();
+            //AskingPriceStatisticsTask spooler = (AskingPriceStatisticsTask) descriptor.getDataSource().createSpooler();
 //            // inject properties for the spooler
 //            spooler.setDescriptor(descriptor);
 //            spooler.setStatisticsEngine(statisticsEngine);

@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.property.yield;
 
-import com.blueskyminds.analysis.core.datasource.DataSource;
+import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.analysis.core.series.AggregateSeries;
 import com.blueskyminds.analysis.core.series.BivariateSeries;
 import com.blueskyminds.analysis.core.series.Pair;
@@ -32,15 +32,15 @@ public class YieldAnalysisSpooler extends EntitySpooler {
     private static final Log LOG = LogFactory.getLog(YieldAnalysisSpooler.class);
 
     private static final String QUERY_NAME = "priceAnalysis.statisticsForYieldAnalysis";
-    private DataSource salesDataSource;
-    private DataSource rentalsDataSource;
+    private AnalysisDataSource salesDataSource;
+    private AnalysisDataSource rentalsDataSource;
     private Interval interval;
     private AggregateSeries aggregateSeries;
 
     // ------------------------------------------------------------------------------------------------------
 
     /** Instantiate a new spooler for the specific source, region, set and time span */
-    public YieldAnalysisSpooler(EntityManager entityManager, Pager pager, DataSource salesDataSource, DataSource rentalsDataSource, Interval interval) {
+    public YieldAnalysisSpooler(EntityManager entityManager, Pager pager, AnalysisDataSource salesDataSource, AnalysisDataSource rentalsDataSource, Interval interval) {
         //super(pager, new HibernateNamedQueryImpl(QUERY_NAME));  // todo: come back to this
         super(null, null);
         //this.dataSource = dataSource;
@@ -63,11 +63,11 @@ public class YieldAnalysisSpooler extends EntitySpooler {
 //        this.dataSource = dataSource;
 //    }
 
-    public void setSalesDataSource(DataSource salesDataSource) {
+    public void setSalesDataSource(AnalysisDataSource salesDataSource) {
         this.salesDataSource = salesDataSource;
     }
 
-    public void setRentalsDataSource(DataSource rentalsDataSource) {
+    public void setRentalsDataSource(AnalysisDataSource rentalsDataSource) {
         this.rentalsDataSource = rentalsDataSource;
     }
 
@@ -125,7 +125,7 @@ public class YieldAnalysisSpooler extends EntitySpooler {
             salesSeriesDescriptor = sales.getDescriptor();
             rentalsStatistics = rentals.getStatistics();
 
-            YieldAnalysisDescriptor descriptor = new YieldAnalysisDescriptor(salesSeriesDescriptor.getRegion(),  salesSeriesDescriptor.getAggregateSet(), salesSeriesDescriptor.getTimespan(), salesSeriesDescriptor.getTimePeriod(), salesDataSource, rentalsDataSource);
+            YieldAnalysisDescriptor descriptor = new YieldAnalysisDescriptor(salesSeriesDescriptor.getRegion(),  salesSeriesDescriptor.getAggregateSet(), salesSeriesDescriptor.getInterval(), salesSeriesDescriptor.getMonthOfYear(), salesDataSource, rentalsDataSource);
             inputSeries = new BivariateSeries(descriptor);
             inputSeries.add(new Pair(salesStatistics.getMedian(), rentalsStatistics.getMedian()));
             inputSeries.add(new Pair(salesStatistics.getMean(), rentalsStatistics.getMean()));
@@ -144,7 +144,7 @@ public class YieldAnalysisSpooler extends EntitySpooler {
     // todo: broken
    /* protected void onComplete() {
         AggregateResult aggregateResults;
-        YieldEngine yieldEngine = AnalysisServiceImpl.yieldEngine();
+        YieldEngine yieldEngine = AdvertisementAnalysisServiceImpl.yieldEngine();
         YieldResults yieldResult;
 
         Future<ComputedResult> results = yieldEngine.compute(aggregateSeries);

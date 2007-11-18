@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.property.yield;
 
-import com.blueskyminds.analysis.core.datasource.DataSource;
+import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.framework.datetime.Interval;
 import com.blueskyminds.framework.persistence.PersistenceService;
 import com.blueskyminds.framework.persistence.PersistenceServiceException;
@@ -29,7 +29,7 @@ public class YieldAnalysisTask extends SimpleTask {
     // ------------------------------------------------------------------------------------------------------
 
     /** Creates a task that performs YieldAnalysis for the sales and rentals source and interval */
-    public YieldAnalysisTask(String name, DataSource salesDataSource, DataSource rentalsDataSource, Interval interval) {
+    public YieldAnalysisTask(String name, AnalysisDataSource salesDataSource, AnalysisDataSource rentalsDataSource, Interval interval) {
         super(name);
         setMemento(new YieldAnalysisDataSourceMemento(salesDataSource, rentalsDataSource, interval));
     }
@@ -51,10 +51,10 @@ public class YieldAnalysisTask extends SimpleTask {
             session = persistenceService.openSession();
 
             YieldAnalysisDataSourceMemento memento = (YieldAnalysisDataSourceMemento) getMemento();
-            DataSource salesDataSource = memento.realizeSalesDataSource();
-            DataSource rentalsDataSource = memento.realizeRentalsDataSource();
+            AnalysisDataSource salesDataSource = memento.realizeSalesDataSource();
+            AnalysisDataSource rentalsDataSource = memento.realizeRentalsDataSource();
 // todo: enable
-            //YieldAnalysisSpooler spooler = new YieldAnalysisSpooler(persistenceService, salesDataSource, rentalsDataSource, memento.getTimespan());
+            //YieldAnalysisSpooler spooler = new YieldAnalysisSpooler(persistenceService, salesDataSource, rentalsDataSource, memento.getInterval());
 
             // start the spooler
             //spooler.start();

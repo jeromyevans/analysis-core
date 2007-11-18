@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.property.pricestatistics.task;
 
-import com.blueskyminds.analysis.core.datasource.DataSource;
+import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.framework.IdentityRef;
@@ -25,7 +25,7 @@ public class BaseAnalysisMemento extends XMLMemento {
     private MonthOfYear monthOfYear;
     private Interval interval;
 
-    public BaseAnalysisMemento(DataSource dataSource, RegionOLD region, AggregateSet aggregateSet, MonthOfYear monthOfYear, Interval interval) {
+    public BaseAnalysisMemento(AnalysisDataSource dataSource, RegionOLD region, AggregateSet aggregateSet, MonthOfYear monthOfYear, Interval interval) {
         this.dataSource = dataSource.getIdentity();
         this.region = region.getIdentity();
         this.aggregateSet = aggregateSet.getIdentity();

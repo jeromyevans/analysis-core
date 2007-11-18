@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.property.yield;
 
-import com.blueskyminds.analysis.core.datasource.DataSource;
+import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.property.AnalysisSampleDescriptor;
 import com.blueskyminds.enterprise.regionx.RegionHandle;
@@ -24,12 +24,12 @@ import javax.persistence.ManyToOne;
 @Embeddable
 public class YieldAnalysisDescriptor extends AnalysisSampleDescriptor {
 
-    private DataSource salesDataSource;
-    private DataSource rentalsDataSource;
+    private AnalysisDataSource salesDataSource;
+    private AnalysisDataSource rentalsDataSource;
 
     // ------------------------------------------------------------------------------------------------------
 
-    public YieldAnalysisDescriptor(RegionHandle region, AggregateSet aggregateSet, Interval interval, MonthOfYear monthOfYear, DataSource salesDataSource, DataSource rentalsDataSource) {
+    public YieldAnalysisDescriptor(RegionHandle region, AggregateSet aggregateSet, Interval interval, MonthOfYear monthOfYear, AnalysisDataSource salesDataSource, AnalysisDataSource rentalsDataSource) {
         super(region, aggregateSet, interval, monthOfYear);
         this.salesDataSource = salesDataSource;
         this.rentalsDataSource = rentalsDataSource;
@@ -44,11 +44,11 @@ public class YieldAnalysisDescriptor extends AnalysisSampleDescriptor {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="SalesDataSourceId")
-    public DataSource getSalesDataSource() {
+    public AnalysisDataSource getSalesDataSource() {
         return salesDataSource;
     }
 
-    public void setSalesDataSource(DataSource salesDataSource) {
+    public void setSalesDataSource(AnalysisDataSource salesDataSource) {
         this.salesDataSource = salesDataSource;
     }
 
@@ -56,17 +56,17 @@ public class YieldAnalysisDescriptor extends AnalysisSampleDescriptor {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="RentalsDataSourceId")
-    public DataSource getRentalsDataSource() {
+    public AnalysisDataSource getRentalsDataSource() {
         return rentalsDataSource;
     }
 
-    public void setRentalsDataSource(DataSource rentalsDataSource) {
+    public void setRentalsDataSource(AnalysisDataSource rentalsDataSource) {
         this.rentalsDataSource = rentalsDataSource;
     }
 
     // ------------------------------------------------------------------------------------------------------
 
     public String toString() {
-        return salesDataSource.getIdentityName()+"/"+rentalsDataSource.getIdentityName()+" "+getRegion()+" "+getAggregateSet()+" "+getTimespan()+ " "+getTimePeriod();
+        return salesDataSource.getIdentityName()+"/"+rentalsDataSource.getIdentityName()+" "+getRegion()+" "+getAggregateSet()+" "+ getInterval()+ " "+ getMonthOfYear();
     }
 }

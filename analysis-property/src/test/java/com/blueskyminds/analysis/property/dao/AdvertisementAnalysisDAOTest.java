@@ -1,9 +1,10 @@
 package com.blueskyminds.analysis.property.dao;
 
+import com.blueskyminds.analysis.AdvertisementAnalysisServiceImpl;
 import com.blueskyminds.analysis.AnalysisService;
-import com.blueskyminds.analysis.AnalysisServiceImpl;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.core.sets.dao.AggregateSetDAO;
+import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
 import com.blueskyminds.enterprise.AddressTestTools;
 import com.blueskyminds.enterprise.address.service.AddressService;
 import com.blueskyminds.enterprise.address.service.AddressServiceImpl;
@@ -14,6 +15,7 @@ import com.blueskyminds.enterprise.region.service.RegionServiceImpl;
 import com.blueskyminds.enterprise.regionx.RegionHandle;
 import com.blueskyminds.framework.analysis.PropertyAnalysisTestTools;
 import com.blueskyminds.framework.datetime.DateTools;
+import com.blueskyminds.framework.persistence.paging.Pager;
 import com.blueskyminds.framework.test.OutOfContainerTestCase;
 import com.blueskyminds.framework.test.TestTools;
 import com.blueskyminds.framework.tools.DebugTools;
@@ -46,6 +48,8 @@ public class AdvertisementAnalysisDAOTest extends OutOfContainerTestCase {
     private RegionDAO regionDAO;
     private AdvertisementAnalysisDAO analysisDAO;
     private AddressService addressService;
+    private AdvertisementAnalysisDAO advertisementAnalysisDAO;
+    private StatisticsEngine statisticsEngine;
 
     public AdvertisementAnalysisDAOTest() {
         super(PERSISTENCE_UNIT_NAME);
@@ -60,15 +64,17 @@ public class AdvertisementAnalysisDAOTest extends OutOfContainerTestCase {
         propertyDAO = new PropertyDAO(em);
         aggregateSetDAO = new AggregateSetDAO(em);
         addressService = new AddressServiceImpl(em);
+        advertisementAnalysisDAO = new AdvertisementAnalysisDAO(em);
+        statisticsEngine = new StatisticsEngine();
 
-        analysisService = new AnalysisServiceImpl(aggregateSetDAO, regionService, propertyDAO, em);
+        analysisService = new AdvertisementAnalysisServiceImpl(aggregateSetDAO, regionService, propertyDAO, advertisementAnalysisDAO, statisticsEngine, em);
 
         AddressTestTools.initialiseCountryList();
         AddressTestTools.initialiseAddressSubstitutionPatterns(em);
         AddressTestTools.initialiseSampleAusAddresses();
         PremiseTestTools.initialiseSampleAusPremises();
 
-        new PropertyAnalysisTestTools(em).initialiseAggregateSetGroups();
+        PropertyAnalysisTestTools.initialiseAggregateSetGroups(em);
 
         analysisService.recalculatePremiseToRegionMaps();
         analysisService.recalculatePremiseToAggregateSetMaps(PropertyAnalysisTestTools.GROUP_NAME);
@@ -94,6 +100,23 @@ public class AdvertisementAnalysisDAOTest extends OutOfContainerTestCase {
         assertNotNull(askingPrices);
         assertTrue(askingPrices.size() > 0);
         DebugTools.printCollection(askingPrices);
+    }
+
+    public void testPageMostRecentAskingPrice() throws Exception {
+        RegionHandle carlton = addressService.parseAddress("Carlton VIC", "AUS").getSuburb();
+        LOG.info("region: "+carlton);
+        AggregateSet aggregateSet = aggregateSetDAO.findAggregateSet("houses");
+        Date startDate = DateTools.createDate(2004, 1, 1, 0, 0,0);
+        Date endDate = DateTools.createDate(2006, 1, 1, 0, 0,0);
+
+        Query query = em.createQuery("select pasm from PremiseAggregateSetMap pasm where aggregateSet = :aggregateSet");
+        query.setParameter("aggregateSet", aggregateSet);
+        DebugTools.printCollection(query.getResultList());
+
+        TestTools.printAll(PropertyAdvertisement.class, em);
+        Pager pager = analysisDAO.pageMostRecentPrice(PropertyAdvertisementTypes.PrivateTreaty, carlton, aggregateSet, startDate, endDate);
+        assertNotNull(pager);
+        assertTrue(pager.findPage(0, 10).getPageResults().size() > 0);
     }
 
 }

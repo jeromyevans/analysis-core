@@ -1,8 +1,11 @@
 package com.blueskyminds.framework.analysis;
 
+import com.blueskyminds.analysis.AdvertisementAnalysisServiceImpl;
+import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.analysis.core.sets.*;
 import com.blueskyminds.analysis.property.classification.PremiseAggregateSetMap;
 import com.blueskyminds.analysis.property.classification.PremiseRegionMap;
+import com.blueskyminds.analysis.property.pricestatistics.AskingPriceDataSource;
 import com.blueskyminds.enterprise.address.PlainTextAddress;
 import com.blueskyminds.enterprise.pricing.Money;
 import com.blueskyminds.enterprise.region.RegionOLD;
@@ -46,7 +49,7 @@ public class PropertyAnalysisTestTools {
         this.em = em;
     }
 
-    public AggregateSetGroup createAnalysisGroup() {
+    public static AggregateSetGroup createAnalysisGroup() {
         AggregateSet vacantLand = new PropertyValueSet("land", "type", PropertyTypes.Land);
         AggregateSet houses = new PropertyValueSet("houses", "type", PropertyTypes.House);
         AggregateSet semis = new PropertyValueSet("semis", "type", PropertyTypes.Semi);
@@ -124,13 +127,27 @@ public class PropertyAnalysisTestTools {
      * Setup default analysis gret groups
      * @return
      */
-    public AggregateSetGroup initialiseAggregateSetGroups() {
+    public static  AggregateSetGroup initialiseAggregateSetGroups(EntityManager em) {
         AggregateSetGroup analysisGroup = createAnalysisGroup();
 
         em.persist(analysisGroup);
         em.flush();
 
         return analysisGroup;
+    }
+
+    /**
+     * Setup the default analysis data sources
+     *
+     * @param em
+     */
+    public static void initialiseAnalysisDataSources(EntityManager em) {
+        AnalysisDataSource privateTreaty = new AskingPriceDataSource(AdvertisementAnalysisServiceImpl.ASKING_PRICE_PRIVATE_TREATY_DATASOURCE, "Advertised Prices : Private Treaty", PropertyAdvertisementTypes.PrivateTreaty);
+        AnalysisDataSource lease = new AskingPriceDataSource(AdvertisementAnalysisServiceImpl.ASKING_PRICE_LEASE_DATASOURCE, "Advertised Prices : Lease", PropertyAdvertisementTypes.Lease);
+
+        em.persist(privateTreaty);
+        em.persist(lease);
+        em.flush();
     }
 
     /**
