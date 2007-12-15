@@ -12,6 +12,7 @@
   <modules>
     <module>analysis-basic</module>
     <module>analysis-core</module>
+    <module>analysis-property</module>
   </modules>
   
   <build>

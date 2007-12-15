@@ -56,5 +56,10 @@
       <version>1.8.0.7</version>
       <!--<scope>test</scope>-->
     </dependency>
+    <dependency>
+      <groupId>com.blueskyminds.landmine</groupId>
+      <artifactId>landmine-core</artifactId>
+      <version>0.01-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 </project>
