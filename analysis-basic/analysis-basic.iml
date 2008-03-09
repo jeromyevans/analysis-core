@@ -20,9 +20,25 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/target/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/target/com" />
+      <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library name="junit:junit:3.8.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
     <orderEntry type="module-library" exported="">
       <library name="commons-lang:commons-lang:2.3">
         <CLASSES>
@@ -46,19 +62,6 @@
         </JAVADOC>
         <SOURCES>
           <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="junit:junit:3.8.1">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
