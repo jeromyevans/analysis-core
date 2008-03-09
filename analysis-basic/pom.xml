@@ -3,7 +3,7 @@
   <groupId>com.blueskyminds.analysis</groupId>
   <artifactId>analysis-basic</artifactId>
   <packaging>jar</packaging>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <name>Basic Analysis Library</name>
   <url>http://www.blueskyminds.com.au</url>
 
@@ -28,8 +28,8 @@
   </build>
 
   <scm>
-    <connection>scm:svn:https://axe/svn/analysis/HEAD/analysis-basic</connection>
-    <developerConnection>scm:svn:https://axe/svn/analysis/HEAD/analysis-basic</developerConnection>
+    <connection>scm:svn:https://axe/svn/analysis/TAGS/analysis-basic-0.1</connection>
+    <developerConnection>scm:svn:https://axe/svn/analysis/TAGS/analysis-basic-0.1</developerConnection>
   </scm>
 
   <dependencies>    
