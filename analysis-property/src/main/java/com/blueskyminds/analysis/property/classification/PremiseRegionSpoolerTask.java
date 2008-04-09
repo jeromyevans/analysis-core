@@ -2,9 +2,9 @@ package com.blueskyminds.analysis.property.classification;
 
 import com.blueskyminds.enterprise.address.Address;
 import com.blueskyminds.enterprise.region.service.RegionService;
-import com.blueskyminds.enterprise.regionx.RegionHandle;
-import com.blueskyminds.enterprise.regionx.postcode.PostCodeHandle;
-import com.blueskyminds.enterprise.regionx.suburb.SuburbHandle;
+import com.blueskyminds.enterprise.region.RegionHandle;
+import com.blueskyminds.enterprise.region.postcode.PostCodeHandle;
+import com.blueskyminds.enterprise.region.suburb.SuburbHandle;
 import com.blueskyminds.framework.persistence.spooler.SpoolerException;
 import com.blueskyminds.framework.persistence.spooler.SpoolerTask;
 import com.blueskyminds.landmine.core.property.Premise;

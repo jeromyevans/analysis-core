@@ -48,7 +48,7 @@ public class AskingPriceStatisticsTask implements SpoolerTask<AskingPrice>, Page
     // ------------------------------------------------------------------------------------------------------
 
     /** Instantiate a new spooler for the specific source, region, set and time span */
-//    public AskingPriceStatisticsTask(StatisticsEngine statisticsEngine, DataSource dataSource, RegionOLD region, AggregateSet aggregateSet, Interval timespan, MonthOfYear timePeriod) {
+//    public AskingPriceStatisticsTask(StatisticsEngine statisticsEngine, DataSource dataSource, RegionHandle region, AggregateSet aggregateSet, Interval timespan, MonthOfYear timePeriod) {
 //        //super(new HibernateNamedQueryImpl(QUERY_NAME));
 //        super(null, null, null);  // todo: come back to this
 //        this.descriptor = new PriceAnalysisSampleDescriptor(region, aggregateSet, timespan, timePeriod, dataSource);

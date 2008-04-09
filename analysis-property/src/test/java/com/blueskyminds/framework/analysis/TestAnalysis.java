@@ -251,9 +251,9 @@ public class TestAnalysis extends OutOfContainerTestCase {
         //String query5 = "select propertyRegionMap.premise from PropertyRegionMap as propertyRegionMap inner join RealProperty as realProperty with ";
         //String query4 = "select propertyRegionMap.premise from PropertyRegionMap as propertyRegionMap inner join PropertyAdvertisement as propertyAdvertisement where propertyRegionMap.premise = propertyAdvertisment.premise";
 
-        RegionOLD nsw = null;
+        RegionHandle nsw = null;
         try {
-            nsw = em.findById(RegionOLD.class, 99L);
+            nsw = em.findById(RegionHandle.class, 99L);
         } catch(PersistenceServiceException e) {
             fail();
         }
@@ -354,7 +354,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
      * @param timePeriod
      * @return list of properties matching the criteria
      */
-   /* public List<Premise> lookupProperties(RegionOLD region, AggregateSet aggregateSet, Interval timespan, MonthOfYear timePeriod) {
+   /* public List<Premise> lookupProperties(RegionHandle region, AggregateSet aggregateSet, Interval timespan, MonthOfYear timePeriod) {
         String queryString = "select propertyAdvertisement.premise " +
                 "from PropertyAdvertisement as propertyAdvertisement, PropertyRegionMap as propertyRegionMap, PropertyAggregateSetMap as propertyAggregateSetMap " +
                 "where propertyAdvertisement.premise = propertyRegionMap.premise " +
@@ -403,9 +403,9 @@ public class TestAnalysis extends OutOfContainerTestCase {
             fail();
         }
 
-        RegionOLD nsw = null;
+        RegionHandle nsw = null;
         try {
-            nsw = em.findById(RegionOLD.class, 99L);
+            nsw = em.findById(RegionHandle.class, 99L);
         } catch(PersistenceServiceException e) {
             fail();
         }
@@ -435,7 +435,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
      * @param timePeriod
      * @return list of advertisements for properties matching the criteria
      */
-   /* public List<PropertyAdvertisement> lookupAdvertisments(RegionOLD region, AggregateSet aggregateSet, Interval timespan, MonthOfYear timePeriod) {
+   /* public List<PropertyAdvertisement> lookupAdvertisments(RegionHandle region, AggregateSet aggregateSet, Interval timespan, MonthOfYear timePeriod) {
         String queryString = "" +
                 "from PropertyAdvertisement as propertyAdvertisement, PropertyRegionMap as propertyRegionMap, PropertyAggregateSetMap as propertyAggregateSetMap " +
                 "where propertyAdvertisement.premise = propertyRegionMap.premise " +
@@ -476,9 +476,9 @@ public class TestAnalysis extends OutOfContainerTestCase {
 
         AggregateSet houses = new AggregateSetDAO(em).findById(2L); // houses
 
-        RegionOLD nsw = null;
+        RegionHandle nsw = null;
         try {
-            nsw = em.findById(RegionOLD.class, 99L);
+            nsw = em.findById(RegionHandle.class, 99L);
         } catch(PersistenceServiceException e) {
             fail();
         }
@@ -526,9 +526,9 @@ public class TestAnalysis extends OutOfContainerTestCase {
                 fail();
             }
 
-            RegionOLD region = null;
+            RegionHandle region = null;
             try {
-                region = em.findById(RegionOLD.class, 99L);     // nsw
+                region = em.findById(RegionHandle.class, 99L);     // nsw
             } catch(PersistenceServiceException e) {
                 fail();
             }
@@ -664,8 +664,8 @@ public class TestAnalysis extends OutOfContainerTestCase {
         //TestTools.printAll(PropertyRegionMap.class);
         //TestTools.printAll(PropertyAggregateSetMap.class);
 
-        RegionOLD australia;
-        Set<RegionOLD> regions = null;
+        RegionHandle australia;
+        Set<RegionHandle> regions = null;
         List<AggregateSet> aggregateSets = null;
         // add some analysis tasks
 
@@ -737,10 +737,10 @@ public class TestAnalysis extends OutOfContainerTestCase {
     }
 
     *//** Load all regions decending from the specified parent *//*
-    private Set<RegionOLD> loadRegions(String parentName) {
+    private Set<RegionHandle> loadRegions(String parentName) {
         PersistenceService gateway = em;
-        RegionOLD parent;
-        Set<RegionOLD> regions = null;
+        RegionHandle parent;
+        Set<RegionHandle> regions = null;
         List<AggregateSet> aggregateSets = null;
         // add some analysis tasks
         try {
@@ -949,7 +949,7 @@ public class TestAnalysis extends OutOfContainerTestCase {
     // ------------------------------------------------------------------------------------------------------
 
     *//** Create analysis tasks for all the aggregate groups in the specified region and data source *//*
-      private void createPriceAnalysisTasks(TaskGroup parent, RegionOLD region, List<AggregateSet> aggregateSets, DataSource dataSource, Interval timespan, MonthOfYear timePeriod) {
+      private void createPriceAnalysisTasks(TaskGroup parent, RegionHandle region, List<AggregateSet> aggregateSets, DataSource dataSource, Interval timespan, MonthOfYear timePeriod) {
           TaskGroup regionGroup;
           regionGroup = new TaskGroup(region.getName());
           parent.addTask(regionGroup);

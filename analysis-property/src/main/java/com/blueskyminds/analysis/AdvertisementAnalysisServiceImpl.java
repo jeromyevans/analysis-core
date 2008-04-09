@@ -13,7 +13,7 @@ import com.blueskyminds.analysis.property.dao.PropertyAnalysisDAO;
 import com.blueskyminds.analysis.property.pricestatistics.AskingPriceStatisticsSpooler;
 import com.blueskyminds.analysis.property.yield.YieldEngine;
 import com.blueskyminds.enterprise.region.service.RegionService;
-import com.blueskyminds.enterprise.regionx.RegionHandle;
+import com.blueskyminds.enterprise.region.RegionHandle;
 import com.blueskyminds.framework.ServiceLocator;
 import com.blueskyminds.framework.datetime.Interval;
 import com.blueskyminds.framework.datetime.MonthOfYear;

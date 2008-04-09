@@ -5,13 +5,13 @@ import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.core.statistics.StatisticsEngine;
 import com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor;
-import com.blueskyminds.enterprise.region.RegionOLD;
 import com.blueskyminds.framework.datetime.Interval;
 import com.blueskyminds.framework.datetime.MonthOfYear;
 import com.blueskyminds.framework.persistence.PersistenceService;
 import com.blueskyminds.framework.persistence.PersistenceServiceException;
 import com.blueskyminds.framework.persistence.PersistenceSession;
 import com.blueskyminds.framework.tasks.SimpleTask;
+import com.blueskyminds.enterprise.region.RegionHandle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -40,7 +40,7 @@ public class PriceAnalysisTask extends SimpleTask {
 
     // ------------------------------------------------------------------------------------------------------
 
-    public PriceAnalysisTask(String name, AnalysisDataSource dataSource, RegionOLD region, AggregateSet aggregateSet, Interval interval, MonthOfYear monthOfYear, PersistenceService persistenceService) {
+    public PriceAnalysisTask(String name, AnalysisDataSource dataSource, RegionHandle region, AggregateSet aggregateSet, Interval interval, MonthOfYear monthOfYear, PersistenceService persistenceService) {
         super(name);
         setMemento(new PriceAnalysisDataSourceMemento(dataSource, region, aggregateSet, monthOfYear, interval, persistenceService));
         this.persistenceService = persistenceService;

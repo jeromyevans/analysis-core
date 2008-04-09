@@ -4,8 +4,7 @@ import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor;
 import com.blueskyminds.analysis.property.pricestatistics.task.BaseAnalysisMemento;
-import com.blueskyminds.enterprise.region.RegionOLD;
-import com.blueskyminds.enterprise.regionx.RegionHandle;
+import com.blueskyminds.enterprise.region.RegionHandle;
 import com.blueskyminds.framework.datetime.Interval;
 import com.blueskyminds.framework.datetime.MonthOfYear;
 import com.blueskyminds.framework.persistence.PersistenceService;
@@ -24,7 +23,7 @@ public class FrequencyAnalysisDataSourceMemento extends BaseAnalysisMemento {
 
     private PersistenceService persistenceService;
 
-    public FrequencyAnalysisDataSourceMemento(AnalysisDataSource dataSource, RegionOLD region, AggregateSet aggregateSet, MonthOfYear monthOfYear, Interval interval, PersistenceService persistenceService) {
+    public FrequencyAnalysisDataSourceMemento(AnalysisDataSource dataSource, RegionHandle region, AggregateSet aggregateSet, MonthOfYear monthOfYear, Interval interval, PersistenceService persistenceService) {
         super(dataSource, region, aggregateSet, monthOfYear, interval);
         this.persistenceService = persistenceService;
     }

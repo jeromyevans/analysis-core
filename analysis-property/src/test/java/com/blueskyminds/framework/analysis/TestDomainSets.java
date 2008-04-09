@@ -2,7 +2,7 @@ package com.blueskyminds.framework.analysis;
 
 import com.blueskyminds.analysis.core.sets.DomainSet;
 import com.blueskyminds.analysis.property.classification.PremiseRegionMap;
-import com.blueskyminds.enterprise.region.RegionOLD;
+import com.blueskyminds.enterprise.region.RegionHandle;
 import com.blueskyminds.framework.test.DbTestCase;
 import com.blueskyminds.landmine.core.property.Premise;
 import org.apache.commons.logging.Log;
@@ -46,7 +46,7 @@ public class TestDomainSets extends DbTestCase {
 //        return new HibernateCriteriaImpl(criteria);
 //    }
 
-    DomainSet<Premise> loopkupPropertiesInRegion(RegionOLD region) {
+    DomainSet<Premise> loopkupPropertiesInRegion(RegionHandle region) {
         DetachedCriteria subquery = DetachedCriteria.forClass(PremiseRegionMap.class);
 
         subquery.add(Restrictions.eq("region", region));   //equiv to subquery.add(Property.forName("region").eq(region));

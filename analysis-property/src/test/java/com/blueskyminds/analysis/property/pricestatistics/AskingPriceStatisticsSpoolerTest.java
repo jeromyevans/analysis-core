@@ -4,7 +4,7 @@ import com.blueskyminds.analysis.core.datasource.AnalysisDataSource;
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.property.AskingPriceTestCase;
 import com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor;
-import com.blueskyminds.enterprise.regionx.RegionHandle;
+import com.blueskyminds.enterprise.region.RegionHandle;
 import com.blueskyminds.framework.datetime.Interval;
 import com.blueskyminds.framework.datetime.MonthOfYear;
 import com.blueskyminds.framework.datetime.PeriodTypes;

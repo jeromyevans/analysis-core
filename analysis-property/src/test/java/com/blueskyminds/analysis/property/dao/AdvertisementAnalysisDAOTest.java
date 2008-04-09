@@ -12,7 +12,7 @@ import com.blueskyminds.enterprise.region.dao.RegionDAO;
 import com.blueskyminds.enterprise.region.dao.RegionDAOImpl;
 import com.blueskyminds.enterprise.region.service.RegionService;
 import com.blueskyminds.enterprise.region.service.RegionServiceImpl;
-import com.blueskyminds.enterprise.regionx.RegionHandle;
+import com.blueskyminds.enterprise.region.RegionHandle;
 import com.blueskyminds.framework.analysis.PropertyAnalysisTestTools;
 import com.blueskyminds.framework.datetime.DateTools;
 import com.blueskyminds.framework.persistence.paging.Pager;

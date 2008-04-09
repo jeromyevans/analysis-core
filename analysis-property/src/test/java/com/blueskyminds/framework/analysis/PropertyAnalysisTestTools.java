@@ -8,8 +8,8 @@ import com.blueskyminds.analysis.property.classification.PremiseRegionMap;
 import com.blueskyminds.analysis.property.pricestatistics.AskingPriceDataSource;
 import com.blueskyminds.enterprise.address.PlainTextAddress;
 import com.blueskyminds.enterprise.pricing.Money;
-import com.blueskyminds.enterprise.region.RegionOLD;
-import com.blueskyminds.enterprise.regionx.suburb.SuburbHandle;
+import com.blueskyminds.enterprise.region.RegionHandle;
+import com.blueskyminds.enterprise.region.suburb.SuburbHandle;
 import com.blueskyminds.framework.datetime.DateTools;
 import com.blueskyminds.framework.datetime.Interval;
 import com.blueskyminds.framework.datetime.PeriodTypes;
@@ -207,7 +207,7 @@ public class PropertyAnalysisTestTools {
 
     /** Creates a QueryBuilder that searches for a ... */
     @Deprecated
-    public PersistenceQuery searchPropertiesInRegion(RegionOLD region) {
+    public PersistenceQuery searchPropertiesInRegion(RegionHandle region) {
         DetachedCriteria criteria = DetachedCriteria.forClass(PremiseRegionMap.class);
         criteria.add(Expression.eq("region", region));
       //  return new HibernateCriteriaImpl(criteria);
@@ -215,7 +215,7 @@ public class PropertyAnalysisTestTools {
     }
     @Deprecated
     public PersistenceQuery searchRegionByName(String name) {
-        DetachedCriteria criteria = DetachedCriteria.forClass(RegionOLD.class);
+        DetachedCriteria criteria = DetachedCriteria.forClass(RegionHandle.class);
         criteria.add(Expression.eq("name", name));
         //return new HibernateCriteriaImpl(criteria);
         return null;
@@ -229,7 +229,7 @@ public class PropertyAnalysisTestTools {
         return null;
     }
 
-    public List<Premise> findPropertiesInRegion(RegionOLD region) {
+    public List<Premise> findPropertiesInRegion(RegionHandle region) {
         List<Premise> properties = new LinkedList<Premise>();
         PersistenceService gateway = getPersistenceService();
         PersistenceSession session = null;
@@ -283,13 +283,13 @@ public class PropertyAnalysisTestTools {
         return properties;
     }
 
-    public RegionOLD findRegionByName(String name) {
-        RegionOLD region= null;
+    public RegionHandle findRegionByName(String name) {
+        RegionHandle region= null;
         try {
 
             PersistenceService gateway = getPersistenceService();
 
-            region = gateway.findOne(RegionOLD.class, searchRegionByName(name));
+            region = gateway.findOne(RegionHandle.class, searchRegionByName(name));
 
         } catch(PersistenceServiceException e) {
             e.printStackTrace();
@@ -297,7 +297,7 @@ public class PropertyAnalysisTestTools {
         return region;
     }
 
-    public void printPropertiesInRegion(RegionOLD region) {
+    public void printPropertiesInRegion(RegionHandle region) {
         try {
             LOG.info("--- Listing properties in region ---");
             PersistenceSession session = getPersistenceService().openSession();
@@ -400,11 +400,11 @@ public class PropertyAnalysisTestTools {
         initialiseRandomPropertiesWithAds(null, null, count, firstYear, lastYear);
     }
 
-    public List<RegionOLD> findAllRegions() {
-        List<RegionOLD> regions = null;
+    public List<RegionHandle> findAllRegions() {
+        List<RegionHandle> regions = null;
         PersistenceService gateway = getPersistenceService();
          try {
-            regions = gateway.findAll(RegionOLD.class);
+            regions = gateway.findAll(RegionHandle.class);
         } catch(PersistenceServiceException e) {
             e.printStackTrace();
         }

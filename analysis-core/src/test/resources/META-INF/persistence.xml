@@ -10,40 +10,6 @@ To do: many of these properties need to be able to be changed -->
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
     <mapping-file>META-INF/queries_analysis.xml</mapping-file>
-    <mapping-file>META-INF/queries_framework_substitution.xml</mapping-file>
-
-    <!-- Persistent classes from the Framework module-->
-    <class>com.blueskyminds.framework.measurement.Quantity</class>
-    <class>com.blueskyminds.framework.measurement.Area</class>
-
-    <class>com.blueskyminds.framework.datetime.Interval</class>
-    <class>com.blueskyminds.framework.datetime.TimeOfDay</class>
-    <class>com.blueskyminds.framework.datetime.MonthOfYearr</class>
-
-    <class>com.blueskyminds.framework.recurrence.Recurrence</class>
-    <class>com.blueskyminds.framework.recurrence.MonthlyRecurrence</class>
-    <class>com.blueskyminds.framework.recurrence.HourlyRecurrence</class>
-    <class>com.blueskyminds.framework.recurrence.OnceOffRecurrence</class>
-    <class>com.blueskyminds.framework.recurrence.strategy.RecurrenceStrategy</class>
-    <class>com.blueskyminds.framework.recurrence.strategy.LastDayOfMonth</class>
-    <class>com.blueskyminds.framework.recurrence.strategy.NthDayOfMonth</class>
-    <class>com.blueskyminds.framework.recurrence.strategy.NthDayOfWeekOfMonth</class>
-    <class>com.blueskyminds.framework.recurrence.strategy.OnSpecificDate</class>
-    <class>com.blueskyminds.framework.recurrence.constraint.RecurrenceConstraint</class>
-    <class>com.blueskyminds.framework.recurrence.constraint.After</class>
-    <class>com.blueskyminds.framework.recurrence.constraint.Before</class>
-    <class>com.blueskyminds.framework.recurrence.constraint.NoEarlierThan</class>
-    <class>com.blueskyminds.framework.recurrence.constraint.NoLaterThan</class>
-
-    <class>com.blueskyminds.framework.memento.CaretakerDomainObject</class>
-
-    <class>com.blueskyminds.framework.tasks.Task</class>
-    <class>com.blueskyminds.framework.tasks.TaskGroup</class>
-    <class>com.blueskyminds.framework.tasks.TaskPlan</class>
-
-    <class>com.blueskyminds.framework.tools.substitutions.Substitution</class>
-
-    <!--- end of framework -->
 
     <!-- Analysis -->
     <class>com.blueskyminds.analysis.core.sets.AggregateSet</class>

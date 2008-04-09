@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.property.classification;
 
-import com.blueskyminds.enterprise.regionx.RegionHandle;
+import com.blueskyminds.enterprise.region.RegionHandle;
 import com.blueskyminds.framework.AbstractDomainObject;
 import com.blueskyminds.landmine.core.property.Premise;
 

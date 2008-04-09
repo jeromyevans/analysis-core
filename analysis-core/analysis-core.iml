@@ -15,6 +15,7 @@
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="false" />
+        <setting name="provider-name" value="" />
         <datasource-mapping>
           <factory-entry name="TestAnalysisPersistenceUnit" />
         </datasource-mapping>
@@ -35,108 +36,15 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="">
-      <library name="antlr:antlr:2.7.6">
+      <library name="junit:junit:3.8.1">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/antlr/antlr/2.7.6/antlr-2.7.6.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/antlr/antlr/2.7.6/antlr-2.7.6-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/antlr/antlr/2.7.6/antlr-2.7.6-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="asm:asm-attrs:1.5.3">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm-attrs/1.5.3/asm-attrs-1.5.3.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm-attrs/1.5.3/asm-attrs-1.5.3-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm-attrs/1.5.3/asm-attrs-1.5.3-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="asm:asm:1.5.3">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm/1.5.3/asm-1.5.3.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm/1.5.3/asm-1.5.3-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm/1.5.3/asm-1.5.3-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="cglib:cglib:2.1_3">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/cglib/cglib/2.1_3/cglib-2.1_3.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/cglib/cglib/2.1_3/cglib-2.1_3-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/cglib/cglib/2.1_3/cglib-2.1_3-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module" module-name="analysis-basic" exported="" />
-    <orderEntry type="module" module-name="framework-core" exported="" />
-    <orderEntry type="module-library" exported="">
-      <library name="com.thoughtworks.xstream:xstream:1.2.2">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/thoughtworks/xstream/xstream/1.2.2/xstream-1.2.2.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/thoughtworks/xstream/xstream/1.2.2/xstream-1.2.2-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/thoughtworks/xstream/xstream/1.2.2/xstream-1.2.2-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="commons-beanutils:commons-beanutils:1.7.0">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="commons-collections:commons-collections:2.1.1">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="commons-discovery:commons-discovery:0.2">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-discovery/commons-discovery/0.2/commons-discovery-0.2.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-discovery/commons-discovery/0.2/commons-discovery-0.2-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-discovery/commons-discovery/0.2/commons-discovery-0.2-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -167,54 +75,41 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="commons-math:commons-math:1.1">
+      <library name="log4j:log4j:1.2.14">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-math/commons-math/1.1/commons-math-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/log4j/log4j/1.2.14/log4j-1.2.14.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-math/commons-math/1.1/commons-math-1.1-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/log4j/log4j/1.2.14/log4j-1.2.14-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-math/commons-math/1.1/commons-math-1.1-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="dom4j:dom4j:1.6.1">
+      <library name="com.blueskyminds.framework:framework-core:0.01-SNAPSHOT">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/blueskyminds/framework/framework-core/0.01-SNAPSHOT/framework-core-0.01-SNAPSHOT.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/blueskyminds/framework/framework-core/0.01-SNAPSHOT/framework-core-0.01-SNAPSHOT-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/blueskyminds/framework/framework-core/0.01-SNAPSHOT/framework-core-0.01-SNAPSHOT-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="freemarker:freemarker:2.3.8">
+      <library name="commons-beanutils:commons-beanutils:1.7.0">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/freemarker/freemarker/2.3.8/freemarker-2.3.8.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/freemarker/freemarker/2.3.8/freemarker-2.3.8-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/freemarker/freemarker/2.3.8/freemarker-2.3.8-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="hsqldb:hsqldb:1.8.0.7">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -232,71 +127,32 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="javax.transaction:jta:1.0.1B">
+      <library name="freemarker:freemarker:2.3.8">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/freemarker/freemarker/2.3.8/freemarker-2.3.8.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/javax/transaction/jta/1.0.1B/jta-1.0.1B-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/freemarker/freemarker/2.3.8/freemarker-2.3.8-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/javax/transaction/jta/1.0.1B/jta-1.0.1B-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/freemarker/freemarker/2.3.8/freemarker-2.3.8-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="jboss:javassist:3.3.ga">
+    <orderEntry type="module-library">
+      <library name="org.hibernate:hibernate:3.2.4.sp1">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/javassist/3.3.ga/javassist-3.3.ga.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate/3.2.4.sp1/hibernate-3.2.4.sp1.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/javassist/3.3.ga/javassist-3.3.ga-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate/3.2.4.sp1/hibernate-3.2.4.sp1-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/javassist/3.3.ga/javassist-3.3.ga-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate/3.2.4.sp1/hibernate-3.2.4.sp1-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="jboss:jboss-common-core:2.0.4.GA">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/jboss-common-core/2.0.4.GA/jboss-common-core-2.0.4.GA.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/jboss-common-core/2.0.4.GA/jboss-common-core-2.0.4.GA-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/jboss-common-core/2.0.4.GA/jboss-common-core-2.0.4.GA-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="junit:junit:3.8.1">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="log4j:log4j:1.2.14">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/log4j/log4j/1.2.14/log4j-1.2.14.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/log4j/log4j/1.2.14/log4j-1.2.14-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
+    <orderEntry type="module-library">
       <library name="net.sf.ehcache:ehcache:1.2.3">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../../m2/repository/net/sf/ehcache/ehcache/1.2.3/ehcache-1.2.3.jar!/" />
@@ -309,68 +165,120 @@
         </SOURCES>
       </library>
     </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="org.hibernate:hibernate-annotations:3.3.0.ga">
+    <orderEntry type="module-library">
+      <library name="commons-collections:commons-collections:2.1.1">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-annotations/3.3.0.ga/hibernate-annotations-3.3.0.ga.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-annotations/3.3.0.ga/hibernate-annotations-3.3.0.ga-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-annotations/3.3.0.ga/hibernate-annotations-3.3.0.ga-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="javax.transaction:jta:1.0.1B">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/javax/transaction/jta/1.0.1B/jta-1.0.1B-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/javax/transaction/jta/1.0.1B/jta-1.0.1B-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="asm:asm-attrs:1.5.3">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm-attrs/1.5.3/asm-attrs-1.5.3.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm-attrs/1.5.3/asm-attrs-1.5.3-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm-attrs/1.5.3/asm-attrs-1.5.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="dom4j:dom4j:1.6.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="antlr:antlr:2.7.6">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/antlr/antlr/2.7.6/antlr-2.7.6.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/antlr/antlr/2.7.6/antlr-2.7.6-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/antlr/antlr/2.7.6/antlr-2.7.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="cglib:cglib:2.1_3">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/cglib/cglib/2.1_3/cglib-2.1_3.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/cglib/cglib/2.1_3/cglib-2.1_3-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/cglib/cglib/2.1_3/cglib-2.1_3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="asm:asm:1.5.3">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm/1.5.3/asm-1.5.3.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm/1.5.3/asm-1.5.3-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/asm/asm/1.5.3/asm-1.5.3-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="hsqldb:hsqldb:1.8.0.7">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/hsqldb/hsqldb/1.8.0.7/hsqldb-1.8.0.7-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="org.hibernate:hibernate-commons-annotations:3.3.0.ga">
+      <library name="com.thoughtworks.xstream:xstream:1.2.2">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-commons-annotations/3.3.0.ga/hibernate-commons-annotations-3.3.0.ga.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/thoughtworks/xstream/xstream/1.2.2/xstream-1.2.2.jar!/" />
         </CLASSES>
         <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-commons-annotations/3.3.0.ga/hibernate-commons-annotations-3.3.0.ga-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/thoughtworks/xstream/xstream/1.2.2/xstream-1.2.2-javadoc.jar!/" />
         </JAVADOC>
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-commons-annotations/3.3.0.ga/hibernate-commons-annotations-3.3.0.ga-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="org.hibernate:hibernate-entitymanager:3.3.1.ga">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-entitymanager/3.3.1.ga/hibernate-entitymanager-3.3.1.ga.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-entitymanager/3.3.1.ga/hibernate-entitymanager-3.3.1.ga-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-entitymanager/3.3.1.ga/hibernate-entitymanager-3.3.1.ga-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="org.hibernate:hibernate-validator:3.0.0.ga">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-validator/3.0.0.ga/hibernate-validator-3.0.0.ga.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-validator/3.0.0.ga/hibernate-validator-3.0.0.ga-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-validator/3.0.0.ga/hibernate-validator-3.0.0.ga-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library name="org.hibernate:hibernate:3.2.4.sp1">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate/3.2.4.sp1/hibernate-3.2.4.sp1.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate/3.2.4.sp1/hibernate-3.2.4.sp1-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate/3.2.4.sp1/hibernate-3.2.4.sp1-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/thoughtworks/xstream/xstream/1.2.2/xstream-1.2.2-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -384,6 +292,123 @@
         </JAVADOC>
         <SOURCES>
           <root url="jar://$MODULE_DIR$/../../../../m2/repository/xpp3/xpp3_min/1.1.3.4.O/xpp3_min-1.1.3.4.O-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="com.blueskyminds.analysis:analysis-basic:0.01-SNAPSHOT">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/blueskyminds/analysis/analysis-basic/0.01-SNAPSHOT/analysis-basic-0.01-SNAPSHOT.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/blueskyminds/analysis/analysis-basic/0.01-SNAPSHOT/analysis-basic-0.01-SNAPSHOT-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/com/blueskyminds/analysis/analysis-basic/0.01-SNAPSHOT/analysis-basic-0.01-SNAPSHOT-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-math:commons-math:1.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-math/commons-math/1.1/commons-math-1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-math/commons-math/1.1/commons-math-1.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-math/commons-math/1.1/commons-math-1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library name="commons-discovery:commons-discovery:0.2">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-discovery/commons-discovery/0.2/commons-discovery-0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-discovery/commons-discovery/0.2/commons-discovery-0.2-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/commons-discovery/commons-discovery/0.2/commons-discovery-0.2-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="org.hibernate:hibernate-entitymanager:3.3.1.ga">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-entitymanager/3.3.1.ga/hibernate-entitymanager-3.3.1.ga.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-entitymanager/3.3.1.ga/hibernate-entitymanager-3.3.1.ga-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-entitymanager/3.3.1.ga/hibernate-entitymanager-3.3.1.ga-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="org.hibernate:hibernate-annotations:3.3.0.ga">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-annotations/3.3.0.ga/hibernate-annotations-3.3.0.ga.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-annotations/3.3.0.ga/hibernate-annotations-3.3.0.ga-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-annotations/3.3.0.ga/hibernate-annotations-3.3.0.ga-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="org.hibernate:hibernate-commons-annotations:3.3.0.ga">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-commons-annotations/3.3.0.ga/hibernate-commons-annotations-3.3.0.ga.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-commons-annotations/3.3.0.ga/hibernate-commons-annotations-3.3.0.ga-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-commons-annotations/3.3.0.ga/hibernate-commons-annotations-3.3.0.ga-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="org.hibernate:hibernate-validator:3.0.0.ga">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-validator/3.0.0.ga/hibernate-validator-3.0.0.ga.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-validator/3.0.0.ga/hibernate-validator-3.0.0.ga-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/org/hibernate/hibernate-validator/3.0.0.ga/hibernate-validator-3.0.0.ga-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss:javassist:3.3.ga">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/javassist/3.3.ga/javassist-3.3.ga.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/javassist/3.3.ga/javassist-3.3.ga-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/javassist/3.3.ga/javassist-3.3.ga-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="jboss:jboss-common-core:2.0.4.GA">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/jboss-common-core/2.0.4.GA/jboss-common-core-2.0.4.GA.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/jboss-common-core/2.0.4.GA/jboss-common-core-2.0.4.GA-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../../../m2/repository/jboss/jboss-common-core/2.0.4.GA/jboss-common-core-2.0.4.GA-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>

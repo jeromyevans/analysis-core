@@ -12,9 +12,21 @@
   <modules>
     <module>analysis-basic</module>
     <module>analysis-core</module>
-    <module>analysis-property</module>
+    <!--<module>analysis-property</module>-->
   </modules>
-  
+    
+  <scm>
+    <connection>scm:svn:https://axe/svn/analysis/HEAD</connection>
+    <developerConnection>scm:svn:https://axe/svn/analysis/HEAD</developerConnection>
+  </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>localhost-filesystem</id>
+      <url>file:///tmp</url>
+    </repository>
+  </distributionManagement>
+
   <build>
     <pluginManagement>
       <plugins>
@@ -37,15 +49,18 @@
             </excludes>
           </configuration>
         </plugin>
+        <plugin>
+          <artifactId>maven-release-plugin</artifactId>
+          <configuration>
+            <tagBase>
+              https://axe/svn/enterprise/TAGS
+            </tagBase>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
     <defaultGoal>install</defaultGoal>
   </build>
-
-  <scm>
-    <connection>scm:svn:https://axe/svn/analysis/HEAD</connection>
-    <developerConnection>scm:svn:https://axe/svn/analysis/HEAD</developerConnection>
-  </scm>
 
   <dependencies>
     <dependency>

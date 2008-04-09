@@ -5,7 +5,7 @@
   <groupId>com.blueskyminds.analysis</groupId>
   <artifactId>analysis-property</artifactId>
   <packaging>jar</packaging>
-  <version>0.01-SNAPSHOT</version>
+  <version>0.2-SNAPSHOT</version>
   <name>Real Estate Analysis Library</name>
   <url>http://www.blueskyminds.com.au</url>
 
@@ -19,21 +19,17 @@
     <defaultGoal>install</defaultGoal>
   </build>
 
-  <scm>
-    <connection>scm:svn:https://axe/svn/analysis/HEAD/analysis-property</connection>
-    <developerConnection>scm:svn:https://axe/svn/analysis/HEAD/analysis-property</developerConnection>
-  </scm>
 
   <dependencies>
     <dependency>
       <groupId>com.blueskyminds.framework</groupId>
       <artifactId>framework-core</artifactId>
-      <version>0.01-SNAPSHOT</version>
+      <version>0.2</version>
     </dependency>
     <dependency>
       <groupId>com.blueskyminds.analysis</groupId>
       <artifactId>analysis-core</artifactId>
-      <version>0.01-SNAPSHOT</version>
+      <version>0.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>commons-math</groupId>

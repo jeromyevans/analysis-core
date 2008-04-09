@@ -1,7 +1,6 @@
 package com.blueskyminds.analysis.property.dao;
 
 import com.blueskyminds.analysis.core.sets.AggregateSet;
-import com.blueskyminds.enterprise.regionx.RegionHandle;
 import com.blueskyminds.framework.persistence.jpa.dao.AbstractDAO;
 import com.blueskyminds.framework.persistence.paging.Pager;
 import com.blueskyminds.framework.persistence.paging.QueryPagerWrapper;
@@ -9,6 +8,7 @@ import com.blueskyminds.framework.tools.filters.FilterTools;
 import com.blueskyminds.landmine.core.property.AskingPrice;
 import com.blueskyminds.landmine.core.property.PropertyAdvertisement;
 import com.blueskyminds.landmine.core.property.PropertyAdvertisementTypes;
+import com.blueskyminds.enterprise.region.RegionHandle;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

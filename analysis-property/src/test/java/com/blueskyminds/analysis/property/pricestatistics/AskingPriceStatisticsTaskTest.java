@@ -5,7 +5,7 @@ import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.core.sets.AggregateSetGroup;
 import com.blueskyminds.analysis.property.AskingPriceTestCase;
 import com.blueskyminds.analysis.property.PriceAnalysisSampleDescriptor;
-import com.blueskyminds.enterprise.regionx.RegionHandle;
+import com.blueskyminds.enterprise.region.RegionHandle;
 import com.blueskyminds.framework.analysis.PropertyAnalysisTestTools;
 import com.blueskyminds.framework.datetime.DateTools;
 import com.blueskyminds.framework.datetime.Interval;

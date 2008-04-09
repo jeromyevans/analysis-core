@@ -13,25 +13,5 @@
     <version>1</version>
   </parent>
 
-  <build>
-    <defaultGoal>install</defaultGoal>
-    <plugins>
-       <plugin>
-          <artifactId>maven-release-plugin</artifactId>
-          <configuration>
-            <tagBase>
-              https://axe/svn/analysis/TAGS
-            </tagBase>
-          </configuration>
-        </plugin>
-    </plugins>
-  </build>
 
-  <scm>
-    <connection>scm:svn:https://axe/svn/analysis/HEAD/analysis-basic</connection>
-    <developerConnection>scm:svn:https://axe/svn/analysis/HEAD/analysis-basic</developerConnection>
-  </scm>
-
-  <dependencies>    
-  </dependencies>
 </project>
