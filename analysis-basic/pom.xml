@@ -3,14 +3,14 @@
   <groupId>com.blueskyminds.analysis</groupId>
   <artifactId>analysis-basic</artifactId>
   <packaging>jar</packaging>
-  <version>0.2.1</version>
+  <version>0.2.2-SNAPSHOT</version>
   <name>Basic Analysis Library</name>
   <url>http://www.blueskyminds.com.au</url>
 
   <parent>
     <groupId>com.blueskyminds.analysis</groupId>
     <artifactId>analysis-parent</artifactId>
-    <version>0.2.1</version>
+    <version>0.2.2-SNAPSHOT</version>
   </parent>
 
 

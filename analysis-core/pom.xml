@@ -3,14 +3,14 @@
   <groupId>com.blueskyminds.analysis</groupId>
   <artifactId>analysis-core</artifactId>
   <packaging>jar</packaging>
-  <version>0.2.1</version>
+  <version>0.2.2-SNAPSHOT</version>
   <name>Core Analysis Library</name>
   <url>http://www.blueskyminds.com.au</url>
 
   <parent>
     <groupId>com.blueskyminds.analysis</groupId>
     <artifactId>analysis-parent</artifactId>
-    <version>0.2.1</version>
+    <version>0.2.2-SNAPSHOT</version>
   </parent>
 
   <build>
@@ -18,8 +18,8 @@
   </build>
 
   <scm>
-    <connection>scm:svn:https://axe/svn/enterprise/TAGS/analysis-parent-0.2.1/analysis-core</connection>
-    <developerConnection>scm:svn:https://axe/svn/enterprise/TAGS/analysis-parent-0.2.1/analysis-core</developerConnection>
+    <connection>scm:svn:https://axe/svn/analysis/HEAD/analysis-core</connection>
+    <developerConnection>scm:svn:https://axe/svn/analysis/HEAD/analysis-core</developerConnection>
   </scm>
 
   <dependencies>
@@ -31,7 +31,7 @@
     <dependency>
       <groupId>com.blueskyminds.analysis</groupId>
       <artifactId>analysis-basic</artifactId>
-      <version>0.2.1</version>
+      <version>0.2.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>commons-math</groupId>
