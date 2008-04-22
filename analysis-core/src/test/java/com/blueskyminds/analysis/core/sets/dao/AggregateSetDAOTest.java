@@ -39,7 +39,7 @@ public class AggregateSetDAOTest extends OutOfContainerTestCase {
     }
 
     public void testFindAggregateSetGroupByName() {
-        AggregateSetGroup testGroup = aggregateSetDAO.findAggregateSetGroup(TEST_GROUP_KEY);
+        AggregateSetGroup testGroup = aggregateSetDAO.lookupAggregateSetGroup(TEST_GROUP_KEY);
         assertNotNull(testGroup);        
     }
 }

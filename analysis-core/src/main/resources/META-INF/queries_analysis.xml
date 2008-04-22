@@ -14,11 +14,11 @@
      Parameters:
        keyValue  : string key
     -->
-    <named-query name="aggegrateSetGroup.byKey">
+    <named-query name="analysis.aggegrateSetGroup.byKey">
         <query>
             select asg from AggregateSetGroup asg
             left join fetch asg.aggregateSetGroupEntries where
-               keyValue = :keyValue
+               asg.key = :keyValue
         </query>
     </named-query>
 
@@ -28,10 +28,10 @@
       Parameters:
         keyValue  : string key
      -->
-     <named-query name="aggegrateSet.byKey">
+     <named-query name="analysis.aggegrateSet.byKey">
          <query>
              select aggregateSet from AggregateSet aggregateSet
-             where keyValue = :keyValue
+             where aggregateSet.key = :keyValue
          </query>
      </named-query>
 
@@ -42,10 +42,10 @@
       Parameters:
         keyValue  : string key
      -->
-     <named-query name="analysisDataSource.byKey">
+     <named-query name="analysis.analysisDataSource.byKey">
          <query>
              select analysisDataSource from AnalysisDataSource analysisDataSource
-             where keyValue = :keyValue
+             where analysisDataSource.key = :keyValue
          </query>
      </named-query>
 
