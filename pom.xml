@@ -3,7 +3,7 @@
   <groupId>com.blueskyminds.analysis</groupId>
   <artifactId>analysis-parent</artifactId>
   <packaging>pom</packaging>
-  <version>0.2.1-SNAPSHOT</version>
+  <version>0.2.1</version>
   <name>Analysis Parent Module</name>
   <url>http://www.blueskyminds.com.au</url>
 
@@ -14,8 +14,8 @@
   </modules>
     
   <scm>
-    <connection>scm:svn:https://axe/svn/analysis/HEAD</connection>
-    <developerConnection>scm:svn:https://axe/svn/analysis/HEAD</developerConnection>
+    <connection>scm:svn:https://axe/svn/enterprise/TAGS/analysis-parent-0.2.1</connection>
+    <developerConnection>scm:svn:https://axe/svn/enterprise/TAGS/analysis-parent-0.2.1</developerConnection>
   </scm>
 
   <distributionManagement>
