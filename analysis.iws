@@ -16,14 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analysis-core/src/test/java/com/blueskyminds/analysis/core/sets/dao/AggregateSetDAOTest.java" afterPath="$PROJECT_DIR$/analysis-core/src/test/java/com/blueskyminds/analysis/core/sets/dao/AggregateSetDAOTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analysis-parent.iml" afterPath="$PROJECT_DIR$/analysis-parent.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analysis.iws" afterPath="$PROJECT_DIR$/analysis.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analysis-core/pom.xml" afterPath="$PROJECT_DIR$/analysis-core/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analysis-core/src/main/resources/META-INF/queries_analysis.xml" afterPath="$PROJECT_DIR$/analysis-core/src/main/resources/META-INF/queries_analysis.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analysis-basic/analysis-basic.iml" afterPath="$PROJECT_DIR$/analysis-basic/analysis-basic.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analysis-core/src/main/java/com/blueskyminds/analysis/core/sets/dao/AggregateSetDAO.java" afterPath="$PROJECT_DIR$/analysis-core/src/main/java/com/blueskyminds/analysis/core/sets/dao/AggregateSetDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/analysis-core/analysis-core.iml" afterPath="$PROJECT_DIR$/analysis-core/analysis-core.iml" />
     </list>
     <ignored path="analysis.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -98,16 +91,25 @@
       <file leaf-file-name="queries_analysis.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/analysis-core/src/main/resources/META-INF/queries_analysis.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="28" selection-start="679" selection-end="679" vertical-scroll-proportion="0.43287328">
+            <state line="23" column="28" selection-start="679" selection-end="679" vertical-scroll-proportion="0.39401495">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AggregateSetDAO.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="AggregateSetDAO.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/analysis-core/src/main/java/com/blueskyminds/analysis/core/sets/dao/AggregateSetDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="21" selection-start="503" selection-end="503" vertical-scroll-proportion="0.20220588">
+            <state line="48" column="50" selection-start="1461" selection-end="1461" vertical-scroll-proportion="0.590743">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/analysis-basic/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="0" selection-start="633" selection-end="633" vertical-scroll-proportion="0.30495554">
               <folding />
             </state>
           </provider>
@@ -116,7 +118,7 @@
       <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/analysis-core/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="18" selection-start="2566" selection-end="2566" vertical-scroll-proportion="0.82736576">
+            <state line="78" column="18" selection-start="2566" selection-end="2566" vertical-scroll-proportion="0.85895807">
               <folding />
             </state>
           </provider>
@@ -514,6 +516,24 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="analysis" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="analysis-basic" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/jeromy/projects/src/blueskyminds/src/analysis/analysis-basic" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="PsiDirectory:/home/jeromy/projects/src/blueskyminds/src/analysis/analysis-basic/src" />
+          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </PATH_ELEMENT>
+      </PATH>
     </subPane>
   </component>
   <component name="ProjectReloadState">
@@ -568,31 +588,6 @@
         <option name="Make" value="true" />
       </method>
     </tempConfiguration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -621,6 +616,31 @@
       <method>
         <option name="Make" value="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue="JUnit.AggregateSetDAOTest.testFindAggregateSetGroupByName" />
@@ -676,14 +696,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1678" height="995" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="25" width="1680" height="1000" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3293979" order="1" />
+      <window_info id="Profile" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="-1" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="3" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
@@ -692,9 +713,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
-      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22393584" order="3" />
+      <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2267406" order="3" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24922886" order="0" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24892175" order="0" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
@@ -773,23 +794,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/analysis-core/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="18" selection-start="2566" selection-end="2566" vertical-scroll-proportion="0.82736576">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/analysis-core/src/main/resources/META-INF/queries_analysis.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="28" selection-start="679" selection-end="679" vertical-scroll-proportion="0.43287328">
+        <state line="23" column="28" selection-start="679" selection-end="679" vertical-scroll-proportion="0.39401495">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/analysis-core/src/main/java/com/blueskyminds/analysis/core/sets/dao/AggregateSetDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="21" selection-start="503" selection-end="503" vertical-scroll-proportion="0.20220588">
+        <state line="48" column="50" selection-start="1461" selection-end="1461" vertical-scroll-proportion="0.590743">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analysis-core/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="18" selection-start="2566" selection-end="2566" vertical-scroll-proportion="0.85895807">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/analysis-basic/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="633" selection-end="633" vertical-scroll-proportion="0.30495554">
           <folding />
         </state>
       </provider>
