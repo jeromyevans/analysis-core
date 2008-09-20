@@ -24,15 +24,10 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.blueskyminds.framework</groupId>
+      <groupId>com.blueskyminds.homebyfive.framework</groupId>
       <artifactId>framework-core</artifactId>
-      <version>0.2</version>
-    </dependency>
-    <dependency>
-      <groupId>com.blueskyminds.analysis</groupId>
-      <artifactId>analysis-basic</artifactId>
-      <version>0.2.2-SNAPSHOT</version>
-    </dependency>
+      <version>0.1-SNAPSHOT</version>
+    </dependency>   
     <dependency>
       <groupId>commons-math</groupId>
       <artifactId>commons-math</artifactId>

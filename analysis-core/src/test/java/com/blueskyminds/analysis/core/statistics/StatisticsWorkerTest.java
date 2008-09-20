@@ -1,6 +1,5 @@
 package com.blueskyminds.analysis.core.statistics;
 
-import com.blueskyminds.framework.test.BaseTestCase;
 import com.blueskyminds.analysis.core.series.UnivariateSeries;
 import com.blueskyminds.analysis.core.statistics.StatisticsWorker;
 import com.blueskyminds.analysis.core.statistics.Statistics;

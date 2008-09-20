@@ -4,14 +4,14 @@ import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.core.sets.AggregateSetGroup;
 import com.blueskyminds.analysis.core.sets.PropertyValueSet;
 import com.blueskyminds.analysis.core.sets.UnionSet;
-import com.blueskyminds.framework.test.OutOfContainerTestCase;
+import com.blueskyminds.analysis.core.test.JPATestCase;
 
 /**
  * Date Started: 15/11/2007
  * <p/>
  * History:
  */
-public class AggregateSetDAOTest extends OutOfContainerTestCase {
+public class AggregateSetDAOTest extends JPATestCase {
 
     private static final String PERSISTENCE_UNIT_NAME = "TestAnalysisPersistenceUnit";
 
