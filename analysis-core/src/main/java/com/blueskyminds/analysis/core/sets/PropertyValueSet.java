@@ -1,7 +1,7 @@
 package com.blueskyminds.analysis.core.sets;
 
-import com.blueskyminds.framework.tools.filters.Filter;
-import com.blueskyminds.framework.tools.filters.FilterTools;
+import com.blueskyminds.homebyfive.framework.core.tools.filters.Filter;
+import com.blueskyminds.homebyfive.framework.core.tools.filters.FilterTools;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 

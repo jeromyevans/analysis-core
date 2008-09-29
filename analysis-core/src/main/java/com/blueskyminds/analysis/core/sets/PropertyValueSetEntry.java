@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.core.sets;
 
-import com.blueskyminds.framework.AbstractEntity;
+import com.blueskyminds.homebyfive.framework.core.AbstractEntity;
 
 import javax.persistence.*;
 

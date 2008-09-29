@@ -4,8 +4,8 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
-import com.blueskyminds.framework.test.JPATestSupport;
-import com.blueskyminds.framework.tools.LoggerTools;
+import com.blueskyminds.homebyfive.framework.core.test.JPATestSupport;
+import com.blueskyminds.homebyfive.framework.core.tools.LoggerTools;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

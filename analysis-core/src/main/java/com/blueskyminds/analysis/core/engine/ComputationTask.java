@@ -1,7 +1,8 @@
 package com.blueskyminds.analysis.core.engine;
 
 import com.blueskyminds.analysis.core.series.Series;
-import com.blueskyminds.analysis.basic.statistics.ComputeAdapter;
+import com.blueskyminds.homebyfive.framework.core.analysis.statistics.ComputeAdapter;
+import com.blueskyminds.homebyfive.framework.core.analysis.statistics.ComputeAdapter;
 
 import java.util.concurrent.Callable;
 

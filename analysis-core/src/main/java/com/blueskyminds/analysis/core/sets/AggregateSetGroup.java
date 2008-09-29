@@ -1,8 +1,8 @@
 package com.blueskyminds.analysis.core.sets;
 
-import com.blueskyminds.framework.AbstractEntity;
-import com.blueskyminds.framework.tools.filters.FilterTools;
-import com.blueskyminds.framework.transformer.Transformer;
+import com.blueskyminds.homebyfive.framework.core.AbstractEntity;
+import com.blueskyminds.homebyfive.framework.core.tools.filters.FilterTools;
+import com.blueskyminds.homebyfive.framework.core.transformer.Transformer;
 
 import javax.persistence.*;
 import java.util.HashSet;

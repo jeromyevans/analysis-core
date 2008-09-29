@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.core.sets;
 
-import com.blueskyminds.framework.DomainObject;
+import com.blueskyminds.homebyfive.framework.core.DomainObject;
 
 import java.util.Set;
 import java.util.HashSet;

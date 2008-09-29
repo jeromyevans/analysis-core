@@ -1,6 +1,6 @@
 package com.blueskyminds.analysis.core.datasource;
 
-import com.blueskyminds.framework.AbstractEntity;
+import com.blueskyminds.homebyfive.framework.core.AbstractEntity;
 
 import javax.persistence.*;
 import java.io.PrintStream;

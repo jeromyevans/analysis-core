@@ -234,7 +234,6 @@
   <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/analysis-basic/analysis-basic.iml" filepath="$PROJECT_DIR$/analysis-basic/analysis-basic.iml" />
       <module fileurl="file://$PROJECT_DIR$/analysis-core/analysis-core.iml" filepath="$PROJECT_DIR$/analysis-core/analysis-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/analysis-parent.iml" filepath="$PROJECT_DIR$/analysis-parent.iml" />
     </modules>

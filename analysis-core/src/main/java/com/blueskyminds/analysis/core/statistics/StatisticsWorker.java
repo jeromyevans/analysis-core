@@ -5,9 +5,9 @@ import com.blueskyminds.analysis.core.engine.ComputeWorker;
 import com.blueskyminds.analysis.core.engine.PartialResult;
 import com.blueskyminds.analysis.core.engine.ComputationTask;
 import com.blueskyminds.analysis.core.engine.ComputedResult;
-import com.blueskyminds.analysis.basic.AnalysisTools;
-import com.blueskyminds.analysis.basic.statistics.ComputeAdapter;
-import com.blueskyminds.analysis.basic.statistics.BigDecimalAdapter;
+import com.blueskyminds.homebyfive.framework.core.analysis.AnalysisTools;
+import com.blueskyminds.homebyfive.framework.core.analysis.statistics.ComputeAdapter;
+import com.blueskyminds.homebyfive.framework.core.analysis.statistics.BigDecimalAdapter;
 
 import java.math.BigDecimal;
 import java.util.*;

@@ -5,7 +5,7 @@ import com.blueskyminds.analysis.core.series.UnivariateSeries;
 import com.blueskyminds.analysis.core.series.AggregateSeries;
 import com.blueskyminds.analysis.core.engine.ComputedResult;
 import com.blueskyminds.analysis.core.engine.ComputeEngine;
-import com.blueskyminds.framework.tools.DebugTools;
+import com.blueskyminds.homebyfive.framework.core.tools.DebugTools;
 
 import java.math.MathContext;
 import java.math.RoundingMode;

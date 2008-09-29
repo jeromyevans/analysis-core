@@ -3,7 +3,7 @@ package com.blueskyminds.analysis.core.statistics;
 import com.blueskyminds.analysis.core.engine.ComputeEngine;
 import com.blueskyminds.analysis.core.engine.ComputeWorker;
 import com.blueskyminds.analysis.core.series.Series;
-import com.blueskyminds.analysis.basic.statistics.BigDecimalAdapter;
+import com.blueskyminds.homebyfive.framework.core.analysis.statistics.BigDecimalAdapter;
 
 /**
  *

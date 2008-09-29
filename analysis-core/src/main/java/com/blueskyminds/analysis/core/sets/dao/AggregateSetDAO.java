@@ -2,7 +2,7 @@ package com.blueskyminds.analysis.core.sets.dao;
 
 import com.blueskyminds.analysis.core.sets.AggregateSet;
 import com.blueskyminds.analysis.core.sets.AggregateSetGroup;
-import com.blueskyminds.framework.persistence.jpa.dao.AbstractDAO;
+import com.blueskyminds.homebyfive.framework.core.persistence.jpa.dao.AbstractDAO;
 import com.google.inject.Inject;
 
 import javax.persistence.EntityManager;
