@@ -11,7 +11,7 @@ import java.util.List;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2009 Blue Sky Minds Pty Ltd
  */
 public abstract class AbstractSeries<T> implements Series<T> {
 
@@ -23,13 +23,9 @@ public abstract class AbstractSeries<T> implements Series<T> {
         init();
     }
 
-    // ------------------------------------------------------------------------------------------------------
-
     private void init() {
         this.values = new LinkedList<T>();
     }
-
-    // ------------------------------------------------------------------------------------------------------
 
     /** Add the specified value to the series.
      * NOTE: NULL values are discarded
@@ -70,5 +66,4 @@ public abstract class AbstractSeries<T> implements Series<T> {
         this.values = values;
     }
     
-    // ------------------------------------------------------------------------------------------------------
 }

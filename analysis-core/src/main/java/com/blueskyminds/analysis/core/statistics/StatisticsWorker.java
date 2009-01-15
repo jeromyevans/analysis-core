@@ -1,6 +1,8 @@
 package com.blueskyminds.analysis.core.statistics;
 
 import com.blueskyminds.analysis.core.series.Series;
+import com.blueskyminds.analysis.core.series.DataAdapter;
+import com.blueskyminds.analysis.core.series.Data;
 import com.blueskyminds.analysis.core.engine.ComputeWorker;
 import com.blueskyminds.analysis.core.engine.PartialResult;
 import com.blueskyminds.analysis.core.engine.ComputationTask;
@@ -26,8 +28,6 @@ public class StatisticsWorker extends ComputeWorker {
 
     private static final int TASKS = 2;
 
-   // ------------------------------------------------------------------------------------------------------
-
     /**
      * Initialsie a new StatisticsWorker
      * The worker creates two ComputationTasks ready for computation of the result derived from the
@@ -38,8 +38,6 @@ public class StatisticsWorker extends ComputeWorker {
         init();
     }
 
-    // ------------------------------------------------------------------------------------------------------
-
     /**
      * Initialsie a new StatisticsWorker that can be re-used
      *
@@ -47,19 +45,15 @@ public class StatisticsWorker extends ComputeWorker {
      *  the worker
      */
     public StatisticsWorker() {
-        super(TASKS, new BigDecimalAdapter());
+        super(TASKS, new DataAdapter());
         init();
     }
-
-    // ------------------------------------------------------------------------------------------------------
 
     /** Create the two ComputationTasks - these will be invoked when a computation needs to be performed */
     private void init() {
         addTask(new BasicStatsCalculator(getAdapter()));
         addTask(new MedianModeCalculator(getAdapter()));
     }
-
-    // ------------------------------------------------------------------------------------------------------
 
     /** Factory method used by the superclass to create a new instance of the ComputedResult
      *  Called prior to merging PartialResults into the ComputedResult
@@ -69,9 +63,6 @@ public class StatisticsWorker extends ComputeWorker {
     protected ComputedResult newResultInstance() {
         return new Statistics();
     }
-
-    // ------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------------
 
     /** Stores the partial result from the median and mode calculation */
     private class MedianModeResult implements PartialResult<Statistics> {
@@ -94,8 +85,6 @@ public class StatisticsWorker extends ComputeWorker {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------
-
     /** A Runnable class that calculates the Mode and Median for a Series
      * Updates the mode and median values (ONLY) in Statistics
      */
@@ -105,8 +94,6 @@ public class StatisticsWorker extends ComputeWorker {
             super(adapter);
         }
 
-        // ------------------------------------------------------------------------------------------------------
-
         /**
          * Calculate the median and mode of the series
          * These two calculations are combined because the mode can be determined from the sorted array already
@@ -115,24 +102,26 @@ public class StatisticsWorker extends ComputeWorker {
         public PartialResult compute(Object[] values) {
             BigDecimal median;
 
-            Arrays.sort(values);
+            if (values.length > 0) {
+                Arrays.sort(values);
 
-            // test if the length of the array is odd - two different methods to grab the middle number...
-            if ((values.length & 0x01) > 0) {
-                // the series has an odd length, so the median is the middle value
-                median = (BigDecimal) values[values.length >> 1];
+                // test if the length of the array is odd - two different methods to grab the middle number...
+                if ((values.length & 0x01) > 0) {
+                    // the series has an odd length, so the median is the middle value
+                    median = ((Data) values[values.length >> 1]).getValue();
+                } else {
+                    // if the length of the list is even, find the middle pair of numbers and take the centre of those
+                    BigDecimal medianLower = adapter.valueOf(values[(values.length >> 1) - 1]);
+                    BigDecimal medianUpper = adapter.valueOf(values[values.length >> 1]);
+
+                    median = medianLower.add((medianUpper.subtract(medianLower)).divide(AnalysisTools.TWO, AnalysisTools.mc));
+                }
+                return new MedianModeResult(median, calculateMode(values));
             } else {
-                // if the length of the list is even, find the middle pair of numbers and take the centre of those
-                BigDecimal medianLower = adapter.valueOf(values[(values.length >> 1) - 1]);
-                BigDecimal medianUpper = adapter.valueOf(values[values.length >> 1]);
-
-                median = medianLower.add((medianUpper.subtract(medianLower)).divide(AnalysisTools.TWO, AnalysisTools.mc));
+                return null;
             }
 
-            return new MedianModeResult(median, calculateMode(values));
         }
-
-        // ------------------------------------------------------------------------------------------------------
 
         /**
          * Calculate the mode from a an array of sorted values.
@@ -186,7 +175,6 @@ public class StatisticsWorker extends ComputeWorker {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------
 
     /** Stores the partial results from the basic stats calculation */
     private class BasicStatsResult implements PartialResult<Statistics> {
@@ -223,8 +211,6 @@ public class StatisticsWorker extends ComputeWorker {
             return true;
         }
     }
-
-    // ------------------------------------------------------------------------------------------------------
 
     /**
      * A Runnable class that calculates the Mode and Median for a Series
@@ -289,8 +275,5 @@ public class StatisticsWorker extends ComputeWorker {
 
 
     }
-
-    // ------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------------
 
 }

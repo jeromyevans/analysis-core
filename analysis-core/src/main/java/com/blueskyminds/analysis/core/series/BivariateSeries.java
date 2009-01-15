@@ -7,7 +7,7 @@ package com.blueskyminds.analysis.core.series;
  * <p/>
  * History:
  * <p/>
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2009 Blue Sky Minds Pty Ltd
  */
 public class BivariateSeries extends AbstractSeries<Pair> {
 
@@ -16,15 +16,11 @@ public class BivariateSeries extends AbstractSeries<Pair> {
         init();
     }
 
-    // ------------------------------------------------------------------------------------------------------
-
     /**
      * Initialise the BivariateSeries with default attributes
      */
     private void init() {
     }
-
-    // ------------------------------------------------------------------------------------------------------
 
     /** Return the series in a array */
     public Pair[] toArray() {

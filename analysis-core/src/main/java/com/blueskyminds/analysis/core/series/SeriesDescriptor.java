@@ -8,7 +8,7 @@ package com.blueskyminds.analysis.core.series;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2009 Blue Sky Minds Pty Ltd
  */
 public interface SeriesDescriptor {
 

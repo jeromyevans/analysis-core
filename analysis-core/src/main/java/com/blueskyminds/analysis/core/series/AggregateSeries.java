@@ -11,7 +11,7 @@ import java.util.Iterator;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2009 Blue Sky Minds Pty Ltd
  */
 public class AggregateSeries implements Series<Series> {
 
@@ -22,8 +22,6 @@ public class AggregateSeries implements Series<Series> {
         this.seriesDescriptor = seriesDescriptor;
         init();
     }
-
-    // ------------------------------------------------------------------------------------------------------
 
     /**
      * Initialise the AggregateSeries with default attributes
@@ -59,5 +57,4 @@ public class AggregateSeries implements Series<Series> {
         return seriesDescriptor;
     }
 
-    // ------------------------------------------------------------------------------------------------------
 }

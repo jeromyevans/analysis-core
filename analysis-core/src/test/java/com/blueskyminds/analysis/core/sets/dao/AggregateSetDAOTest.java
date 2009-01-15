@@ -42,4 +42,9 @@ public class AggregateSetDAOTest extends JPATestCase {
         AggregateSetGroup testGroup = aggregateSetDAO.lookupAggregateSetGroup(TEST_GROUP_KEY);
         assertNotNull(testGroup);        
     }
+
+    public void testFindAggregateSetByGroupAndKey() {
+        AggregateSet animal = aggregateSetDAO.lookupAggregateSet(TEST_GROUP_KEY, "animals");
+        assertNotNull(animal);
+    }
 }

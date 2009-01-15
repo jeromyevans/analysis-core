@@ -14,7 +14,7 @@ import java.util.List;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2009 Blue Sky Minds Pty Ltd
  */
 public class ImmutableSeries extends AbstractSeries<Object> {
 
@@ -31,15 +31,10 @@ public class ImmutableSeries extends AbstractSeries<Object> {
         throw new UnsupportedOperationException("Attempted to modify values to an immutable series");
     }
 
-    // ------------------------------------------------------------------------------------------------------
-
     /** Return the series in a array */
     public Object[] toArray() {
         Object[] valueArray = new Object[size()];
         getValues().toArray(valueArray);
         return valueArray;
     }
-    
-    // ------------------------------------------------------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------------
 }

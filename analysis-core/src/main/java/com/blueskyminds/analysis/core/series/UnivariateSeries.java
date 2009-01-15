@@ -2,6 +2,7 @@ package com.blueskyminds.analysis.core.series;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -14,11 +15,9 @@ import java.util.Arrays;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2009 Blue Sky Minds Pty Ltd
  */
-public class UnivariateSeries extends AbstractSeries<BigDecimal> {
-
-    // ------------------------------------------------------------------------------------------------------
+public class UnivariateSeries extends AbstractSeries<Data> {
 
     /** Create a new, empty series */
     public UnivariateSeries(SeriesDescriptor seriesDescriptor) {
@@ -30,19 +29,30 @@ public class UnivariateSeries extends AbstractSeries<BigDecimal> {
     public UnivariateSeries(SeriesDescriptor seriesDescriptor, BigDecimal[] initialValues) {
         super(seriesDescriptor);
         init();
-        getValues().addAll(Arrays.asList(initialValues));
+        getValues().addAll(Data.asList(initialValues));
     }
-
-    // ------------------------------------------------------------------------------------------------------
 
     private void init() {
     }
 
-    /** Return the series in a array */
-    public BigDecimal[] toArray() {
+    /** Return the data series in a array */
+    public Data[] toArray() {
+        Data[] valueArray = new Data[size()];
+        return getValues().toArray(valueArray);
+    }
+
+    /**
+     * Get the array of BigDecimal values
+     * @return
+     */
+    public BigDecimal[] values() {
         BigDecimal[] valueArray = new BigDecimal[size()];
-        getValues().toArray(valueArray);
+        List<Data> values = getValues();
+        for (int i = 0; i < values.size(); i++) {
+            Data value = values.get(i);
+            valueArray[i] = value.getValue();
+        }
         return valueArray;
-    }    
+    }
 
 }

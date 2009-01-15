@@ -9,25 +9,36 @@ import java.math.BigDecimal;
  *
  * History:
  *
- * ---[ Blue Sky Minds Pty Ltd ]------------------------------------------------------------------------------
+ * Copyright (c) 2009 Blue Sky Minds Pty Ltd
  */
 public class Pair {
 
-    private BigDecimal left;
-    private BigDecimal right;
+    private Data left;
+    private Data right;
 
     public Pair(BigDecimal left, BigDecimal right) {
+        this.left = new Data(left, null);
+        this.right = new Data(right, null);
+    }
+
+    public Pair(Data left, Data right) {
         this.left = left;
         this.right = right;
     }
 
-    // ------------------------------------------------------------------------------------------------------
-
-    public BigDecimal getLeft() {
+    public Data getLeft() {
         return left;
     }
 
-    public BigDecimal getRight() {
+    public Data getRight() {
         return right;
+    }
+
+    public BigDecimal getLeftValue() {
+        return left.getValue();
+    }
+
+    public BigDecimal getRightValue() {
+        return right.getValue();
     }
 }

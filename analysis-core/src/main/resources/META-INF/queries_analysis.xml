@@ -29,12 +29,29 @@
         keyValue  : string key
      -->
      <named-query name="analysis.aggegrateSet.byKey">
-         <query>
-             select aggregateSet from AggregateSet aggregateSet
+       <query>
+           select aggregateSet from AggregateSet aggregateSet
              where aggregateSet.key = :keyValue
-         </query>
+       </query>
      </named-query>
 
+   <!--
+     Find an AggregateSet by its unique key within a group
+
+      Parameters:
+        groupKey  : string group key
+        keyValue  : string key
+     -->
+     <named-query name="analysis.aggegrateSet.byGroupAndKey">
+       <query>
+           select aggregateSet from AggregateSetGroup asg
+           left join asg.aggregateSetGroupEntries entry
+           left join entry.aggregateSet aggregateSet
+           where
+            asg.key = :groupKey and
+            aggregateSet.key = :keyValue
+       </query>
+     </named-query>
 
   <!--
      Find an AggregateSet by its unique key

@@ -3,6 +3,7 @@ package com.blueskyminds.analysis.core.statistics;
 import junit.framework.TestCase;
 import com.blueskyminds.analysis.core.series.UnivariateSeries;
 import com.blueskyminds.analysis.core.series.AggregateSeries;
+import com.blueskyminds.analysis.core.series.Data;
 import com.blueskyminds.analysis.core.engine.ComputedResult;
 import com.blueskyminds.analysis.core.engine.ComputeEngine;
 import com.blueskyminds.homebyfive.framework.core.tools.DebugTools;
@@ -42,7 +43,7 @@ public class StatisticsEngineTest extends TestCase {
         RandomData r = new RandomDataImpl();
         for (int i = 0; i < size; i++) {
             d = ((Double) r.nextGaussian(1000.0, 50.0)).intValue();
-            series.add(new BigDecimal(d, mc));
+            series.add(new Data(new BigDecimal(d, mc)));
         }
         return series;
     }

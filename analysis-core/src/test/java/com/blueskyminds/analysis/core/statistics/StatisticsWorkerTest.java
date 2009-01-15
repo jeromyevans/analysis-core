@@ -1,6 +1,7 @@
 package com.blueskyminds.analysis.core.statistics;
 
 import com.blueskyminds.analysis.core.series.UnivariateSeries;
+import com.blueskyminds.analysis.core.series.Data;
 import com.blueskyminds.analysis.core.statistics.StatisticsWorker;
 import com.blueskyminds.analysis.core.statistics.Statistics;
 
@@ -30,7 +31,7 @@ public class StatisticsWorkerTest extends TestCase {
         RandomData r = new RandomDataImpl();
         for (int i = 0; i < size; i++) {
             d = ((Double) r.nextGaussian(1000.0, 50.0)).intValue();
-            series.add(new BigDecimal(d, mc));
+            series.add(new Data(new BigDecimal(d, mc)));
         }
         return series;
     }

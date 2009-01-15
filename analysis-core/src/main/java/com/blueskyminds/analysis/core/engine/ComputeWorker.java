@@ -8,6 +8,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
+
 /**
  * An abstract implementation of a compute worker
  *
@@ -23,9 +26,11 @@ import java.util.List;
  *
  * History:
  *
- * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
+ * Copyright (c) 2009 Blue Sky Minds Pty Ltd<br/>
  */
 public abstract class ComputeWorker implements Callable<ComputedResult> {
+
+    private static final Log LOG = LogFactory.getLog(ComputeWorker.class);
 
     private ExecutorService executorService;
     private Collection<Callable<ComputedResult>> tasks;
@@ -131,17 +136,21 @@ public abstract class ComputeWorker implements Callable<ComputedResult> {
             for (Future<ComputedResult> future : futureResults) {
                 interimResult = future.get();
 
-                if (interimResult.isPartial()) {
-                    // merge results into the computed result object
-                    ((PartialResult) interimResult).merge(result);                    
-                } else {
-                    // only one result expected
-                    result = interimResult;
-                    break;
+                if (interimResult != null) {
+                    if (interimResult.isPartial()) {
+                        // merge results into the computed result object
+                        ((PartialResult) interimResult).merge(result);
+                    } else {
+                        // only one result expected
+                        result = interimResult;
+                        break;
+                    }
                 }
             }
         } catch (ExecutionException e) {
             failed = true;
+            LOG.error(e);
+            e.printStackTrace();
         } catch (InterruptedException e) {
             failed = true;
         } catch (CancellationException e) {

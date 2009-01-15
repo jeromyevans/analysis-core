@@ -3,6 +3,7 @@ package com.blueskyminds.analysis.core.statistics;
 import com.blueskyminds.analysis.core.engine.ComputeEngine;
 import com.blueskyminds.analysis.core.engine.ComputeWorker;
 import com.blueskyminds.analysis.core.series.Series;
+import com.blueskyminds.analysis.core.series.DataAdapter;
 import com.blueskyminds.homebyfive.framework.core.analysis.statistics.BigDecimalAdapter;
 
 /**
@@ -13,7 +14,7 @@ import com.blueskyminds.homebyfive.framework.core.analysis.statistics.BigDecimal
  *
  * History:
  *
- * Copyright (c) 2007 Blue Sky Minds Pty Ltd<br/>
+ * Copyright (c) 2009 Blue Sky Minds Pty Ltd<br/>
  */
 public class StatisticsEngine extends ComputeEngine {
 
@@ -23,13 +24,11 @@ public class StatisticsEngine extends ComputeEngine {
 
     /**
      * Create a new StatisticsWorker instance.
-     * The series is assumed to contain simple BigDecimal values
+     * The series is assumed to contain simple Data instances
      **/
     protected ComputeWorker newWorkerInstance(Series series) {
-        return new StatisticsWorker(series, new BigDecimalAdapter());
+        return new StatisticsWorker(series, new DataAdapter());
     }
-
-    // ------------------------------------------------------------------------------------------------------
 
     /**
      * Initialise the StatisticsEngine with default attributes
@@ -37,5 +36,4 @@ public class StatisticsEngine extends ComputeEngine {
     private void init() {
     }
 
-    // ------------------------------------------------------------------------------------------------------
 }
